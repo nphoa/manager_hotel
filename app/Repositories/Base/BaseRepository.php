@@ -11,5 +11,9 @@ abstract class BaseRepository implements BaseRepositoryInterface {
         return $this->model->create($attribute);
     }
 
+    public function getAll()
+    {
+        return $this->model->all();
+    }
 
 }

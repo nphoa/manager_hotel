@@ -20,6 +20,7 @@ class CreateEmployeesTable extends Migration
             $table->string('address',500);
             $table->string('phoneNumber',50);
             $table->string('identityCard',100);
+            $table->string('del_flg')->default('0');
             $table->timestamps();
         });
     }

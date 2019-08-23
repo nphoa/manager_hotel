@@ -8,12 +8,22 @@ abstract class BaseRepository implements BaseRepositoryInterface {
 
     public function create($attribute){
 
-        return $this->model->create($attribute);
+        return $this->model->updateOrCreate(array('id' => $attribute['id']) ,$attribute);
     }
 
     public function getAll()
     {
         return $this->model->all();
+    }
+
+    public function getById($id)
+    {
+        return $this->model->find($id);
+    }
+
+    public function getPagination($number)
+    {
+        return $this->model->paginate($number);
     }
 
 }

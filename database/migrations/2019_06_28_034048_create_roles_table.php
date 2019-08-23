@@ -17,6 +17,7 @@ class CreateRolesTable extends Migration
             $table->bigIncrements('id');
             $table->string('role_name',100);
             $table->string('note',255);
+            $table->string('del_flg')->default('0');
             $table->timestamps();
         });
     }

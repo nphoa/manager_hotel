@@ -20,6 +20,7 @@ class CreateRoomRegisterTable extends Migration
             $table->date('date_check_in');
             $table->date('date_check_out');
             $table->string('note',500);
+            $table->string('del_flg')->default('0');
             $table->timestamps();
         });
     }

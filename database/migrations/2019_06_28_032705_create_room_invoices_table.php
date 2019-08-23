@@ -22,6 +22,7 @@ class CreateRoomInvoicesTable extends Migration
             $table->integer('id_employees');
             $table->boolean('has_finish');
             $table->boolean('has_export');
+            $table->string('del_flg')->default('0');
             $table->timestamps();
         });
     }

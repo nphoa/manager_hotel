@@ -21,6 +21,7 @@ class CreateCustomersTable extends Migration
             $table->string('phoneNumber',30)->nullable();
             $table->string('identityCard',100)->nullable();
             $table->string('national',100)->nullable();
+            $table->string('del_flg')->default('0');
             $table->timestamps();
         });
     }

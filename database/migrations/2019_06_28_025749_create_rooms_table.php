@@ -23,6 +23,7 @@ class CreateRoomsTable extends Migration
             $table->integer('number_count');
             $table->boolean('has_register');
             $table->string('note',500);
+            $table->string('del_flg')->default('0');
             $table->timestamps();
         });
     }

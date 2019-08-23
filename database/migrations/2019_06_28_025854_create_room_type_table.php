@@ -19,6 +19,7 @@ class CreateRoomTypeTable extends Migration
             $table->decimal('single_bed_count');
             $table->decimal('double_bed_count');
             $table->integer('id_quality');
+            $table->string('del_flg')->default('0');
             $table->timestamps();
         });
     }

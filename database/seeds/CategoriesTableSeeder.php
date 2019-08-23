@@ -14,17 +14,42 @@ class CategoriesTableSeeder extends Seeder
     public function run()
     {
         $categories =  [
-            'Customer'      => '/customer',
-            'Employee'      => '/employee',
-            'Floor'         => '/floor',
-            'Room'          => '/room',
-            'Service'       => '/service',
-            'RoomRegister'  => '/roomRegister',
+            [
+                'name' => 'Customer',
+                'url'  => '/customer',
+                'icon' => 'fa fa-user'
+            ],
+            [
+                'name' => 'Employee',
+                'url'  => '/employee',
+                'icon' => 'fa fa-user'
+            ],
+            [
+                'name' => 'Floor',
+                'url'  => '/floor',
+                'icon' => 'fa fa-sitemap'
+            ],
+            [
+                'name' => 'Room',
+                'url'  => '/room',
+                'icon' => 'fa fa-table'
+            ],
+            [
+                'name' => 'Service',
+                'url'  => '/service',
+                'icon' => 'fa fa-edit'
+            ],
+            [
+                'name' => 'RoomRegister',
+                'url'  => '/roomRegister',
+                'icon' => 'fa fa-key'
+            ],
         ];
-        foreach ($categories as $name => $url){
+        foreach ($categories as $key => $category){
             DB::table('categories')->insert([
-                'name' => $name,
-                'url' => $url,
+                'name'          => $category['name'],
+                'url'           => $category['url'],
+                'icon'          => $category['icon'],
                 'created_at'    => Carbon::now(),
                 'updated_at'    => Carbon::now()
             ]);

@@ -17,6 +17,7 @@ class CreateFloorsTable extends Migration
             $table->bigIncrements('id');
             $table->string('floor_name');
             $table->decimal('room_number');
+            $table->string('del_flg')->default('0');
             $table->timestamps();
         });
     }

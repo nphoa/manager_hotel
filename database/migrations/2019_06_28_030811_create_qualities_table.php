@@ -16,6 +16,7 @@ class CreateQualitiesTable extends Migration
         Schema::create('qualities', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name',100);
+            $table->string('del_flg')->default('0');
             $table->timestamps();
         });
     }

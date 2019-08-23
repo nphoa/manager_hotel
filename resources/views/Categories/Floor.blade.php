@@ -92,6 +92,7 @@
     <script src="{{asset('js/Category/pagination.Module.js')}}"></script>
     <script src="{{asset('js/Category/category.Module.js')}}"></script>
        <script type="text/javascript">
+
            $(window).on('hashchange', function() {
                if (window.location.hash) {
                    var page = window.location.hash.replace('#', '');
@@ -127,14 +128,18 @@
                });
 
                $("#save").on('click',function () {
+                   var page = window.location.hash.replace('#', '');
                    var dataObj = {
                        url             : '/create_Floor',
+                       url_load_page   : '/floors?page=' + page,
+                       page            : page,
+                       eleContainer    : $("#floor_container"),
                        frmInstanceData : $("form#frmFloor").serializeArray(),
                        rowElement      : $("#rowElement").clone(),
                        tbodyInstance   : $("#tbodyFloor"),
                        frmInstance     : $("#frmFloor")
                    };
-                   categoryModule.create(dataObj);
+                   categoryModule.create(dataObj,paginationModule);
                });
            });
            function getDetailFloor(id){

@@ -3,28 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="db14a497-36c9-4b8b-8934-d10f1166030f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CustomerController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Category/CustomerController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Floor.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Floor.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/ViewServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/ViewServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Repositories/Base/BaseRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/Base/BaseRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Repositories/Base/BaseRepositoryInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/Base/BaseRepositoryInterface.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_06_28_023627_create_customers_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_06_28_023627_create_customers_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_06_28_024327_create_employees_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_06_28_024327_create_employees_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_06_28_024715_create_services_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_06_28_024715_create_services_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_06_28_025232_create_floors_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_06_28_025232_create_floors_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_06_28_025749_create_rooms_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_06_28_025749_create_rooms_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_06_28_025854_create_room_type_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_06_28_025854_create_room_type_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_06_28_030811_create_qualities_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_06_28_030811_create_qualities_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_06_28_031511_create_room_register_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_06_28_031511_create_room_register_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_06_28_032705_create_room_invoices_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_06_28_032705_create_room_invoices_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_06_28_034048_create_roles_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_06_28_034048_create_roles_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_08_21_093911_create_categories_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_08_21_093911_create_categories_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/CategoriesTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/CategoriesTableSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/Partials/Template/Sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/Partials/Template/Sidebar.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/Templates/layout.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/Templates/layout.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/Category/category.Module.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/Category/category.Module.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/Categories/Floor.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/Categories/Floor.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -170,7 +150,7 @@
       <updated>1566373035426</updated>
       <workItem from="1566373036623" duration="8596000" />
       <workItem from="1566438557453" duration="26365000" />
-      <workItem from="1566525127133" duration="24747000" />
+      <workItem from="1566525127133" duration="26138000" />
     </task>
     <servers />
   </component>

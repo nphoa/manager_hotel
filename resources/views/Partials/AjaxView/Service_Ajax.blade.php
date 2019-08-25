@@ -53,21 +53,21 @@
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th>Floor name</th>
-                            <th>Room number</th>
+                            <th>Service name</th>
+                            <th>Service price</th>
                             <th></th>
                         </tr>
                         </thead>
                         <tbody id="tbodyFloor">
-                        @foreach($floors as $key => $floor)
+                        @foreach($services as $key => $service)
                             <tr>
-                                <td>{{$floor->floor_name}}</td>
-                                <td>{{$floor->room_number}}</td>
+                                <td>{{$service->service_name}}</td>
+                                <td>{{$service->service_price}}</td>
                                 <td>
                                     <div>
-                                        <button class="btn btn-outline btn-success  dim" type="button" onclick="getDetailFloor(0)" data-toggle="modal" data-target="#myModal2"><i class="fa fa-plus"></i></button>
-                                        <button class="btn btn-outline btn-primary dim"  type="button" onclick="getDetailFloor({{$floor->id}})" data-toggle="modal" data-target="#myModal2"><i class="fa fa-edit"></i></button>
-                                        <button class="btn btn-outline btn-danger  dim " type="button" onclick="deleteInstance({{$floor->id}})" ><i class="fa fa-trash"></i></button>
+                                        <button class="btn btn-outline btn-success  dim" type="button" onclick="getDetailService(0)" data-toggle="modal" data-target="#myModal2"><i class="fa fa-plus"></i></button>
+                                        <button class="btn btn-outline btn-primary dim"  type="button" onclick="getDetailService({{$service->id}})"  data-toggle="modal" data-target="#myModal2"><i class="fa fa-edit"></i></button>
+                                        <button class="btn btn-outline btn-danger  dim" type="button" onclick="deleteInstance({{$service->id}})"><i class="fa fa-trash"></i></button>
                                     </div>
                                 </td>
                             </tr>
@@ -81,5 +81,5 @@
     </div>
 
 </div>
-{!! $floors->render() !!}
+{!! $services->render() !!}
 

@@ -10,5 +10,6 @@ use App\Models\Base\BaseModel;
  */
 class Service extends BaseModel
 {
-
+    protected $table = 'services';
+    protected $fillable = ['id','service_name','service_price','del_flg'];
 }

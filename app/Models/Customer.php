@@ -11,5 +11,5 @@ use App\Models\Base\BaseModel;
 class Customer extends BaseModel
 {
     protected $table = 'customers';
-    protected $fillable = ['fullName','birthday','address','phoneNumber','identityCard','national'];
+    protected $fillable = ['fullName','birthday','address','phoneNumber','identityCard','national','del_flg'];
 }

@@ -7,7 +7,7 @@ abstract class BaseRepository implements BaseRepositoryInterface {
     protected $model;
 
     public function create($attribute){
-
+//        var_dump($attribute['id']);die('6');
         return $this->model->updateOrCreate(array('id' => $attribute['id']) ,$attribute);
     }
 
@@ -23,7 +23,7 @@ abstract class BaseRepository implements BaseRepositoryInterface {
 
     public function getPagination($number)
     {
-        return $this->model->paginate($number);
+        return $this->model->where(array('del_flg'=>0))->paginate($number);
     }
 
 }

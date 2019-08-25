@@ -53,21 +53,29 @@
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th>Floor name</th>
-                            <th>Room number</th>
+                            <th>Full name</th>
+                            <th>Birthday</th>
+                            <th>Address</th>
+                            <th>Phone number</th>
+                            <th>Identity card</th>
+                            <th>National</th>
                             <th></th>
                         </tr>
                         </thead>
-                        <tbody id="tbodyFloor">
-                        @foreach($floors as $key => $floor)
+                        <tbody id="tbodyCustomer">
+                        @foreach($customers as $key => $customer)
                             <tr>
-                                <td>{{$floor->floor_name}}</td>
-                                <td>{{$floor->room_number}}</td>
+                                <td>{{$customer->fullName}}</td>
+                                <td>{{$customer->birthday}}</td>
+                                <td>{{$customer->address}}</td>
+                                <td>{{$customer->phoneNumber}}</td>
+                                <td>{{$customer->identityCard}}</td>
+                                <td>{{$customer->national}}</td>
                                 <td>
                                     <div>
-                                        <button class="btn btn-outline btn-success  dim" type="button" onclick="getDetailFloor(0)" data-toggle="modal" data-target="#myModal2"><i class="fa fa-plus"></i></button>
-                                        <button class="btn btn-outline btn-primary dim"  type="button" onclick="getDetailFloor({{$floor->id}})" data-toggle="modal" data-target="#myModal2"><i class="fa fa-edit"></i></button>
-                                        <button class="btn btn-outline btn-danger  dim " type="button" onclick="deleteInstance({{$floor->id}})" ><i class="fa fa-trash"></i></button>
+                                        <button class="btn btn-outline btn-success  dim btnAdd" type="button"  data-idCustomer="0" data-toggle="modal" data-target="#myModal2"><i class="fa fa-plus"></i></button>
+                                        <button class="btn btn-outline btn-primary dim btnModify" type="button"  data-idCustomer="{{$customer->id}}" data-toggle="modal" data-target="#myModal2"><i class="fa fa-edit"></i></button>
+                                        <button class="btn btn-outline btn-danger  dim  btnDelete" type="button"   data-idCustomer="{{$customer->id}}"><i class="fa fa-trash"></i></button>
                                     </div>
                                 </td>
                             </tr>
@@ -79,7 +87,6 @@
             </div>
         </div>
     </div>
-
 </div>
-{!! $floors->render() !!}
 
+{!! $customers->render() !!}

@@ -11,5 +11,5 @@ use App\Models\Base\BaseModel;
 class Floor extends BaseModel
 {
     protected $table = 'floors';
-    protected $fillable = ['id','floor_name','room_number'];
+    protected $fillable = ['id','floor_name','room_number','del_flg'];
 }

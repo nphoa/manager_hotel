@@ -56,18 +56,25 @@
                                 </div>
                                 <div class="ibox-content" style="">
                                     <form method="post" id="frmFloor">
-                                        @csrf
+
                                         <input hidden type="text" class="form-control" name="id">
-                                        <div class="form-group  row">
+                                        <div class="form-group  row  ">
                                             <label class="col-sm-2 col-form-label">Floor name</label>
                                             <div class="col-sm-10">
                                                 <input type="text" class="form-control" name="floor_name">
+                                                <span style="color: red" hidden>
+                                                    ABC
+                                                </span>
                                             </div>
                                         </div>
                                         <div class="form-group  row">
                                             <label class="col-sm-2 col-form-label">Room number</label>
                                             <div class="col-sm-10">
                                                 <input type="number" class="form-control" name="room_number">
+
+                                                <span style="color: red" hidden>
+                                                    ABC
+                                                </span>
                                             </div>
                                         </div>
                                     </form>
@@ -95,11 +102,11 @@
 
            $(window).on('hashchange', function() {
                if (window.location.hash) {
-                   var page = window.location.hash.replace('#', '');
+                   let page = window.location.hash.replace('#', '');
                    if (page == Number.NaN || page <= 0) {
                        return false;
                    }else{
-                       var objPagination = {
+                       let objPagination = {
                            url          : '/floors?page=' + page,
                            page         :  page,
                            eleContainer  : $("#floor_container")
@@ -116,10 +123,10 @@
                    $('li').removeClass('active');
                    $(this).parent('li').addClass('active');
 
-                   var myurl = $(this).attr('href');
-                   var page= (myurl.split('page='))[1];
+                   let myurl = $(this).attr('href');
+                   let page= (myurl.split('page='))[1];
 
-                   var objPagination = {
+                   let objPagination = {
                        url          : '/floors?page=' + page,
                        page         :  page,
                        eleContainer  : $("#floor_container")
@@ -128,32 +135,51 @@
                });
 
                $("#save").on('click',function () {
-                   var page = window.location.hash.replace('#', '');
-                   var dataObj = {
+                   let page = window.location.hash.replace('#', '');
+                   let dataObj = {
                        url             : '/create_Floor',
                        url_load_page   : '/floors?page=' + page,
                        page            : page,
                        eleContainer    : $("#floor_container"),
                        frmInstanceData : $("form#frmFloor").serializeArray(),
-                       rowElement      : $("#rowElement").clone(),
-                       tbodyInstance   : $("#tbodyFloor"),
                        frmInstance     : $("#frmFloor")
                    };
-                   categoryModule.create(dataObj,paginationModule);
+                   categoryModule.AddOrModifyOrDeleteInstance(dataObj,paginationModule);
+               });
+               $("#frmFloor").find("input").on('change', function() {
+                   $(this).parent().parent().removeClass('has-error');
+                   $(this).parent().find("span").text('').attr('hidden');
                });
            });
            function getDetailFloor(id){
                if(id === 0 ){
-                   var csrfToken = $("input[name=_token]").val();
-                   categoryModule.resetFrm($("#frmFloor"));
-                   $("input[name=_token]").val(csrfToken);
+                   categoryModule.resetFrm($("#frmFloor"),"Add");
                    return;
                }
-               var dataObj = {
+               categoryModule.resetFrm($("#frmFloor"),"Edit");
+               let dataObj = {
                    url         : '/getByIdFloor/'+id,
                    frmInstance : $("#frmFloor")
                };
                categoryModule.getById(dataObj);
+           }
+           function deleteInstance(id) {
+               let params = {
+                   id      : id,
+                   del_flg : 1
+               };
+               let page = window.location.hash.replace('#', '');
+               let lengthItemOfPage = $("tbody#tbodyFloor").find("tr").length;
+               page = (lengthItemOfPage === 1) ? (page - 1) : page;
+               let dataObj = {
+                   url             : '/create_Floor',
+                   url_load_page   : '/floors?page=' + page,
+                   page            :  page ,
+                   eleContainer    : $("#floor_container"),
+                   frmInstanceData : params,
+                   frmInstance     : $("#frmFloor")
+               };
+               categoryModule.AddOrModifyOrDeleteInstance(dataObj,paginationModule);
            }
        </script>
 @endsection

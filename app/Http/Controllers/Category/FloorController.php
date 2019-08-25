@@ -15,6 +15,7 @@ class FloorController extends Controller
 
     public function getPagination(Request $req){
         $floors = $this->floorRepository->getPagination(3);
+
         if($req->ajax()){
             return view('Partials.AjaxView.Floor_Ajax', ['floors'=>$floors]);
         }
@@ -22,6 +23,14 @@ class FloorController extends Controller
     }
 
     public function create(Request $req){
+        //Check mode if not delete is check validate
+        if($req->get('del_flg') == 0){
+            $ruleUnique = ($req->get('id') == 0) ? 'unique:floors' : '';
+            $req->validate([
+                'floor_name'   => 'required|'. $ruleUnique,
+                'room_number' => 'required'
+            ]);
+        }
         $row = $this->floorRepository->create($req->all());
         return response()->json([
             'status' => 'success',
@@ -34,5 +43,11 @@ class FloorController extends Controller
             'status' => 'success',
             'data'  =>  $this->floorRepository->getById($req->id)
         ]);
+    }
+
+    public function delete(Request $req)
+    {
+        $row = $this->floorRepository->create($req->all());
+        var_dump($row);die('3');
     }
 }

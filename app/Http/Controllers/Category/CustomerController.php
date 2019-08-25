@@ -27,9 +27,17 @@ class CustomerController extends Controller
     }
 
     public function create(Request $req){
+        //Check mode if not delete is check validate
+        if($req->get('del_flg') == 0){
+            $ruleUnique = ($req->get('id') == 0) ? 'unique:customers' : '';
+            $req->validate([
+                'fullName'   => 'required|'. $ruleUnique,
+                'phoneNumber' => 'required'
+            ]);
+        }
         $row = $this->customerRepository->create($req->all());
         return response()->json([
-           'status' => 'success',
+            'status' => 'success',
             'data'  =>  $row
         ]);
     }
@@ -41,4 +49,13 @@ class CustomerController extends Controller
             'data'  =>  $this->customerRepository->getById($req->id)
         ]);
     }
+    public function getPagination(Request $req){
+        $customers = $this->customerRepository->getPagination(3);
+
+        if($req->ajax()){
+            return view('Partials.AjaxView.Customer_Ajax', ['customers'=>$customers]);
+        }
+        return view('Categories.Customer',['customers'=>$customers]);
+    }
+
 }

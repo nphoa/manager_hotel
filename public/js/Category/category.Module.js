@@ -1,14 +1,4 @@
 var categoryModule = (function(){
-    function reloadData(url) {
-        $.ajax({
-            url     :url,
-            method  :'GET',
-            success : function (response) {
-                var lengthProps = Object.keys(response.data).length;
-                console.log(lengthProps);
-            }
-        });
-    }
     function getById(dataObj) {
         $.ajax({
             url     :dataObj.url,
@@ -20,17 +10,26 @@ var categoryModule = (function(){
             }
         });
     }
-    function resetFrm(frmInstance) {
-        $(frmInstance).find("input").val('');
-        $(frmInstance).find("input[name=id]").val(0);
+    function resetFrm(frmInstance,mode) {
+        var eleInput =  $(frmInstance).find("input");
+        if(mode === "Add"){
+            eleInput.val('');
+            $(frmInstance).find("input[name=id]").val(0);
+        }
+        eleInput.parent().parent().removeClass('has-error');
+        eleInput.parent().find("span").text('').attr('hidden');
+
     }
-    function create(dataObj,paginationModule){
-        console.log(dataObj);
+    function AddOrModifyOrDeleteInstance(dataObj,paginationModule){
         $.ajax({
             url     :dataObj.url,
             data    :dataObj.frmInstanceData,
             method  :'POST',
-            success : function (response) {
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success : function () {
+                //Load again new data by pagination
                 var objPagination = {
                     url          : dataObj.url_load_page,
                     page         : dataObj.page,
@@ -42,14 +41,24 @@ var categoryModule = (function(){
                 // }
                 // $(dataObj.rowElement).css('display','');
                 // $(dataObj.tbodyInstance).append(dataObj.rowElement);
-                resetFrm(dataObj.frmInstance);
-
+                resetFrm(dataObj.frmInstance,"Add");
+            }
+        }).fail(function(jqXHR, ajaxOptions, thrownError){
+            //Error validate server
+            if(jqXHR.status === 422){
+                var objErrorValidate = jqXHR.responseJSON.errors;
+                for (var instanceProp in jqXHR.responseJSON.errors){
+                    var inputInstanceProp = dataObj.frmInstance.find("input[name="+instanceProp+"]");
+                    inputInstanceProp.parent().find("span").text(objErrorValidate[instanceProp][0]).removeAttr('hidden');
+                    inputInstanceProp.parent().parent().addClass('has-error');
+                }
             }
         });
     }
+
     return {
-        create   :create,
-        getById  :getById,
-        resetFrm :resetFrm
+        AddOrModifyOrDeleteInstance : AddOrModifyOrDeleteInstance,
+        getById                     : getById,
+        resetFrm                    : resetFrm
     }
 }());

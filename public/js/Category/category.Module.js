@@ -6,14 +6,17 @@ var categoryModule = (function(){
             success : function (response) {
                 for(var instance in response.data){
                     $(dataObj.frmInstance).find("input[name="+instance+"]").val(response.data[instance]);
+                    $(dataObj.frmInstance).find("select[name="+instance+"]").val(response.data[instance]);
                 }
             }
         });
     }
     function resetFrm(frmInstance,mode) {
         var eleInput =  $(frmInstance).find("input");
+        var eleSelect = $(frmInstance).find("select");
         if(mode === "Add"){
             eleInput.val('');
+            eleSelect.val(1);
             $(frmInstance).find("input[name=id]").val(0);
         }
         eleInput.parent().parent().removeClass('has-error');

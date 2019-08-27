@@ -63,20 +63,21 @@
                             <th></th>
                         </tr>
                         </thead>
-                        <tbody id="tbodyFloor">
+                        <tbody id="tbodyRooms">
                         @foreach($rooms as $key => $room)
                             <tr>
                                 <td>{{$room->room_code}}</td>
                                 <td>{{$room->room_name}}</td>
-
-
-
-
+                                <td>{{$room->typeName}}</td>
+                                <td>{{$room->floorName}}</td>
+                                <td>{{$room->price}}</td>
+                                <td>{{$room->number_count}}</td>
+                                <td>{{$room->note}}</td>
                                 <td>
                                     <div>
-                                        <button class="btn btn-outline btn-success  dim" type="button" onclick="getDetailFloor(0)" data-toggle="modal" data-target="#myModal2"><i class="fa fa-plus"></i></button>
-                                        <button class="btn btn-outline btn-primary dim"  type="button" onclick="getDetailFloor({{$floor->id}})" data-toggle="modal" data-target="#myModal2"><i class="fa fa-edit"></i></button>
-                                        <button class="btn btn-outline btn-danger  dim " type="button" onclick="deleteInstance({{$floor->id}})" ><i class="fa fa-trash"></i></button>
+                                        <button class="btn btn-outline btn-success  dim" type="button" onclick="getDetailRoom(0)" data-toggle="modal" data-target="#myModal2"><i class="fa fa-plus"></i></button>
+                                        <button class="btn btn-outline btn-primary dim"  type="button" onclick="getDetailRoom({{$room->id}})" data-toggle="modal" data-target="#myModal2"><i class="fa fa-edit"></i></button>
+                                        <button class="btn btn-outline btn-danger  dim " type="button" onclick="deleteInstance({{$room->id}})" ><i class="fa fa-trash"></i></button>
                                     </div>
                                 </td>
                             </tr>
@@ -90,5 +91,5 @@
     </div>
 
 </div>
-{!! $floors->render() !!}
+{!! $rooms->render() !!}
 

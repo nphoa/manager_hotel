@@ -21,7 +21,7 @@ class CreateRoomsTable extends Migration
             $table->integer('id_floor');
             $table->decimal('price',8,2);
             $table->integer('number_count');
-            $table->boolean('has_register');
+            $table->boolean('has_register')->default(0);
             $table->string('note',500);
             $table->string('del_flg')->default('0');
             $table->timestamps();

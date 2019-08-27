@@ -34,3 +34,10 @@ Route::get('/services','Category\ServiceController@getPagination');
 Route::get('/getByIdService/{id}','Category\ServiceController@getById');
 //Method Post
 Route::post('/create_Service','Category\ServiceController@AddOrModifyOrDeleteInstance');
+
+//Room
+//Method Get
+Route::get('/rooms','Category\RoomController@getPagination');
+Route::get('/getByIdRoom/{id}','Category\RoomController@getById');
+//Method Post
+Route::post('/create_room','Category\RoomController@AddOrModifyOrDeleteInstance');

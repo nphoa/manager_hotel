@@ -3,19 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="db14a497-36c9-4b8b-8934-d10f1166030f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Category/CustomerController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Category/CustomerController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Category/FloorController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Category/FloorController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Customer.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Customer.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Floor.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Floor.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Service.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Service.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Repositories/Base/BaseRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/Base/BaseRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Room.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Room.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_06_28_024715_create_services_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_06_28_024715_create_services_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/CategoriesTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/CategoriesTableSeeder.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/Category/category.Module.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/Category/category.Module.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/Categories/Customer.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/Categories/Customer.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/Categories/Floor.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/Categories/Floor.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/Categories/Presult.blade.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/Partials/AjaxView/Floor_Ajax.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/Partials/AjaxView/Floor_Ajax.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -168,6 +159,7 @@
       <workItem from="1566638082559" duration="4009000" />
       <workItem from="1566653208582" duration="7726000" />
       <workItem from="1566702669542" duration="14335000" />
+      <workItem from="1566792278352" duration="4000" />
     </task>
     <servers />
   </component>

@@ -16,32 +16,32 @@ class CategoriesTableSeeder extends Seeder
         $categories =  [
             [
                 'name' => 'Customer',
-                'url'  => '/customer',
+                'url'  => '/customers',
                 'icon' => 'fa fa-user'
             ],
             [
                 'name' => 'Employee',
-                'url'  => '/employee',
+                'url'  => '/employees',
                 'icon' => 'fa fa-user'
             ],
             [
                 'name' => 'Floor',
-                'url'  => '/floor',
+                'url'  => '/floors',
                 'icon' => 'fa fa-sitemap'
             ],
             [
                 'name' => 'Room',
-                'url'  => '/room',
+                'url'  => '/rooms',
                 'icon' => 'fa fa-table'
             ],
             [
                 'name' => 'Service',
-                'url'  => '/service',
+                'url'  => '/services',
                 'icon' => 'fa fa-edit'
             ],
             [
-                'name' => 'RoomRegister',
-                'url'  => '/roomRegister',
+                'name' => 'Checkin/Checkout',
+                'url'  => '/checkinorcheckout',
                 'icon' => 'fa fa-key'
             ],
         ];

@@ -28,7 +28,7 @@
             </li>
             @foreach($categories as $key => $category)
                 <li>
-                    <a href="javascript:void(0)" class="categories" data-id="{{$category->url}}"><i class="{{$category->icon}}"></i> <span class="nav-label">{{$category->name}}</span></a>
+                    <a href="{{$category->url}}" class="categories" data-id="{{$category->url}}"><i class="{{$category->icon}}"></i> <span class="nav-label">{{$category->name}}</span></a>
                 </li>
             @endforeach
 
@@ -37,23 +37,23 @@
 
     </div>
 </nav>
-<script>
-    $(document).ready(function () {
-       $("a.categories").on('click',function () {
-           $.ajax({
-               url     : $(this).attr('data-id'),
-               method  :'GET',
-               datatype: "HTML",
-               success : function (html) {
-                   $("div#layoutContainer").empty().html(html);
+{{--<script>--}}
+{{--    $(document).ready(function () {--}}
+{{--       $("a.categories").on('click',function () {--}}
+{{--           $.ajax({--}}
+{{--               url     : $(this).attr('data-id'),--}}
+{{--               method  :'GET',--}}
+{{--               datatype: "HTML",--}}
+{{--               success : function (html) {--}}
+{{--                   $("div#layoutContainer").empty().html(html);--}}
 
-               }
-           }).fail(function(jqXHR, ajaxOptions, thrownError){
-               alert('No response from server');
-           });
-       });
-    });
-</script>
+{{--               }--}}
+{{--           }).fail(function(jqXHR, ajaxOptions, thrownError){--}}
+{{--               alert('No response from server');--}}
+{{--           });--}}
+{{--       });--}}
+{{--    });--}}
+{{--</script>--}}
 
 
 

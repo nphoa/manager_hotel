@@ -41,3 +41,6 @@ Route::get('/rooms','Category\RoomController@getPagination');
 Route::get('/getByIdRoom/{id}','Category\RoomController@getById');
 //Method Post
 Route::post('/create_Room','Category\RoomController@AddOrModifyOrDeleteInstance');
+
+//ChekInCheckOut
+Route::get('/checkinorcheckout','Handle\CheckInCheckOutController@index');

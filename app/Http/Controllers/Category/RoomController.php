@@ -23,6 +23,7 @@ class RoomController extends Controller
     }
 
     public function getPagination(Request $req){
+
         $rooms = $this->roomRepository->getPagination(3);
         $dataView = [
             'rooms'    => $rooms,

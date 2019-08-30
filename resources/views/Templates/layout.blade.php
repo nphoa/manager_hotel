@@ -27,6 +27,8 @@
 
     <link href="{{asset('css/template/css/animate.css')}}" rel="stylesheet">
     <link href="{{asset('css/template/css/style.css')}}" rel="stylesheet">
+    <!-- Hover css -->
+    <link href="{{asset('css/hover/css/imagehover.css')}}" rel="stylesheet">
     <script src="{{asset('js/template/js/jquery-3.1.1.min.js')}}"></script>
 </head>
 

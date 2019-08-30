@@ -6,6 +6,7 @@ var categoryModule = (function(){
             success : function (response) {
                 for(var instance in response.data){
                     $(dataObj.frmInstance).find("input[name="+instance+"]").val(response.data[instance]);
+                    $(dataObj.frmInstance).find("textarea[name="+instance+"]").val(response.data[instance]);
                     $(dataObj.frmInstance).find("select[name="+instance+"]").val(response.data[instance]);
                 }
             }
@@ -14,9 +15,11 @@ var categoryModule = (function(){
     function resetFrm(frmInstance,mode) {
         var eleInput =  $(frmInstance).find("input");
         var eleSelect = $(frmInstance).find("select");
+        var eleTextarea = $(frmInstance).find("textarea");
         if(mode === "Add"){
             eleInput.val('');
             eleSelect.val(1);
+            eleTextarea.val('');
             $(frmInstance).find("input[name=id]").val(0);
         }
         eleInput.parent().parent().removeClass('has-error');

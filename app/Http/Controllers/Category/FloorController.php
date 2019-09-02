@@ -15,7 +15,6 @@ class FloorController extends Controller
 
     public function getPagination(Request $req){
         $floors = $this->floorRepository->getPagination(3);
-
         if($req->ajax()){
             return view('Partials.AjaxView.Floor_Ajax', ['floors'=>$floors]);
         }

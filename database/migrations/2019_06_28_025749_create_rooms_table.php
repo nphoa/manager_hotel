@@ -17,12 +17,12 @@ class CreateRoomsTable extends Migration
             $table->bigIncrements('id');
             $table->string('room_code',500);
             $table->string('room_name',500);
-            $table->integer('id_type');
-            $table->integer('id_floor');
+            $table->integer('id_type')->default(0);
+            $table->integer('id_floor')->default(0);;
             $table->decimal('price',8,2);
             $table->integer('number_count');
-            $table->boolean('has_register')->default(0);
-            $table->string('note',500);
+            $table->boolean('status')->default(0);
+            $table->string('note',500)->nullable();
             $table->string('del_flg')->default('0');
             $table->timestamps();
         });

@@ -3,6 +3,9 @@
         background-color: #f8f8f9 !important;
 
     }
+    span.titleSpan{
+        font-weight: bold;
+    }
 </style>
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
@@ -10,7 +13,7 @@
 
             <div class="col-md-3">
                 <div class="ibox">
-                    <div class="ibox-content product-box" style="height: 430px">
+                    <div class="ibox-content product-box" style="height: 400px">
                         <div class="product-imitation" style="padding: 0px !important;">
                             <img src="https://image.shutterstock.com/image-photo/bright-spring-view-cameo-island-260nw-1048185397.jpg" style="width: 100%">
                         </div>
@@ -26,35 +29,43 @@
                             {{--                        <div class="m-t text-righ">--}}
                             {{--                            <a href="#" class="btn btn-xs btn-outline btn-primary">Info <i class="fa fa-long-arrow-right"></i> </a>--}}
                             {{--                        </div>--}}
-                            <figure class="imghvr-flip-diag-2" style="width: 100%;display: block !important;">
-                                <div class="product-imitation" style="height: 120px">
-                                    <div>
-                                        <div class="code">
+                            <figure class="imghvr-flip-diag-2" style="width: 100%;display: block !important; background-color:{{($room->status == 0 ? '#3955a7':'#ce5375' )}}  !important;">
+                                <div class="" style="height: 150px;padding: 0px">
+                                    <div style="padding: 10px;text-align: initial">
+                                        <div class="room_code">
+                                            <span class="titleSpan">Code :</span>
                                             <span>
-                                                Code : {{$room->room_code}}
+                                                {{$room->id}}
                                             </span>
                                         </div>
-                                        <div>
+                                        <div class="room_name">
+                                            <span class="titleSpan">Name :</span>
                                             <span>
-                                                Name : {{$room->room_name}}
+                                                {{$room->room_name}}
                                             </span>
                                         </div>
-                                        <div>
+                                        <div class="number_count">
+                                            <span class="titleSpan">Count number :</span>
                                             <span>
-                                                Count number : {{$room->number_count}}
+{{--                                                {{$room->number_count}}--}}
                                             </span>
                                         </div>
-                                        <div>
+                                        <div class="statusName">
+                                            <span class="titleSpan">Staus :</span>
                                             <span>
-                                                Staus : {{$room->statusName}}
+                                                 {{UtilHelpers::getStatusName($room->status)}}
                                             </span>
                                         </div>
-                                        <div>
+                                        <div class="timeCheckIn">
+                                            <span class="titleSpan">Check In Date  :</span>
                                             <span>
-                                                 Check In Date  : '2019-09-01'
+                                                 {{$room->date_check_in}}
                                             </span>
+                                        </div>
+                                        <div class="timeCheckOut">
+                                            <span class="titleSpan">Check Out Date :</span>
                                             <span>
-                                                Check Out Date : '2019-09-02'
+                                                  {{$room->date_check_out}}
                                             </span>
                                         </div>
                                     </div>
@@ -63,20 +74,20 @@
                                 <figcaption style="width: 100%">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <button type="button" class="btn btn-w-m btn-info">Check in</button>
+                                            <button type="button" class="btn btn-w-m btn-info" {{$room->status != 0 ? 'disabled' : ''}} data-toggle="modal" data-target="#myModal2">Check in</button>
                                         </div>
                                         <div class="col-md-6">
-                                            <button type="button" class="btn btn-w-m btn-info">Check out</button>
+                                            <button type="button" class="btn btn-w-m btn-info" {{$room->status == 0 ? 'disabled' : ''}}>Check out</button>
                                         </div>
 
                                     </div>
                                     <br>
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <button type="button" class="btn btn-w-m btn-info">Room Transfer </button>
+                                            <button type="button" class="btn btn-w-m btn-info" {{$room->status == 0 ? 'disabled' : ''}}>Room Transfer </button>
                                         </div>
                                         <div class="col-md-6">
-                                            <button type="button" class="btn btn-w-m btn-info">Room Order </button>
+                                            <button type="button" class="btn btn-w-m btn-info" {{$room->status != 0 ? 'disabled' : ''}}>Room Order </button>
                                         </div>
 
                                     </div>
@@ -94,7 +105,10 @@
 
     </div>
 
+    <div>
+        {{$data['rooms']->links()}}
 
+    </div>
 
 
 </div>

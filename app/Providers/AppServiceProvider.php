@@ -23,6 +23,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind('FloorRepository', function ($app) {
             return new FloorRepository(new Floor());
         });
+        require_once app_path() . '/Helpers/Util.php';
     }
 
     /**

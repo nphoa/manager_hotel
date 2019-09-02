@@ -14,6 +14,7 @@ class Room extends BaseModel
     protected $table = 'rooms';
     protected $fillable = ['id','room_code','room_name','id_type','id_floor','price','number_count','has_register','note','del_flg'];
     protected $status = array(
+        '0'   => 'Empty',
         '1'   => 'Check In',
         '2'   =>  'Check Out',
     );
@@ -26,7 +27,7 @@ class Room extends BaseModel
             $this->attributes['floorName'] = resolve('FloorRepository')->getById($this->attributes['id_floor'])->floor_name;
         }
         if($attribute === 'statusName' && !isset( $this->attributes[$attribute])){
-            $this->attributes['statusName'] = $this->status[$this->attributes['has_register']];
+            $this->attributes['statusName'] = $this->status[$this->attributes['status']];
         }
         return $this->getAttribute($attribute);
     }

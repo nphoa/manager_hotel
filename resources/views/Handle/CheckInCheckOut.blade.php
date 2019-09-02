@@ -15,6 +15,7 @@
             box-shadow: inset 0 0 0 #ea394c, 0 5px 0 0 #ea394c, 0 5px 5px #999999 !important;
         }
     </style>
+
     <div id="checkInCheckOut_container">
         @include('Partials.AjaxView.CheckInCheckOut_Ajax')
     </div>
@@ -24,7 +25,7 @@
     <div>
         <div class="modal inmodal" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog">
-                <div class="modal-content animated flipInY" style="width: 600px">
+                <div class="modal-content animated flipInY" style="width: 900px">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                         <h4 class="modal-title">Modal title</h4>
@@ -34,7 +35,7 @@
                         <div class="col-lg-12">
                             <div class="ibox">
                                 <div class="ibox-title">
-                                    <h5>Add customer</h5>
+                                    <h5>Check in / Check out</h5>
                                     <div class="ibox-tools">
                                         <a class="collapse-link">
                                             <i class="fa fa-chevron-up"></i>

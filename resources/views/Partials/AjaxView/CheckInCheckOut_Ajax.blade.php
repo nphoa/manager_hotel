@@ -47,7 +47,7 @@
                                         <div class="number_count">
                                             <span class="titleSpan">Count number :</span>
                                             <span>
-{{--                                                {{$room->number_count}}--}}
+                                                {{$room->number_count}}
                                             </span>
                                         </div>
                                         <div class="statusName">

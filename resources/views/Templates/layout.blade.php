@@ -30,6 +30,10 @@
     <!-- Hover css -->
     <link href="{{asset('css/hover/css/imagehover.css')}}" rel="stylesheet">
     <script src="{{asset('js/template/js/jquery-3.1.1.min.js')}}"></script>
+
+    <link href="{{asset('css/template/css/plugins/datapicker/datepicker3.css')}}" rel="stylesheet">
+
+    <link href="{{asset('css/template/css/plugins/chosen/bootstrap-chosen.css')}}" rel="stylesheet">
 </head>
 
 <body>
@@ -558,6 +562,12 @@
 <!-- Toastr -->
 <script src="{{asset('js/template/js/plugins/toastr/toastr.min.js')}}"></script>
 
+<!-- Chosen -->
+<script src="{{asset('js/template/js/plugins/chosen/chosen.jquery.js')}} "></script>
+
+<script src="{{asset('js/template/js/plugins/datapicker/bootstrap-datepicker.js')}}"></script>
+<script src="{{asset('js/template/js/plugins/fullcalendar/moment.min.js')}}"></script>
+<script src="{{asset('js/template/js/plugins/daterangepicker/daterangepicker.js')}}"></script>
 
 <script>
     $(document).ready(function() {

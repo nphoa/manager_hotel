@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRoomRegisterServicesTable extends Migration
+class CreateServiceInvoicesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class CreateRoomRegisterServicesTable extends Migration
      */
     public function up()
     {
-        Schema::create('room_register_services', function (Blueprint $table) {
+        Schema::create('service_invoices', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('id_room_register');
-            $table->integer('id_service');
-            $table->integer('count')->default('1');
-            $table->decimal('price',2);
-            $table->decimal('price_discount',2)->nullable();
+            $table->bigInteger('id_room_register');
+            $table->decimal('service_invoices_price',2);
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ class CreateRoomRegisterServicesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('room_register_services');
+        Schema::dropIfExists('service_invoices');
     }
 }

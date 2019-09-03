@@ -108,7 +108,6 @@
                                                 <label class="font-normal">Choose services</label>
                                                 <div>
                                                     <select  class="chosen-select" multiple="" name="services" onchange="addNewService(this)" style="width: 400px; display: none;" tabindex="-1">
-                                                        <option value="">Select</option>
                                                         <option value="United States">United States</option>
                                                         <option value="United Kingdom">United Kingdom</option>
                                                         <option value="Afghanistan">Afghanistan</option>
@@ -125,8 +124,6 @@
                                                         <th>Service price</th>
                                                         <th>Total</th>
                                                     </tr>
-                                                    </thead>
-                                                    <tbody id="tbodyInformationService">
                                                     <tr style="display: none" id="rowService">
                                                         <td></td>
                                                         <td></td>
@@ -138,6 +135,9 @@
                                                         </td>
                                                         <td>15000</td>
                                                     </tr>
+                                                    </thead>
+                                                    <tbody id="tbodyInformationService">
+
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -179,12 +179,25 @@
             });
         });
         function addNewService(e) {
-            let rowServiceNew = $("#rowService").clone();
-            rowServiceNew.css('display','');
             let dataService  = $(e).val();
-            rowServiceNew.attr('id','rowService_' + dataService[0]);
-            $("#tbodyInformationService").append(rowServiceNew);
-             console.log(($(e).val()));
+            if(dataService.length === 0){
+                $("#tbodyInformationService").find("tr").remove();
+                return;
+            }
+            dataService.forEach(function (item) {
+                if(dataService.length < $("#tbodyInformationService").find("tr").length){
+                    $("#tbodyInformationService").find("tr").remove();
+                }
+                let idItem = item.replace(/\s/g, "");
+                let row = $("tr#"+idItem);
+                if(row.length == 0){
+                    //add new row
+                    let rowServiceNew = $("#rowService").clone().css('display','');
+                    rowServiceNew.attr('id',idItem);
+                    rowServiceNew.find("td:eq(1)").text(item);
+                    $("#tbodyInformationService").append(rowServiceNew);
+                }
+            });
         }
     </script>
 

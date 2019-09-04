@@ -24,7 +24,7 @@
     {{--Modal--}}
     <div>
         <div class="modal inmodal" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog" style="max-width: 1200px !important;">
+            <div class="modal-dialog" style="max-width: 1400px !important;">
                 <div class="modal-content animated flipInY">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -102,44 +102,62 @@
                                         </div>
                                     </div>
                                     <div class="ibox-content" style="">
-                                        <form method="post" id="frmCheckInCheckOut">
+                                        <form method="post" id="frmService">
                                             @csrf
                                             <div class="form-group">
                                                 <label class="font-normal">Choose services</label>
                                                 <div>
-                                                    <select  class="chosen-select" multiple="" name="services" onchange="addNewService(this)" style="width: 400px; display: none;" tabindex="-1">
-                                                        <option value="United States">United States</option>
-                                                        <option value="United Kingdom">United Kingdom</option>
-                                                        <option value="Afghanistan">Afghanistan</option>
+                                                    <select  class="chosen-select"  name="services"  onchange="addNewService(this)" style="width: 400px;">
+
+                                                        @foreach($data['services'] as $service)
+                                                            <option
+                                                                    value="{{$service->id}}"
+                                                                    data-id="{{$service->id}}"
+                                                                    data-name="{{$service->service_name}}"
+                                                                    data-price="{{$service->service_price}}">
+                                                            {{$service->service_name}}
+                                                            </option>
+                                                        @endforeach
                                                     </select>
+
                                                 </div>
                                             </div>
                                             <div>
                                                 <table class="table table-bordered" id="tableInformationService">
                                                     <thead>
                                                     <tr>
-                                                        <th>STT</th>
+
                                                         <th>Service name</th>
                                                         <th>Service count</th>
                                                         <th>Service price</th>
                                                         <th>Total</th>
+                                                        <th>Delete</th>
                                                     </tr>
                                                     <tr style="display: none" id="rowService">
-                                                        <td></td>
+                                                        <td hidden>
+                                                            <input type="text" name="id_service">
+                                                        </td>
                                                         <td></td>
                                                         <td>
-                                                            <input type="text" name="service_count">
+                                                            <input  type="text" name="service_count" onChange="sumPrice(this)">
                                                         </td>
                                                         <td>
-                                                            <input type="text" name="service_price">
+                                                            <input readonly type="text" name="service_price">
                                                         </td>
                                                         <td>15000</td>
+                                                        <td>
+                                                            <a href="javascript:void(false)" onclick="deleteService(this)">Delete</a>
+                                                        </td>
                                                     </tr>
                                                     </thead>
                                                     <tbody id="tbodyInformationService">
 
                                                     </tbody>
                                                 </table>
+                                                <div style="text-align: right" id="totalServicePrice">
+                                                    <span>Total:</span>
+                                                    <input type="text" class="" disabled value="0" style="text-align: right">
+                                                </div>
                                             </div>
                                         </form>
                                     </div>
@@ -173,10 +191,13 @@
             $('.chosen-select').chosen({width: "100%"});
 
             $("#save").on('click',function () {
-                let dataForm = $("form#frmCheckInCheckOut").serializeArray();
+                let dataForm = $("form#frmService").serializeArray();
+                console.log(dataForm);
 
-                console.log($("select[name=services]").val());
             });
+
+
+
         });
         function addNewService(e) {
             let dataService  = $(e).val();
@@ -184,20 +205,63 @@
                 $("#tbodyInformationService").find("tr").remove();
                 return;
             }
-            dataService.forEach(function (item) {
-                if(dataService.length < $("#tbodyInformationService").find("tr").length){
-                    $("#tbodyInformationService").find("tr").remove();
-                }
-                let idItem = item.replace(/\s/g, "");
-                let row = $("tr#"+idItem);
-                if(row.length == 0){
-                    //add new row
-                    let rowServiceNew = $("#rowService").clone().css('display','');
-                    rowServiceNew.attr('id',idItem);
-                    rowServiceNew.find("td:eq(1)").text(item);
-                    $("#tbodyInformationService").append(rowServiceNew);
-                }
+
+            let row = $("tr#"+dataService);
+            if(row.length == 0){
+                //add new row
+                let e_option = $(e).find("option[data-id="+dataService+"]");
+                let rowServiceNew = $("#rowService").clone().css('display','');
+                rowServiceNew.attr('id',dataService);
+                rowServiceNew.find("td:eq(0)").children().val(e_option.attr('data-id'));
+                rowServiceNew.find("td:eq(1)").text(e_option.attr('data-name'));
+                rowServiceNew.find("td:eq(3)").children().val(e_option.attr('data-price'));
+                $("#tbodyInformationService").append(rowServiceNew);
+            }else{
+                alert('This service has exist !!!');
+            }
+            setTimeout(function () {
+                $("select[name=services]").val(0);
+                $('.chosen-select').trigger("chosen:updated");
+            },500);
+
+            //$("option#defaultValue").attr("selected","selected");
+            // dataService.forEach(function (item) {
+            //
+            //     //let idItem = item.replace(/\s/g, "");
+            //     let row = $("tr#"+item);
+            //     console.log(row);
+            //     if(row.length == 0){
+            //         //add new row
+            //         let e_option = $(e).find("option[data-id="+item+"]");
+            //         let rowServiceNew = $("#rowService").clone().css('display','');
+            //         rowServiceNew.attr('id',item);
+            //         rowServiceNew.find("td:eq(1)").text(e_option.attr('data-name'));
+            //         rowServiceNew.find("td:eq(3)").children().val(e_option.attr('data-price'));
+            //         $("#tbodyInformationService").append(rowServiceNew);
+            //     }
+            // });
+        }
+        function sumPrice(e){
+            let tr = $(e).parent().parent();
+            let count_service = tr.find("td:eq(2)").children().val();
+            let price_service = tr.find("td:eq(3)").children().val();
+            let sumTotal = parseInt(count_service)  * parseFloat(price_service);
+            tr.find("td:eq(4)").text(sumTotal);
+            updateTotalPrice();
+
+        }
+        function deleteService(e) {
+            $(e).parent().parent().remove();
+            updateTotalPrice();
+        }
+        function updateTotalPrice() {
+            let eleTr = $("tbody#tbodyInformationService").find("tr");
+            let priceSum = 0;
+            eleTr.each(function (index) {
+                let price = parseFloat($(this).find("td:eq(4)").text());
+                priceSum += price;
             });
+            $("div#totalServicePrice").find("input").val(priceSum);
         }
     </script>
 

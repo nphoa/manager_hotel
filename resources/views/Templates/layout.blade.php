@@ -34,6 +34,8 @@
     <link href="{{asset('css/template/css/plugins/datapicker/datepicker3.css')}}" rel="stylesheet">
 
     <link href="{{asset('css/template/css/plugins/chosen/bootstrap-chosen.css')}}" rel="stylesheet">
+
+    <link href="{{asset('css/template/css/plugins/select2/select2.min.css')}}" rel="stylesheet">
 </head>
 
 <body>
@@ -568,6 +570,9 @@
 <script src="{{asset('js/template/js/plugins/datapicker/bootstrap-datepicker.js')}}"></script>
 <script src="{{asset('js/template/js/plugins/fullcalendar/moment.min.js')}}"></script>
 <script src="{{asset('js/template/js/plugins/daterangepicker/daterangepicker.js')}}"></script>
+<!-- Select2 -->
+<script src="{{asset('js/template/js/plugins/select2/select2.full.min.js')}}"></script>
+
 
 <script>
     $(document).ready(function() {

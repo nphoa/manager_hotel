@@ -3,7 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="db14a497-36c9-4b8b-8934-d10f1166030f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Handle/CheckInCheckOutController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Handle/CheckInCheckOutController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/Handle/CheckInCheckOut.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/Handle/CheckInCheckOut.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/Templates/layout.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/Templates/layout.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

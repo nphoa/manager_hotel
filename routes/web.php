@@ -44,3 +44,4 @@ Route::post('/create_Room','Category\RoomController@AddOrModifyOrDeleteInstance'
 
 //ChekInCheckOut
 Route::get('/checkinorcheckout','Handle\CheckInCheckOutController@index');
+Route::post('/handle','Handle\CheckInCheckOutController@handle');

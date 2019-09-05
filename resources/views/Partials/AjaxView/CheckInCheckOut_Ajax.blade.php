@@ -74,7 +74,7 @@
                                 <figcaption style="width: 100%">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <button type="button" class="btn btn-w-m btn-info" {{$room->status != 0 ? 'disabled' : ''}} data-toggle="modal" data-target="#myModal2">Check in</button>
+                                            <button type="button" class="btn btn-w-m btn-info" {{$room->status != 0 ? 'disabled' : ''}} data-toggle="modal" data-target="#myModal2" onclick="handleCheckIn({{$room->id}})">Check in</button>
                                         </div>
                                         <div class="col-md-6">
                                             <button type="button" class="btn btn-w-m btn-info" {{$room->status == 0 ? 'disabled' : ''}}>Check out</button>

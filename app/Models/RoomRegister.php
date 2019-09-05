@@ -10,5 +10,6 @@ use App\Models\Base\BaseModel;
  */
 class RoomRegister extends BaseModel
 {
-
+    protected $table = 'room_register';
+    protected $fillable = ['id','id_room','id_customer','date_check_in','date_check_out','note','status','del_flg'];
 }

@@ -59,12 +59,13 @@
                                         <form method="post" id="frmCheckInCheckOut">
                                             @csrf
                                             <input hidden type="text" class="form-control" name="id">
+                                            <input hidden type="text" class="form-control" name="id_room">
                                             <div class="form-group" id="data_5">
                                                 <label class="font-normal">Choose date time check in / check out</label>
                                                 <div class="input-daterange input-group" id="datepicker">
-                                                    <input type="text" class="form-control-sm form-control" name="start" value="05/14/2014">
+                                                    <input type="text" class="form-control-sm form-control" name="date_check_in" value="{{now()}}">
                                                     <span class="input-group-addon">to</span>
-                                                    <input type="text" class="form-control-sm form-control" name="end" value="05/22/2014">
+                                                    <input type="text" class="form-control-sm form-control" name="date_check_out" value="{{now()}}">
                                                 </div>
                                             </div>
 
@@ -108,7 +109,6 @@
                                                 <label class="font-normal">Choose services</label>
                                                 <div>
                                                     <select  class="chosen-select"  name="services"  onchange="addNewService(this)" style="width: 400px;">
-
                                                         @foreach($data['services'] as $service)
                                                             <option
                                                                     value="{{$service->id}}"
@@ -126,7 +126,6 @@
                                                 <table class="table table-bordered" id="tableInformationService">
                                                     <thead>
                                                     <tr>
-
                                                         <th>Service name</th>
                                                         <th>Service count</th>
                                                         <th>Service price</th>
@@ -139,7 +138,7 @@
                                                         </td>
                                                         <td></td>
                                                         <td>
-                                                            <input  type="text" name="service_count" onChange="sumPrice(this)">
+                                                            <input  type="text" name="count" onChange="sumPrice(this)">
                                                         </td>
                                                         <td>
                                                             <input readonly type="text" name="service_price">
@@ -178,7 +177,7 @@
 
 
     {{--End Modal--}}
-    <script src="{{asset('js/Category/pagination.Module.js')}}"></script>
+    <script src="{{asset('js/Category/table.Module.js')}}"></script>
 
 
     <script>
@@ -186,19 +185,36 @@
             $('#data_5 .input-daterange').datepicker({
                 keyboardNavigation: false,
                 forceParse: false,
-                autoclose: true
+                autoclose: true,
+                format: 'yyyy-mm-dd'
             });
             $('.chosen-select').chosen({width: "100%"});
 
             $("#save").on('click',function () {
-                let dataForm = $("form#frmService").serializeArray();
+                var dataService = tableModule.getDataForTable($("tbody#tbodyInformationService"));
+                var dataForm = $("form#frmCheckInCheckOut").serializeArray();
+                dataForm.push({
+                    name:'services',value:JSON.stringify(dataService)
+                });
                 console.log(dataForm);
+                $.ajax({
+                    url     :'/handle',
+                    data    :dataForm,
+                    method  :'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success : function (data) {
+                        console.log(data);
+                    }
+                });
 
             });
-
-
-
         });
+        function handleCheckIn(idRoom) {
+            $("input[name=id_room]").val(idRoom);
+
+        }
         function addNewService(e) {
             let dataService  = $(e).val();
             if(dataService.length === 0){

@@ -16,7 +16,6 @@ class CreateRoomRegisterTable extends Migration
         Schema::create('room_register', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('id_room');
-            $table->integer('id_customer');
             $table->date('date_check_in');
             $table->date('date_check_out');
             $table->string('note',500);

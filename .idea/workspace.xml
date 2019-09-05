@@ -5,9 +5,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Handle/CheckInCheckOutController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Handle/CheckInCheckOutController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/RoomRegister.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/RoomRegister.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/Handle/CheckInCheckOut.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/Handle/CheckInCheckOut.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/Partials/AjaxView/CheckInCheckOut_Ajax.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/Partials/AjaxView/CheckInCheckOut_Ajax.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_06_28_031511_create_room_register_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_06_28_031511_create_room_register_table.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -175,6 +173,7 @@
       <workItem from="1567520445478" duration="5891000" />
       <workItem from="1567649733642" duration="2437000" />
       <workItem from="1567664067544" duration="14272000" />
+      <workItem from="1567693991044" duration="1484000" />
     </task>
     <servers />
   </component>

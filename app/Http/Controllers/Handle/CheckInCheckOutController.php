@@ -72,7 +72,7 @@ class CheckInCheckOutController extends Controller
                 $service->id_room_register = $idRoomRegister;
                 $service->price =  floatval($service->service_price) * floatval($service->count);
                 $service = get_object_vars($service);
-                var_dump($service);die('6');
+                //var_dump($service);die('6');
                 $this->roomRegisterServiceRepository->create($service);
             }
         }, 5);

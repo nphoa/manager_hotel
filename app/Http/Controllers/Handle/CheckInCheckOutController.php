@@ -68,7 +68,7 @@ class CheckInCheckOutController extends Controller
             $idRoomRegister = ($this->roomRegisterRepository->create($data))->id;
             $dataRoomRegisterService = json_decode( $data['services']);
             foreach ($dataRoomRegisterService as $service){
-                $service->id = 0;
+                $service->id = $service->id;
                 $service->id_room_register = $idRoomRegister;
                 $service->price =  floatval($service->service_price) * floatval($service->count);
                 $service = get_object_vars($service);
@@ -79,6 +79,27 @@ class CheckInCheckOutController extends Controller
         return response()->json([
            'status' => 200,
            'result' => 'Done'
+        ]);
+    }
+
+    public function getInfoDetail(Request $req)
+    {
+        $roomRegisterService = $this->roomRegisterServiceRepository->getByAttribute(array('id_room_register'=>$req->id));
+        foreach ($roomRegisterService as $key  => $item){
+            $roomRegisterService[$key]->serviceName = $item->serviceInstance['serviceName'];
+            $roomRegisterService[$key]->servicePrice = $item->serviceInstance['servicePrice'];
+        }
+        $data = [
+            'roomRegister' => $this->roomRegisterRepository->getDetailInfoRoomRegister($req->id),
+            'roomRegisterService' => $roomRegisterService
+        ];
+        //var_dump(($data['roomRegisterService']));die('3');
+//        foreach ($data['roomRegisterService'] as $item){
+//            var_dump($item->serviceName);die('3');
+//        }
+        return response()->json([
+           'status' => 200,
+           'result' => $data
         ]);
     }
 }

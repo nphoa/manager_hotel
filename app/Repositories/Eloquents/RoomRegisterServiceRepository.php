@@ -4,6 +4,7 @@ namespace App\Repositories\Eloquents;
 
 use App\Models\RoomRegisterService;
 use App\Repositories\Base\BaseRepository;
+use Illuminate\Support\Facades\DB;
 
 
 class RoomRegisterServiceRepository extends BaseRepository {
@@ -11,6 +12,7 @@ class RoomRegisterServiceRepository extends BaseRepository {
     {
         $this->model = $model;
     }
+
 
 
 }

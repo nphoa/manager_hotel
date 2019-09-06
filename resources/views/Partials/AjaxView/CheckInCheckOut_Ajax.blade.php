@@ -35,7 +35,7 @@
                                         <div class="room_code">
                                             <span class="titleSpan">Code :</span>
                                             <span>
-                                                {{$room->id}}
+                                                {{$room->room_id}}
                                             </span>
                                         </div>
                                         <div class="room_name">
@@ -74,10 +74,10 @@
                                 <figcaption style="width: 100%">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <button type="button" class="btn btn-w-m btn-info" {{$room->status != 0 ? 'disabled' : ''}} data-toggle="modal" data-target="#myModal2" onclick="handleCheckIn({{$room->id}})">Check in</button>
+                                            <button type="button" class="btn btn-w-m btn-info" {{$room->status != 0 ? 'disabled' : ''}} data-toggle="modal" data-target="#myModal2" data-room_id = "{{$room->room_id}}" data-mode="checkIn" onclick="handleCheckIn(this)">Check in</button>
                                         </div>
                                         <div class="col-md-6">
-                                            <button type="button" class="btn btn-w-m btn-info" {{$room->status == 0 ? 'disabled' : ''}}>Check out</button>
+                                            <button type="button" class="btn btn-w-m btn-info" {{$room->status == 0 ? 'disabled' : ''}} data-toggle="modal" data-target="#myModal2" data-room_register_id = "{{$room->room_register_id}}" data-mode="checkOut" onclick="handleCheckIn(this)">Check out</button>
                                         </div>
 
                                     </div>

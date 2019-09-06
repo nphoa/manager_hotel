@@ -18,8 +18,8 @@ class CreateRoomRegisterServicesTable extends Migration
             $table->integer('id_room_register');
             $table->integer('id_service');
             $table->integer('count')->default('1');
-            $table->decimal('price',2);
-            $table->decimal('price_discount',2)->nullable();
+            $table->decimal('price',11,2);
+            $table->decimal('price_discount',11,2)->nullable();
             $table->timestamps();
         });
     }

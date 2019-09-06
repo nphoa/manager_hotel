@@ -16,7 +16,12 @@ class CreateRoomRegisterCustomersTable extends Migration
         Schema::create('room_register_customers', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('id_room_register');
-            $table->integer('id_customer');
+            $table->integer('id_customer')->nullable();
+            $table->string('customer_name',500);
+            $table->string('phoneNumber',30)->nullable();
+            $table->string('identityCard',100)->nullable();
+            $table->string('is_member')->default('0');
+            $table->string('del_flg')->default('0');
             $table->timestamps();
         });
     }

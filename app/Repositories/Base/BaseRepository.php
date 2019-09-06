@@ -26,4 +26,8 @@ abstract class BaseRepository implements BaseRepositoryInterface {
         return $this->model->where(array('del_flg'=>0))->paginate($number);
     }
 
+    public function getByAttribute($attributes){
+        return $this->model->where($attributes)->get();
+    }
+
 }

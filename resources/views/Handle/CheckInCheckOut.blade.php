@@ -58,7 +58,7 @@
                                     <div class="ibox-content" style="">
                                         <form method="post" id="frmCheckInCheckOut">
                                             @csrf
-                                            <input hidden type="text" class="form-control" name="id">
+                                            <input hidden type="text" class="form-control" name="id" value="0">
                                             <input hidden type="text" class="form-control" name="id_room">
                                             <div class="form-group" id="data_5">
                                                 <label class="font-normal">Choose date time check in / check out</label>
@@ -109,6 +109,7 @@
                                                 <label class="font-normal">Choose services</label>
                                                 <div>
                                                     <select  class="chosen-select"  name="services"  onchange="addNewService(this)" style="width: 400px;">
+                                                        <option value="0">--- Select service ----</option>
                                                         @foreach($data['services'] as $service)
                                                             <option
                                                                     value="{{$service->id}}"
@@ -133,6 +134,9 @@
                                                         <th>Delete</th>
                                                     </tr>
                                                     <tr style="display: none" id="rowService">
+                                                        <td hidden>
+                                                            <input type="text" name="id" value="0">
+                                                        </td>
                                                         <td hidden>
                                                             <input type="text" name="id_service">
                                                         </td>
@@ -211,8 +215,52 @@
 
             });
         });
-        function handleCheckIn(idRoom) {
-            $("input[name=id_room]").val(idRoom);
+        function handleCheckIn(element) {
+            let mode = $(element).attr('data-mode');
+            if(mode == "checkIn"){
+                let idRoom =  $(element).attr('data-room_id');
+                console.log(idRoom);
+                $("input[name=id_room]").val(idRoom);
+                return;
+            }
+            let idRoomRegister = $(element).attr('data-room_register_id');
+            $.get('/getInfoDetail/'+idRoomRegister,function (response) {
+                // console.log(response.result.roomRegister);
+                //Binding data
+
+                //console.log(response.result.roomRegisterService.length);
+                if (response.status === 200){
+                    //Binding info room register
+                    let roomRegister = response.result.roomRegister;
+                    $("input[name=id]").val(roomRegister.room_register_id);
+                    $("input[name=id_room]").val(roomRegister.room_id);
+                    $("input[name=date_check_in]").val(roomRegister.date_check_in);
+                    $("input[name=date_check_out]").val(roomRegister.date_check_out);
+                    $("textarea[name=note]").val(roomRegister.note);
+                    console.log(response);
+                    //Binding info room register service
+                    let roomRegisterService = response.result.roomRegisterService;
+                    if(roomRegisterService.length > 0){
+                        let trs = [];
+                        $("tbody#tbodyInformationService").empty();
+                        for (let i =0;i < roomRegisterService.length;i++){
+                            let tr = $("tr#rowService").clone().css('display','');
+                            tr.attr("data-id_service",roomRegisterService[i].id_service);
+
+                            tr.find("td:eq(0)").children().val(roomRegisterService[i].id);
+                            tr.find("td:eq(1)").children().val(roomRegisterService[i].id_service);
+
+                            tr.find("td:eq(2)").text(roomRegisterService[i].serviceName);
+                            tr.find("td:eq(3)").children().val(roomRegisterService[i].count);
+                            tr.find("td:eq(4)").children().val(roomRegisterService[i].servicePrice);
+                            tr.find("td:eq(5)").text(roomRegisterService[i].servicePrice * roomRegisterService[i].count);
+                            trs.push(tr);
+                        }
+                        $("tbody#tbodyInformationService").append(trs);
+                    }
+                }
+
+            });
 
         }
         function addNewService(e) {
@@ -222,15 +270,16 @@
                 return;
             }
 
-            let row = $("tr#"+dataService);
+            let row = $("tr[data-id_service="+dataService+"]");
             if(row.length == 0){
                 //add new row
                 let e_option = $(e).find("option[data-id="+dataService+"]");
                 let rowServiceNew = $("#rowService").clone().css('display','');
-                rowServiceNew.attr('id',dataService);
-                rowServiceNew.find("td:eq(0)").children().val(e_option.attr('data-id'));
-                rowServiceNew.find("td:eq(1)").text(e_option.attr('data-name'));
-                rowServiceNew.find("td:eq(3)").children().val(e_option.attr('data-price'));
+                rowServiceNew.attr('data-id_service',dataService);
+                rowServiceNew.find("td:eq(0)").children().val(0);
+                rowServiceNew.find("td:eq(1)").children().val(e_option.attr('data-id'));
+                rowServiceNew.find("td:eq(2)").text(e_option.attr('data-name'));
+                rowServiceNew.find("td:eq(4)").children().val(e_option.attr('data-price'));
                 $("#tbodyInformationService").append(rowServiceNew);
             }else{
                 alert('This service has exist !!!');
@@ -259,10 +308,10 @@
         }
         function sumPrice(e){
             let tr = $(e).parent().parent();
-            let count_service = tr.find("td:eq(2)").children().val();
-            let price_service = tr.find("td:eq(3)").children().val();
+            let count_service = tr.find("td:eq(3)").children().val();
+            let price_service = tr.find("td:eq(4)").children().val();
             let sumTotal = parseInt(count_service)  * parseFloat(price_service);
-            tr.find("td:eq(4)").text(sumTotal);
+            tr.find("td:eq(5)").text(sumTotal);
             updateTotalPrice();
 
         }
@@ -274,7 +323,7 @@
             let eleTr = $("tbody#tbodyInformationService").find("tr");
             let priceSum = 0;
             eleTr.each(function (index) {
-                let price = parseFloat($(this).find("td:eq(4)").text());
+                let price = parseFloat($(this).find("td:eq(5)").text());
                 priceSum += price;
             });
             $("div#totalServicePrice").find("input").val(priceSum);

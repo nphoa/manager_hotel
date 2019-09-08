@@ -4,17 +4,12 @@
     <list default="true" id="db14a497-36c9-4b8b-8934-d10f1166030f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Handle/CheckInCheckOutController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Handle/CheckInCheckOutController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/RoomRegisterService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/RoomRegisterService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Repositories/Base/BaseRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/Base/BaseRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Repositories/Eloquents/RoomRegisterRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/Eloquents/RoomRegisterRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Repositories/Eloquents/RoomRegisterServiceRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/Eloquents/RoomRegisterServiceRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_06_28_024715_create_services_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_06_28_024715_create_services_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_09_01_104856_create_room_register_services_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_09_01_104856_create_room_register_services_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/RoomRegisterCustomer.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/RoomRegisterCustomer.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/migrations/2019_09_01_104927_create_room_register_customers_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_09_01_104927_create_room_register_customers_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/RoomsTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/RoomsTableSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/ServicesTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/ServicesTableSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/Category/table.Module.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/Category/table.Module.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/Handle/CheckInCheckOut.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/Handle/CheckInCheckOut.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/Partials/AjaxView/CheckInCheckOut_Ajax.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/Partials/AjaxView/CheckInCheckOut_Ajax.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -183,6 +178,10 @@
       <workItem from="1567649733642" duration="2437000" />
       <workItem from="1567664067544" duration="14272000" />
       <workItem from="1567693991044" duration="1484000" />
+      <workItem from="1567784560814" duration="1308000" />
+      <workItem from="1567832790805" duration="2807000" />
+      <workItem from="1567864124392" duration="4838000" />
+      <workItem from="1567909756405" duration="12479000" />
     </task>
     <servers />
   </component>

@@ -17,7 +17,7 @@ class CreateRoomRegisterCustomersTable extends Migration
             $table->bigIncrements('id');
             $table->integer('id_room_register');
             $table->integer('id_customer')->nullable();
-            $table->string('customer_name',500);
+            $table->string('fullName',500);
             $table->string('phoneNumber',30)->nullable();
             $table->string('identityCard',100)->nullable();
             $table->string('is_member')->default('0');

@@ -15,22 +15,22 @@ class ServicesTableSeeder extends Seeder
     {
         $faker = \Faker\Factory::create();
         DB::table('services')->insert([
-            'service_name' => 'breakfast',
-            'service_price' => 100000,
+            'service_name' => 'Pepsi',
+            'service_price' => 10000,
             'service_employee' => 1,
             'created_at'    => Carbon::now(),
             'updated_at'    => Carbon::now()
         ]);
         DB::table('services')->insert([
-            'service_name' => 'Car',
-            'service_price' => 200000,
+            'service_name' => 'Bia tiger',
+            'service_price' => 16000,
             'service_employee' => 2,
             'created_at'    => Carbon::now(),
             'updated_at'    => Carbon::now()
         ]);
         DB::table('services')->insert([
-            'service_name' => 'Swimming',
-            'service_price' => 200000,
+            'service_name' => '7up',
+            'service_price' => 12000,
             'service_employee' => 3,
             'created_at'    => Carbon::now(),
             'updated_at'    => Carbon::now()

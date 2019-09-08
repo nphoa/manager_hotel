@@ -33,7 +33,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-lg-7">
                                 <div class="ibox">
                                     <div class="ibox-title">
                                         <h5>Check in / Check out</h5>
@@ -75,12 +75,11 @@
                                                     <textarea type="text" class="form-control" name="note"></textarea>
                                                 </div>
                                             </div>
-
                                         </form>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-5">
                                 <div class="ibox">
                                     <div class="ibox-title">
                                         <h5>Information service</h5>
@@ -166,7 +165,97 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-7">
+                                <div class="ibox">
+                                    <div class="ibox-title">
+                                        <h5>Customers</h5>
+                                        <div class="ibox-tools">
+                                            <a class="collapse-link">
+                                                <i class="fa fa-chevron-up"></i>
+                                            </a>
+                                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                                <i class="fa fa-wrench"></i>
+                                            </a>
+                                            <ul class="dropdown-menu dropdown-user">
+                                                <li><a href="#" class="dropdown-item">Config option 1</a>
+                                                </li>
+                                                <li><a href="#" class="dropdown-item">Config option 2</a>
+                                                </li>
+                                            </ul>
+                                            <a class="close-link">
+                                                <i class="fa fa-times"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="ibox-content" style="">
+                                        {{--Customers--}}
+                                        <style>
+                                            div.chosen-container{
+                                                width: 50% !important;
+                                            }
+                                        </style>
+                                        <div>
+                                            <button type="button" class="btn btn-outline btn-primary" onclick="addCustomer(this,'Not_Member')">Add new customers</button>
+                                            <label class="font-normal" style="margin-left: 10px">Choose customer is member</label>
+                                            <select  class="chosen-select"  name="services"  onchange="addCustomer(this,'Member')" style="width: 400px;">
+                                                <option value="0">--- Select customers ----</option>
+                                                @foreach($data['customers'] as $customer)
+                                                    <option
+                                                            value="{{$customer->id}}"
+                                                            data-id="{{$customer->id}}"
+                                                            data-fullName="{{$customer->fullName}}"
+                                                            data-phoneNumber="{{$customer->phoneNumber}}"
+                                                            data-identityCard="{{$customer->identityCard}}">
+                                                        {{$customer->fullName}}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <br>
+                                        <div style="margin-top: 10px">
+                                            <table class="table table-bordered" id="tableInformationCustomer">
+                                                <thead>
+                                                <tr>
+                                                    <th>Customer name</th>
+                                                    <th>Phone number</th>
+                                                    <th>Identity card</th>
+                                                    <th>Is member ? </th>
+                                                    <th>Delete</th>
+                                                </tr>
+                                                <tr style="display: none" id="rowCustomer" data-id_customer="0">
+                                                    <td hidden>
+                                                        <input type="text" name="id" value="0">
+                                                    </td>
+                                                    <td hidden>
+                                                        <input type="text" name="id_customer" value="0">
+                                                    </td>
+                                                    <td>
+                                                        <input  type="text" name="fullName">
+                                                    </td>
+                                                    <td>
+                                                        <input  type="text" name="phoneNumber">
+                                                    </td>
+                                                    <td>
+                                                        <input  type="text" name="identityCard">
+                                                    </td>
+                                                    <td>
+                                                        <input type="checkbox" name="is_member">
+                                                    </td>
+                                                    <td>
+                                                        <a href="javascript:void(false)" onclick="deleteCustomer(this)">Delete</a>
+                                                    </td>
+                                                </tr>
+                                                </thead>
+                                                <tbody id="tbodyInformationCustomer">
 
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -197,9 +286,15 @@
             $("#save").on('click',function () {
                 var dataService = tableModule.getDataForTable($("tbody#tbodyInformationService"));
                 var dataForm = $("form#frmCheckInCheckOut").serializeArray();
-                dataForm.push({
-                    name:'services',value:JSON.stringify(dataService)
-                });
+                var dataCustomer = tableModule.getDataForTable($("tbody#tbodyInformationCustomer"));
+                dataForm.push(
+                    {
+                        name:'services',value:JSON.stringify(dataService)
+                    },
+                    {
+                        name:'customers',value:JSON.stringify(dataCustomer)
+                    }
+                );
                 console.log(dataForm);
                 $.ajax({
                     url     :'/handle',
@@ -219,7 +314,7 @@
             let mode = $(element).attr('data-mode');
             if(mode == "checkIn"){
                 let idRoom =  $(element).attr('data-room_id');
-                console.log(idRoom);
+                // console.log(idRoom);
                 $("input[name=id_room]").val(idRoom);
                 return;
             }
@@ -257,6 +352,32 @@
                             trs.push(tr);
                         }
                         $("tbody#tbodyInformationService").append(trs);
+                    }
+                    //Binding info room register customers
+                    let roomRegisterCustomers = response.result.roomRegisterCustomer;
+                    if(roomRegisterCustomers.length > 0){
+                        let trs = [];
+                        $("tbody#tbodyInformationCustomer").empty();
+                        for (let i =0;i < roomRegisterCustomers.length;i++){
+                            let tr = $("tr#rowCustomer").clone().css('display','');
+
+                            tr.attr("data-id_customer",roomRegisterCustomers[i].id_customer);
+
+                            tr.find("td:eq(0)").children().val(roomRegisterCustomers[i].id);
+                            tr.find("td:eq(1)").children().val(roomRegisterCustomers[i].id_customer);
+
+                            tr.find("td:eq(2)").children().val(roomRegisterCustomers[i].fullName);
+                            tr.find("td:eq(3)").children().val(roomRegisterCustomers[i].phoneNumber);
+                            tr.find("td:eq(4)").children().val(roomRegisterCustomers[i].identityCard);
+
+                            if(roomRegisterCustomers[i].is_member == 1){
+                                tr.find("td").children().attr("disabled",true);
+                                tr.find("td:eq(5)").children().attr('checked','checked').attr('disabled',true);
+                            }
+
+                            trs.push(tr);
+                        }
+                        $("tbody#tbodyInformationCustomer").append(trs);
                     }
                 }
 
@@ -327,6 +448,31 @@
                 priceSum += price;
             });
             $("div#totalServicePrice").find("input").val(priceSum);
+        }
+
+        function addCustomer(e,mode) {
+            let rowCustomerNew = $("#rowCustomer").clone().css('display','');
+            if(mode === 'Member'){
+                let row = $("tr[data-id_customer="+$(e).val()+"]");
+                if(row.length == 0){
+                    let e_option = $(e).find("option[data-id="+$(e).val()+"]");
+                    rowCustomerNew.attr('data-id_customer',e_option.attr('data-id'));
+                    rowCustomerNew.find("td:eq(0)").children().val(0);
+                    rowCustomerNew.find("td:eq(1)").children().val(e_option.attr('data-id'));
+                    rowCustomerNew.find("td:eq(2)").children().val(e_option.attr('data-fullName'));
+                    rowCustomerNew.find("td:eq(3)").children().val(e_option.attr('data-phoneNumber'));
+                    rowCustomerNew.find("td:eq(4)").children().val(e_option.attr('data-identityCard'));
+                    rowCustomerNew.find("td:eq(5)").children().attr("checked","checked");
+                }else{
+                    alert('This customer has exist !!!');
+                    return;
+                }
+            }
+            $("#tbodyInformationCustomer").append(rowCustomerNew);
+        }
+
+        function deleteCustomer(e) {
+            $(e).parent().parent().remove();
         }
     </script>
 

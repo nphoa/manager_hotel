@@ -11,7 +11,7 @@ use App\Models\Base\BaseModel;
 class RoomRegisterCustomer extends BaseModel
 {
     protected $table = 'room_register_customers';
-    protected $fillable = ['id_room_register','id_customer','customer_name','phoneNumber','identityCard','is_member','del_flg'];
+    protected $fillable = ['id_room_register','id_customer','fullName','phoneNumber','identityCard','is_member','del_flg'];
 
 
 }

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Handle;
 use App\Http\Controllers\Controller;
+use App\Repositories\Eloquents\CustomerRepository;
+use App\Repositories\Eloquents\RoomRegisterCustomerRepository;
 use App\Repositories\Eloquents\RoomRegisterRepository;
 use App\Repositories\Eloquents\RoomRegisterServiceRepository;
 use App\Repositories\Eloquents\RoomRepository;
@@ -15,25 +17,32 @@ class CheckInCheckOutController extends Controller
     protected $roomRegisterRepository;
     protected $serviceRepository;
     protected $roomRegisterServiceRepository;
+    protected $customerRepository;
+    protected $roomRegisterCustomerRepository;
     public function __construct(
         RoomRepository $roomRepository,
         RoomRegisterRepository $roomRegisterRepository,
         ServiceRepository $serviceRepository,
-        RoomRegisterServiceRepository $roomRegisterServiceRepository
+        RoomRegisterServiceRepository $roomRegisterServiceRepository,
+        CustomerRepository $customerRepository,
+        RoomRegisterCustomerRepository $roomRegisterCustomerRepository
     )
     {
         $this->roomRepository = $roomRepository;
         $this->roomRegisterRepository = $roomRegisterRepository;
         $this->serviceRepository = $serviceRepository;
         $this->roomRegisterServiceRepository = $roomRegisterServiceRepository;
+        $this->customerRepository = $customerRepository;
+        $this->roomRegisterCustomerRepository = $roomRegisterCustomerRepository;
     }
 
     public function index(Request $req)
     {
         //var_dump($this->roomRegisterRepository->getAll1($req));die('5');
         $dataView = [
-            'rooms' => $this->roomRegisterRepository->getAll1($req),
-            'services' => $this->serviceRepository->getAll()
+            'rooms'     => $this->roomRegisterRepository->getAll1($req),
+            'services'  => $this->serviceRepository->getAll(),
+            'customers' => $this->customerRepository->getAll()
         ];
         return view('Handle.CheckInCheckOut',['data'=>$dataView]);
     }
@@ -62,10 +71,13 @@ class CheckInCheckOutController extends Controller
     public function handle(Request $req){
         $data = $req->all();
         //var_dump(json_decode(($req->get('services')))  );die('3');
-        //var_dump($data);die('3');
+        //var_dump(json_decode($data['customers']));die('3');
 
         DB::transaction(function () use ($data) {
+            //insert table room_register and get id
             $idRoomRegister = ($this->roomRegisterRepository->create($data))->id;
+
+            //insert table room_register_services
             $dataRoomRegisterService = json_decode( $data['services']);
             foreach ($dataRoomRegisterService as $service){
                 $service->id = $service->id;
@@ -74,6 +86,23 @@ class CheckInCheckOutController extends Controller
                 $service = get_object_vars($service);
                 //var_dump($service);die('6');
                 $this->roomRegisterServiceRepository->create($service);
+            }
+
+            //insert table room_register_customers
+            $roomRegisterCustomers = json_decode( $data['customers']);
+            foreach ($roomRegisterCustomers as $roomRegisterCustomer){
+                $roomRegisterCustomer = get_object_vars($roomRegisterCustomer);
+                $roomRegisterCustomer['id_room_register'] = $idRoomRegister;
+                $this->roomRegisterCustomerRepository->create($roomRegisterCustomer);
+                // check if customer is member is insert to table customer
+                if($roomRegisterCustomer['id_customer'] == "0" && $roomRegisterCustomer['is_member'] == "1"){
+                    $customer = $roomRegisterCustomer;
+                    $customer['id'] = 0;
+                    $id_customer = ($this->customerRepository->create($customer))->id;
+                    //update to room_register_customer
+                    $roomRegisterCustomer['id_customer'] = $id_customer;
+                    $this->roomRegisterCustomerRepository->create($roomRegisterCustomer);
+                }
             }
         }, 5);
         return response()->json([
@@ -90,8 +119,9 @@ class CheckInCheckOutController extends Controller
             $roomRegisterService[$key]->servicePrice = $item->serviceInstance['servicePrice'];
         }
         $data = [
-            'roomRegister' => $this->roomRegisterRepository->getDetailInfoRoomRegister($req->id),
-            'roomRegisterService' => $roomRegisterService
+            'roomRegister'         => $this->roomRegisterRepository->getDetailInfoRoomRegister($req->id),
+            'roomRegisterService'  => $roomRegisterService,
+            'roomRegisterCustomer' => $this->roomRegisterCustomerRepository->getByAttribute(array('id_room_register'=>$req->id))
         ];
         //var_dump(($data['roomRegisterService']));die('3');
 //        foreach ($data['roomRegisterService'] as $item){

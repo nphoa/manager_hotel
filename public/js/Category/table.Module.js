@@ -7,7 +7,15 @@ var tableModule = (function(){
             for (let i = 0;i <= countProps ; i++){
                 let td = $(tr).find("td:eq("+i+")");
                 if(td.children().attr("name") !== undefined){
-                    objDataTr[td.children().attr("name")] = td.children().val();
+                    if(td.children().is("input[type=checkbox]")){
+                        if(td.children().is(":checked")){
+                            objDataTr[td.children().attr("name")] = 1;
+                        }else{
+                            objDataTr[td.children().attr("name")] = 0;
+                        }
+                    }else{
+                        objDataTr[td.children().attr("name")] = td.children().val();
+                    }
                 }
 
             }

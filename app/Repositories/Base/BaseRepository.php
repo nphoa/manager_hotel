@@ -2,6 +2,8 @@
 namespace App\Repositories\Base;
 use App\Models\Base\BaseModel;
 use App\Repositories\Base\BaseRepositoryInterface;
+use Hamcrest\Thingy;
+
 abstract class BaseRepository implements BaseRepositoryInterface {
 
     protected $model;
@@ -28,6 +30,12 @@ abstract class BaseRepository implements BaseRepositoryInterface {
 
     public function getByAttribute($attributes){
         return $this->model->where($attributes)->get();
+    }
+
+    public function updateInstances($attribute,$conditions){
+        return $this->model->where($conditions)
+                           ->update($attribute);
+
     }
 
 }

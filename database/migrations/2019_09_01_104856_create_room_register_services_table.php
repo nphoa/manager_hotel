@@ -20,6 +20,7 @@ class CreateRoomRegisterServicesTable extends Migration
             $table->integer('count')->default('1');
             $table->decimal('price',11,2);
             $table->decimal('price_discount',11,2)->nullable();
+            $table->string('del_flg')->default('0');
             $table->timestamps();
         });
     }

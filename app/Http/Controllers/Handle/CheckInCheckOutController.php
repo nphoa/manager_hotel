@@ -47,27 +47,7 @@ class CheckInCheckOutController extends Controller
         return view('Handle.CheckInCheckOut',['data'=>$dataView]);
     }
 
-    public  function objectToArray($d) {
-        if (is_object($d)) {
-            // Gets the properties of the given object
-            // with get_object_vars function
-            $d = get_object_vars($d);
-            var_dump($d);die('3');
-        }
 
-        if (is_array($d)) {
-            /*
-            * Return array converted to object
-            * Using __FUNCTION__ (Magic constant)
-            * for recursive call
-            */
-            return array_map(__FUNCTION__, $d);
-        }
-        else {
-            // Return array
-            return $d;
-        }
-    }
     public function handle(Request $req){
         $data = $req->all();
         //var_dump(json_decode(($req->get('services')))  );die('3');
@@ -92,17 +72,24 @@ class CheckInCheckOutController extends Controller
             $roomRegisterCustomers = json_decode( $data['customers']);
             foreach ($roomRegisterCustomers as $roomRegisterCustomer){
                 $roomRegisterCustomer = get_object_vars($roomRegisterCustomer);
+//                if($roomRegisterCustomer['is_delete'] == "1" ){
+//                    $roomRegisterCustomer['del_flg'] = 1;
+//                    $this->roomRegisterCustomerRepository->create($roomRegisterCustomer);
+//                    continue;
+//                }
                 $roomRegisterCustomer['id_room_register'] = $idRoomRegister;
-                $this->roomRegisterCustomerRepository->create($roomRegisterCustomer);
+                $idRoomRegisterCustomer = ($this->roomRegisterCustomerRepository->create($roomRegisterCustomer))->id;
                 // check if customer is member is insert to table customer
                 if($roomRegisterCustomer['id_customer'] == "0" && $roomRegisterCustomer['is_member'] == "1"){
                     $customer = $roomRegisterCustomer;
                     $customer['id'] = 0;
                     $id_customer = ($this->customerRepository->create($customer))->id;
                     //update to room_register_customer
+                    $roomRegisterCustomer['id'] = $idRoomRegisterCustomer;
                     $roomRegisterCustomer['id_customer'] = $id_customer;
                     $this->roomRegisterCustomerRepository->create($roomRegisterCustomer);
                 }
+
             }
         }, 5);
         return response()->json([
@@ -113,7 +100,8 @@ class CheckInCheckOutController extends Controller
 
     public function getInfoDetail(Request $req)
     {
-        $roomRegisterService = $this->roomRegisterServiceRepository->getByAttribute(array('id_room_register'=>$req->id));
+        //var_dump($req->id);die('5');
+        $roomRegisterService = $this->roomRegisterServiceRepository->getByAttribute(array('id_room_register'=>$req->id,'del_flg'=>0));
         foreach ($roomRegisterService as $key  => $item){
             $roomRegisterService[$key]->serviceName = $item->serviceInstance['serviceName'];
             $roomRegisterService[$key]->servicePrice = $item->serviceInstance['servicePrice'];
@@ -121,7 +109,7 @@ class CheckInCheckOutController extends Controller
         $data = [
             'roomRegister'         => $this->roomRegisterRepository->getDetailInfoRoomRegister($req->id),
             'roomRegisterService'  => $roomRegisterService,
-            'roomRegisterCustomer' => $this->roomRegisterCustomerRepository->getByAttribute(array('id_room_register'=>$req->id))
+            'roomRegisterCustomer' => $this->roomRegisterCustomerRepository->getByAttribute(array('id_room_register'=>$req->id,'del_flg'=>0))
         ];
         //var_dump(($data['roomRegisterService']));die('3');
 //        foreach ($data['roomRegisterService'] as $item){
@@ -130,6 +118,24 @@ class CheckInCheckOutController extends Controller
         return response()->json([
            'status' => 200,
            'result' => $data
+        ]);
+    }
+
+    public function deleteRoomRegisterCustomer(Request $req)
+    {
+        $this->roomRegisterCustomerRepository->create($req->all());
+        return response()->json([
+            'status' => 200,
+            'result' => 'success'
+        ]);
+    }
+
+    public function deleteRoomRegisterService(Request $req)
+    {
+        $this->roomRegisterServiceRepository->create($req->all());
+        return response()->json([
+            'status' => 200,
+            'result' => 'success'
         ]);
     }
 }

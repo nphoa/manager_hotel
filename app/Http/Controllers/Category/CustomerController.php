@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Category;
+use App\Events\UpdateCustomer;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
@@ -36,6 +37,9 @@ class CustomerController extends Controller
             ]);
         }
         $row = $this->customerRepository->create($req->all());
+        //call event to update information table room register customers
+        event(new UpdateCustomer($row));
+
         return response()->json([
             'status' => 'success',
             'data'  =>  $row

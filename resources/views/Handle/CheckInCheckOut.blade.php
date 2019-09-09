@@ -24,12 +24,13 @@
     {{--Modal--}}
     <div>
         <div class="modal inmodal" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog" style="max-width: 1400px !important;">
+            <div class="modal-dialog" style="max-width: 1500px !important;">
                 <div class="modal-content animated flipInY">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h4 class="modal-title">Modal title</h4>
-                        <small class="font-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
+                        <h4 class="modal-title">Information Room Register</h4>
+                        <small class="font-bold" style="color: midnightblue;font-size: 15px" id="informationHandle" hidden>
+                        </small>
                     </div>
                     <div class="modal-body">
                         <div class="row">
@@ -60,6 +61,7 @@
                                             @csrf
                                             <input hidden type="text" class="form-control" name="id" value="0">
                                             <input hidden type="text" class="form-control" name="id_room">
+                                            <input hidden type="text" class="form-control" name="number_customer_of_room">
                                             <div class="form-group" id="data_5">
                                                 <label class="font-normal">Choose date time check in / check out</label>
                                                 <div class="input-daterange input-group" id="datepicker">
@@ -295,7 +297,6 @@
                         name:'customers',value:JSON.stringify(dataCustomer)
                     }
                 );
-                console.log(dataForm);
                 $.ajax({
                     url     :'/handle',
                     data    :dataForm,
@@ -304,7 +305,9 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success : function (data) {
-                        console.log(data);
+                        if(data.status === 200){
+                            $("small#informationHandle").removeAttr('hidden').text('Update success');
+                        }
                     }
                 });
 
@@ -312,9 +315,10 @@
         });
         function handleCheckIn(element) {
             let mode = $(element).attr('data-mode');
+            let count_customer = $(element).attr('data-number_customer');
+            $("input[name=number_customer_of_room]").val(count_customer);
             if(mode == "checkIn"){
                 let idRoom =  $(element).attr('data-room_id');
-                // console.log(idRoom);
                 $("input[name=id_room]").val(idRoom);
                 return;
             }
@@ -334,10 +338,10 @@
                     $("textarea[name=note]").val(roomRegister.note);
                     console.log(response);
                     //Binding info room register service
+                    $("tbody#tbodyInformationService").empty();
                     let roomRegisterService = response.result.roomRegisterService;
                     if(roomRegisterService.length > 0){
                         let trs = [];
-                        $("tbody#tbodyInformationService").empty();
                         for (let i =0;i < roomRegisterService.length;i++){
                             let tr = $("tr#rowService").clone().css('display','');
                             tr.attr("data-id_service",roomRegisterService[i].id_service);
@@ -354,10 +358,10 @@
                         $("tbody#tbodyInformationService").append(trs);
                     }
                     //Binding info room register customers
+                    $("tbody#tbodyInformationCustomer").empty();
                     let roomRegisterCustomers = response.result.roomRegisterCustomer;
                     if(roomRegisterCustomers.length > 0){
                         let trs = [];
-                        $("tbody#tbodyInformationCustomer").empty();
                         for (let i =0;i < roomRegisterCustomers.length;i++){
                             let tr = $("tr#rowCustomer").clone().css('display','');
 
@@ -438,6 +442,23 @@
         }
         function deleteService(e) {
             $(e).parent().parent().remove();
+            $idRoomRegisterService = $(e).parent().parent().find("td:eq(0)").children().val();
+            // console.log($idRoomRegisterService);
+            let headers = {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            };
+            if($idRoomRegisterService !== "0"){
+                $.ajax({
+                    type: "POST",
+                    url: '/deleteRoomRegisterService',
+                    headers:headers,
+                    data: {id:$idRoomRegisterService,del_flg:1},
+                    success: function (response) {
+
+                    },
+
+                });
+            }
             updateTotalPrice();
         }
         function updateTotalPrice() {
@@ -451,13 +472,19 @@
         }
 
         function addCustomer(e,mode) {
+            //Check number customer of room
+            let count_customer = $("input[name=number_customer_of_room]").val();
+            let count_customer_html = $("#tbodyInformationCustomer").find('tr').length;
+            if(count_customer < count_customer_html){alert('This room just have ' + count_customer +' '+'customer');return;}
+
             let rowCustomerNew = $("#rowCustomer").clone().css('display','');
+            rowCustomerNew.attr('data-id_customer',0);
+            rowCustomerNew.find("td:eq(0)").children().val(0);
             if(mode === 'Member'){
                 let row = $("tr[data-id_customer="+$(e).val()+"]");
                 if(row.length == 0){
                     let e_option = $(e).find("option[data-id="+$(e).val()+"]");
                     rowCustomerNew.attr('data-id_customer',e_option.attr('data-id'));
-                    rowCustomerNew.find("td:eq(0)").children().val(0);
                     rowCustomerNew.find("td:eq(1)").children().val(e_option.attr('data-id'));
                     rowCustomerNew.find("td:eq(2)").children().val(e_option.attr('data-fullName'));
                     rowCustomerNew.find("td:eq(3)").children().val(e_option.attr('data-phoneNumber'));
@@ -473,6 +500,24 @@
 
         function deleteCustomer(e) {
             $(e).parent().parent().remove();
+            $idRoomRegisterCustomer = $(e).parent().parent().find("td:eq(0)").children().val();
+            console.log($idRoomRegisterCustomer);
+            let headers = {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            };
+            if($idRoomRegisterCustomer !== "0"){
+                $.ajax({
+                    type: "POST",
+                    url: '/deleteRoomRegisterCustomer',
+                    headers:headers,
+                    data: {id:$idRoomRegisterCustomer,del_flg:1},
+                    success: function (response) {
+                        
+                    },
+                    
+                });
+            }
+
         }
     </script>
 

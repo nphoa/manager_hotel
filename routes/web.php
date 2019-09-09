@@ -11,6 +11,8 @@
 |
 */
 
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', 'DashboardController@index');
 Route::get('/customers','Category\CustomerController@getPagination');
 
@@ -46,3 +48,5 @@ Route::post('/create_Room','Category\RoomController@AddOrModifyOrDeleteInstance'
 Route::get('/checkinorcheckout','Handle\CheckInCheckOutController@index');
 Route::post('/handle','Handle\CheckInCheckOutController@handle');
 Route::get('/getInfoDetail/{id}','Handle\CheckInCheckOutController@getInfoDetail');
+Route::post('/deleteRoomRegisterCustomer','Handle\CheckInCheckOutController@deleteRoomRegisterCustomer');
+Route::post('/deleteRoomRegisterService','Handle\CheckInCheckOutController@deleteRoomRegisterService');

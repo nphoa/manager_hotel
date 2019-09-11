@@ -62,14 +62,27 @@
                                             <input hidden type="text" class="form-control" name="id" value="0">
                                             <input hidden type="text" class="form-control" name="id_room">
                                             <input hidden type="text" class="form-control" name="number_customer_of_room">
-                                            <div class="form-group" id="data_5">
-                                                <label class="font-normal">Choose date time check in / check out</label>
-                                                <div class="input-daterange input-group" id="datepicker">
-                                                    <input type="text" class="form-control-sm form-control" name="date_check_in" value="{{now()}}">
-                                                    <span class="input-group-addon">to</span>
-                                                    <input type="text" class="form-control-sm form-control" name="date_check_out" value="{{now()}}">
+                                            <div class="follow_by_date">
+                                                <div class="i-checks">
+                                                    @foreach($data['roomPrice'] as $key => $price)
+                                                        <label style="padding-left: {{($key == 1) ? '20px' : '0px'}}" ><input type="radio"  value="{{$price->id}}" name="id_room_price" {{($key == 0) ? 'checked': ''}}> {{$price->type_price}} <span style="font-weight: bold">({{$price->price}})</span></label>
+                                                    @endforeach
+                                                </div>
+                                                <div class="form-group" id="data_5">
+                                                    <label class="font-normal">Choose date time check in / check out</label>
+                                                    <div class="input-daterange input-group" id="datepicker">
+                                                        <input type="text" class="form-control-sm form-control" name="date_check_in" value="{{now()}}">
+                                                        <span class="input-group-addon">to</span>
+                                                        <input type="text" class="form-control-sm form-control" name="date_check_out" value="{{now()}}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group" style="width: 50%">
+                                                    <label class="">Price invoice</label>
+                                                    <input type="text" class="form-control" name="room_price_invoice"disabled>
                                                 </div>
                                             </div>
+
+
 
                                             <div class="form-group ">
                                                 <label class="">Note</label>

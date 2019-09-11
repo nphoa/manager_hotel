@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Handle;
 use App\Http\Controllers\Controller;
 use App\Repositories\Eloquents\CustomerRepository;
+use App\Repositories\Eloquents\RoomPriceRepository;
 use App\Repositories\Eloquents\RoomRegisterCustomerRepository;
 use App\Repositories\Eloquents\RoomRegisterRepository;
 use App\Repositories\Eloquents\RoomRegisterServiceRepository;
@@ -19,13 +20,15 @@ class CheckInCheckOutController extends Controller
     protected $roomRegisterServiceRepository;
     protected $customerRepository;
     protected $roomRegisterCustomerRepository;
+    protected $roomPriceRepository;
     public function __construct(
         RoomRepository $roomRepository,
         RoomRegisterRepository $roomRegisterRepository,
         ServiceRepository $serviceRepository,
         RoomRegisterServiceRepository $roomRegisterServiceRepository,
         CustomerRepository $customerRepository,
-        RoomRegisterCustomerRepository $roomRegisterCustomerRepository
+        RoomRegisterCustomerRepository $roomRegisterCustomerRepository,
+        RoomPriceRepository $roomPriceRepository
     )
     {
         $this->roomRepository = $roomRepository;
@@ -34,6 +37,7 @@ class CheckInCheckOutController extends Controller
         $this->roomRegisterServiceRepository = $roomRegisterServiceRepository;
         $this->customerRepository = $customerRepository;
         $this->roomRegisterCustomerRepository = $roomRegisterCustomerRepository;
+        $this->roomPriceRepository = $roomPriceRepository;
     }
 
     public function index(Request $req)
@@ -42,7 +46,8 @@ class CheckInCheckOutController extends Controller
         $dataView = [
             'rooms'     => $this->roomRegisterRepository->getAll1($req),
             'services'  => $this->serviceRepository->getAll(),
-            'customers' => $this->customerRepository->getAll()
+            'customers' => $this->customerRepository->getAll(),
+            'roomPrice' => $this->roomPriceRepository->getAll()
         ];
         return view('Handle.CheckInCheckOut',['data'=>$dataView]);
     }

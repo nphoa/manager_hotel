@@ -19,7 +19,6 @@ class CreateRoomsTable extends Migration
             $table->string('room_name',500);
             $table->integer('id_type')->default(0);
             $table->integer('id_floor')->default(0);;
-            $table->decimal('price',8,2);
             $table->integer('number_count');
             $table->boolean('status')->default(0);
             $table->string('note',500)->nullable();

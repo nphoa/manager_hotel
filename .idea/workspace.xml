@@ -3,16 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="db14a497-36c9-4b8b-8934-d10f1166030f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Category/CustomerController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Category/CustomerController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Handle/CheckInCheckOutController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Handle/CheckInCheckOutController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Customer.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Customer.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/RoomRegisterService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/RoomRegisterService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/EventServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/EventServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Repositories/Base/BaseRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/Base/BaseRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_09_01_104856_create_room_register_services_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_09_01_104856_create_room_register_services_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/RoomRegister.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/RoomRegister.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_06_28_025749_create_rooms_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_06_28_025749_create_rooms_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_06_28_031511_create_room_register_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_06_28_031511_create_room_register_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_06_28_032705_create_room_invoices_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_06_28_032705_create_room_invoices_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/RoomsTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/RoomsTableSeeder.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/Handle/CheckInCheckOut.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/Handle/CheckInCheckOut.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/Partials/AjaxView/CheckInCheckOut_Ajax.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/Partials/AjaxView/CheckInCheckOut_Ajax.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -118,7 +116,7 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Project_DM_Twitter/TestFinal/dm_twitter" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -185,6 +183,10 @@
       <workItem from="1567832790805" duration="2807000" />
       <workItem from="1567864124392" duration="4838000" />
       <workItem from="1567909756405" duration="12479000" />
+      <workItem from="1568080590532" duration="601000" />
+      <workItem from="1568106547665" duration="618000" />
+      <workItem from="1568167748208" duration="1823000" />
+      <workItem from="1568187567174" duration="9122000" />
     </task>
     <servers />
   </component>

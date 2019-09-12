@@ -4,13 +4,11 @@
     <list default="true" id="db14a497-36c9-4b8b-8934-d10f1166030f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Handle/CheckInCheckOutController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Handle/CheckInCheckOutController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/RoomRegister.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/RoomRegister.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_06_28_025749_create_rooms_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_06_28_025749_create_rooms_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_06_28_031511_create_room_register_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_06_28_031511_create_room_register_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_06_28_032705_create_room_invoices_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_06_28_032705_create_room_invoices_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/RoomsTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/RoomsTableSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Repositories/Eloquents/RoomRegisterRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/Eloquents/RoomRegisterRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/Handle/CheckInCheckOut.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/Handle/CheckInCheckOut.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/Partials/AjaxView/CheckInCheckOut_Ajax.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/Partials/AjaxView/CheckInCheckOut_Ajax.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/Templates/layout.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/Templates/layout.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -186,7 +184,8 @@
       <workItem from="1568080590532" duration="601000" />
       <workItem from="1568106547665" duration="618000" />
       <workItem from="1568167748208" duration="1823000" />
-      <workItem from="1568187567174" duration="9122000" />
+      <workItem from="1568187567174" duration="9692000" />
+      <workItem from="1568253867942" duration="22235000" />
     </task>
     <servers />
   </component>

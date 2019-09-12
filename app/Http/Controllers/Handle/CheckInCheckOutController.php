@@ -9,6 +9,7 @@ use App\Repositories\Eloquents\RoomRegisterRepository;
 use App\Repositories\Eloquents\RoomRegisterServiceRepository;
 use App\Repositories\Eloquents\RoomRepository;
 use App\Repositories\Eloquents\ServiceRepository;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -44,10 +45,12 @@ class CheckInCheckOutController extends Controller
     {
         //var_dump($this->roomRegisterRepository->getAll1($req));die('5');
         $dataView = [
-            'rooms'     => $this->roomRegisterRepository->getAll1($req),
-            'services'  => $this->serviceRepository->getAll(),
-            'customers' => $this->customerRepository->getAll(),
-            'roomPrice' => $this->roomPriceRepository->getAll()
+            'rooms'         => $this->roomRegisterRepository->getAll1($req),
+            'services'      => $this->serviceRepository->getAll(),
+            'customers'     => $this->customerRepository->getAll(),
+            'roomPrice'     => $this->roomPriceRepository->getAll(),
+            'currentTime'   => Carbon::now()->hour . ':' . Carbon::now()->minute,
+            'currentDate'   =>  Carbon::now()->toDateString()
         ];
         return view('Handle.CheckInCheckOut',['data'=>$dataView]);
     }
@@ -57,9 +60,27 @@ class CheckInCheckOutController extends Controller
         $data = $req->all();
         //var_dump(json_decode(($req->get('services')))  );die('3');
         //var_dump(json_decode($data['customers']));die('3');
-
+        //var_dump($data);die('3');
         DB::transaction(function () use ($data) {
             //insert table room_register and get id
+            //room price invoice
+             if($data['id_room_price'] == '1'){
+                 $data['currentTime'] = '00:00';
+                 $data['toTime'] = '00:00';
+             }
+            $data['date_check_in'] = Carbon::create($data['date_check_in'].' '.$data['currentTime']);
+            $data['date_check_out'] = Carbon::create($data['date_check_out'].' '.$data['toTime']);
+            $room_Price = $this->roomPriceRepository->getById($data['id_room_price']);
+            if($data['id_room_price'] == '1'){
+                $countDate = $data['date_check_in']->diffInDays($data['date_check_out']);
+                $data['room_price_invoice'] = $room_Price->price * $countDate;
+            }else{
+                $countTime = $data['date_check_in']->diffInHours($data['date_check_out']);
+                $data['room_price_invoice'] = $room_Price->price * $countTime;
+            }
+            $data['date_check_in'] = $data['date_check_in']->toDateTimeString();
+            $data['date_check_out'] = $data['date_check_out']->toDateTimeString();
+            //var_dump($data);die('3');
             $idRoomRegister = ($this->roomRegisterRepository->create($data))->id;
 
             //insert table room_register_services
@@ -114,9 +135,11 @@ class CheckInCheckOutController extends Controller
         $data = [
             'roomRegister'         => $this->roomRegisterRepository->getDetailInfoRoomRegister($req->id),
             'roomRegisterService'  => $roomRegisterService,
-            'roomRegisterCustomer' => $this->roomRegisterCustomerRepository->getByAttribute(array('id_room_register'=>$req->id,'del_flg'=>0))
+            'roomRegisterCustomer' => $this->roomRegisterCustomerRepository->getByAttribute(array('id_room_register'=>$req->id,'del_flg'=>0)),
+
         ];
-        //var_dump(($data['roomRegisterService']));die('3');
+
+        //var_dump(($data['roomRegister']));die('3');
 //        foreach ($data['roomRegisterService'] as $item){
 //            var_dump($item->serviceName);die('3');
 //        }

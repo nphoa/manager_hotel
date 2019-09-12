@@ -65,20 +65,43 @@
                                             <div class="follow_by_date">
                                                 <div class="i-checks">
                                                     @foreach($data['roomPrice'] as $key => $price)
-                                                        <label style="padding-left: {{($key == 1) ? '20px' : '0px'}}" ><input type="radio"  value="{{$price->id}}" name="id_room_price" {{($key == 0) ? 'checked': ''}}> {{$price->type_price}} <span style="font-weight: bold">({{$price->price}})</span></label>
+                                                        <label style="padding-left: {{($key == 1) ? '20px' : '0px'}}" >
+                                                            <input type="radio"
+                                                                   value="{{$price->id}}"
+                                                                   id ="{{$price->id}}"
+                                                                   name="id_room_price"
+                                                                   {{($key == 0) ? 'checked': ''}}
+                                                                   onchange="typePrice(this)"
+                                                            > {{$price->type_price}}
+                                                            <span style="font-weight: bold">({{$price->price}})</span>
+                                                        </label>
                                                     @endforeach
                                                 </div>
                                                 <div class="form-group" id="data_5">
                                                     <label class="font-normal">Choose date time check in / check out</label>
                                                     <div class="input-daterange input-group" id="datepicker">
-                                                        <input type="text" class="form-control-sm form-control" name="date_check_in" value="{{now()}}">
+                                                        <input type="text" class="form-control-sm form-control" name="date_check_in" value="{{$data['currentDate']}}">
                                                         <span class="input-group-addon">to</span>
-                                                        <input type="text" class="form-control-sm form-control" name="date_check_out" value="{{now()}}">
+                                                        <input type="text" class="form-control-sm form-control" name="date_check_out" value="{{$data['currentDate']}}">
                                                     </div>
                                                 </div>
+                                                <div style="display: flex">
+                                                    <div class="form-group" id="chooseTime" style="width: 30%">
+                                                        <label class="font-normal">From time</label>
+                                                        <input class="form-control" type="time" id="time" name="currentTime" value="{{$data['currentTime']}}" readonly>
+                                                    </div>
+                                                    <div class="form-group" id="chooseTime" style="width: 30%;margin-left: 30px">
+                                                        <label class="font-normal">To time</label>
+                                                        <input class="form-control" type="time" id="time" name="toTime" readonly>
+                                                    </div>
+                                                </div>
+
+
+
+
                                                 <div class="form-group" style="width: 50%">
                                                     <label class="">Price invoice</label>
-                                                    <input type="text" class="form-control" name="room_price_invoice"disabled>
+                                                    <input type="text" class="form-control" name="room_price_invoice" readonly>
                                                 </div>
                                             </div>
 
@@ -298,6 +321,12 @@
             });
             $('.chosen-select').chosen({width: "100%"});
 
+            $('.clockpicker').clockpicker({
+                placement: 'top',
+                align: 'left',
+                donetext: 'Done'
+            });
+
             $("#save").on('click',function () {
                 var dataService = tableModule.getDataForTable($("tbody#tbodyInformationService"));
                 var dataForm = $("form#frmCheckInCheckOut").serializeArray();
@@ -348,6 +377,9 @@
                     $("input[name=id_room]").val(roomRegister.room_id);
                     $("input[name=date_check_in]").val(roomRegister.date_check_in);
                     $("input[name=date_check_out]").val(roomRegister.date_check_out);
+                    $("input[name=currentTime]").val(roomRegister.currentTime);
+                    $("input[name=id_room_price]").filter("#"+roomRegister.id_room_price).attr("checked","checked");
+                    $("input[name=toTime]").val(roomRegister.toTime);
                     $("textarea[name=note]").val(roomRegister.note);
                     console.log(response);
                     //Binding info room register service
@@ -531,6 +563,15 @@
                 });
             }
 
+        }
+
+        function typePrice(e) {
+            let typePrice = $(e).val();
+            if(typePrice === '2'){
+                $("input[name=toTime]").val('').removeAttr('readonly');
+            }else{
+                $("input[name=toTime]").val('').attr('readonly','readonly');
+            }
         }
     </script>
 

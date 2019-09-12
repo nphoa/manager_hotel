@@ -76,6 +76,7 @@
                                         <div class="col-md-6">
                                             <button type="button" class="btn btn-w-m btn-info" {{$room->status != 0 ? 'disabled' : ''}} data-toggle="modal" data-target="#myModal2" data-room_id = "{{$room->room_id}}" data-number_customer = {{$room->number_count}} data-mode="checkIn" onclick="handleCheckIn(this)">Check in</button>
                                         </div>
+
                                         <div class="col-md-6">
                                             <button type="button" class="btn btn-w-m btn-info" {{$room->status == 0 ? 'disabled' : ''}} data-toggle="modal" data-target="#myModal2" data-room_register_id = "{{$room->room_register_id}}" data-number_customer = {{$room->number_count}} data-mode="checkOut" onclick="handleCheckIn(this)">Check out</button>
                                         </div>
@@ -84,7 +85,7 @@
                                     <br>
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <button type="button" class="btn btn-w-m btn-info" {{$room->status == 0 ? 'disabled' : ''}}>Room Transfer </button>
+                                            <button type="button" class="btn btn-w-m btn-info" {{$room->status == 0 ? 'disabled' : ''}} data-toggle="modal" data-target="#myModal2" data-room_register_id = "{{$room->room_register_id}}"  data-number_customer = {{$room->number_count}} data-mode="update" onclick="handleCheckIn(this)">Update</button>
                                         </div>
                                         <div class="col-md-6">
                                             <button type="button" class="btn btn-w-m btn-info" {{$room->status != 0 ? 'disabled' : ''}}>Room Order </button>

@@ -36,6 +36,8 @@
     <link href="{{asset('css/template/css/plugins/chosen/bootstrap-chosen.css')}}" rel="stylesheet">
 
     <link href="{{asset('css/template/css/plugins/select2/select2.min.css')}}" rel="stylesheet">
+
+    <link href="{{asset('css/template/css/plugins/clockpicker/clockpicker.css')}}" rel="stylesheet">
 </head>
 
 <body>
@@ -573,6 +575,8 @@
 <!-- Select2 -->
 <script src="{{asset('js/template/js/plugins/select2/select2.full.min.js')}}"></script>
 
+<!-- Clock picker -->
+<script src="{{asset('js/template/js/plugins/clockpicker/clockpicker.js')}}"></script>
 
 <script>
     $(document).ready(function() {
@@ -671,7 +675,7 @@
 
         var ctx4 = document.getElementById("doughnutChart2").getContext("2d");
         new Chart(ctx4, {type: 'doughnut', data: doughnutData, options:doughnutOptions});
-
+        $('.clockpicker').clockpicker();
     });
 </script>
 </body>

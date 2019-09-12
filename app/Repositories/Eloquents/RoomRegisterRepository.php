@@ -6,6 +6,7 @@ use App\Models\RoomRegister;
 use App\Repositories\Base\BaseRepository;
 
 
+use Carbon\Carbon;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -44,12 +45,15 @@ class RoomRegisterRepository extends BaseRepository {
     {
         $raw_query =  DB::select(
             DB::raw("
-                SELECT r.id as room_id , r.room_name, rr.date_check_in, rr.date_check_out,IF(rr.status is NULL,0,rr.status) as status,r.number_count,IF(rr.id is NULL,0,rr.id) as room_register_id,rr.note
+                SELECT r.id as room_id , r.room_name, rr.date_check_in, rr.date_check_out,IF(rr.status is NULL,0,rr.status) as status,r.number_count,IF(rr.id is NULL,0,rr.id) as room_register_id,rr.note,rr.id_room_price
                 FROM rooms as r 
                 LEFT JOIN  room_register as rr ON  r.id = rr.id_room 
                 WHERE rr.id = $idRoomRegister
             ")
         );
+        //Add attribute
+        $raw_query[0]->currentTime = (Carbon::create($raw_query[0]->date_check_in))->toTimeString();
+        $raw_query[0]->toTime = (Carbon::create($raw_query[0]->date_check_out))->toTimeString();
         return $raw_query[0];
     }
 

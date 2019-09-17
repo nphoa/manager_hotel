@@ -528,6 +528,7 @@
 
 <!-- Mainly scripts -->
 {{--<script src="{{asset('js/template/js/jquery-3.1.1.min.js')}}"></script>--}}
+
 <script src="{{asset('js/template/js/popper.min.js')}}"></script>
 <script src="{{asset('js/template/js/bootstrap.js')}}"></script>
 <script src="{{asset('js/template/js/plugins/metisMenu/jquery.metisMenu.js')}}"></script>

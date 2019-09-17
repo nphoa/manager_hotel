@@ -142,26 +142,46 @@ class CheckInCheckOutController extends Controller
     public function getInfoDetail(Request $req)
     {
         //var_dump($req->id);die('5');
-        $roomRegisterService = $this->roomRegisterServiceRepository->getByAttribute(array('id_room_register'=>$req->id,'del_flg'=>0));
-        foreach ($roomRegisterService as $key  => $item){
-            $roomRegisterService[$key]->serviceName = $item->serviceInstance['serviceName'];
-            $roomRegisterService[$key]->servicePrice = $item->serviceInstance['servicePrice'];
-        }
-        $data = [
-            'roomRegister'         => $this->roomRegisterRepository->getDetailInfoRoomRegister($req->id),
-            'roomRegisterService'  => $roomRegisterService,
-            'roomRegisterCustomer' => $this->roomRegisterCustomerRepository->getByAttribute(array('id_room_register'=>$req->id,'del_flg'=>0)),
-
+        $dataView = [
+            'roomRegister'         => [],
+            'roomRegisterService'  => [],
+            'roomRegisterCustomer' => [],
+            'services'      => $this->serviceRepository->getAll(),
+            'customers'     => $this->customerRepository->getAll(),
+            'roomPrice'     => $this->roomPriceRepository->getAll(),
+            'currentTime'   => Carbon::now()->hour . ':' . Carbon::now()->minute,
+            'currentDate'   =>  Carbon::now()->toDateString()
         ];
+        if($req->id != '0'){
+            $roomRegisterService = $this->roomRegisterServiceRepository->getByAttribute(array('id_room_register'=>$req->id,'del_flg'=>0));
+            foreach ($roomRegisterService as $key  => $item){
+                $roomRegisterService[$key]->serviceName = $item->serviceInstance['serviceName'];
+                $roomRegisterService[$key]->servicePrice = $item->serviceInstance['servicePrice'];
+            }
+            $dataView['roomRegister']           = $this->roomRegisterRepository->getDetailInfoRoomRegister($req->id);
+            $dataView['roomRegisterService']    = $roomRegisterService;
+            $dataView['roomRegisterCustomer']   = $this->roomRegisterCustomerRepository->getByAttribute(array('id_room_register'=>$req->id,'del_flg'=>0));
+        }
+//
+//
+//        $data = [
+//            'roomRegister'         => $this->roomRegisterRepository->getDetailInfoRoomRegister($req->id),
+//            'roomRegisterService'  => $roomRegisterService,
+//            'roomRegisterCustomer' => $this->roomRegisterCustomerRepository->getByAttribute(array('id_room_register'=>$req->id,'del_flg'=>0)),
+//
+//        ];
 
         //var_dump(($data['roomRegister']));die('3');
 //        foreach ($data['roomRegisterService'] as $item){
 //            var_dump($item->serviceName);die('3');
 //        }
-        return response()->json([
-           'status' => 200,
-           'result' => $data
-        ]);
+        return response()
+            ->view('Partials.AjaxView.Handle_Modal_Ajax',['data'=>$dataView],200)
+            ->header('Content-Type','application/html');
+
+           //'result' => view('Partials.AjaxView.Handle_Modal_Ajax',['data'=>$dataView])
+
+        //return view('Partials.AjaxView.Handle_Modal_Ajax',['data'=>$dataView]);
     }
 
     public function deleteRoomRegisterCustomer(Request $req)

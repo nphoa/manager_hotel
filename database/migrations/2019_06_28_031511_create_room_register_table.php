@@ -19,9 +19,9 @@ class CreateRoomRegisterTable extends Migration
             $table->dateTime('date_check_in');
             $table->dateTime('date_check_out');
             $table->integer('id_room_price');
-            $table->decimal('service_invoice',8,2)->nullable('0');
-            $table->decimal('room_price_invoice',8,2)->nullable('0');
-            $table->string('note',500);
+            $table->decimal('service_invoice',8,2)->default('0');
+            $table->decimal('room_price_invoice',8,2)->default('0');
+            $table->string('note',500)->nullable();
             $table->boolean('status')->default(1);
             $table->string('del_flg')->default('0');
             $table->timestamps();

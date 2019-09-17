@@ -1,0 +1,354 @@
+
+<div class="modal-content animated flipInY">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">Information Room Register</h4>
+        <small class="font-bold" style="color: midnightblue;font-size: 15px" id="informationHandle" hidden>
+        </small>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-lg-7" id="divRoomRegister">
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <h5>Check in / Check out</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="#" class="dropdown-item">Config option 1</a>
+                                </li>
+                                <li><a href="#" class="dropdown-item">Config option 2</a>
+                                </li>
+                            </ul>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content" style="">
+                        <form method="post" id="frmCheckInCheckOut">
+                            @csrf
+                            <input hidden type="text" class="form-control" name="id" value="0">
+                            <input hidden type="text" class="form-control" name="id_room">
+                            <input hidden type="text" class="form-control" name="number_customer_of_room">
+                            <input hidden type="text" class="form-control" name="mode">
+                            <div class="follow_by_date">
+                                <div class="i-checks">
+                                    @foreach($data['roomPrice'] as $key => $price)
+                                        <label style="padding-left: {{($key == 1) ? '20px' : '0px'}}" >
+                                            <input type="radio"
+                                                   value="{{$price->id}}"
+                                                   id ="{{$price->id}}"
+                                                   name="id_room_price"
+                                                   {{($key == 0) ? 'checked': ''}}
+                                                   onchange="typePrice(this)"
+                                            > {{$price->type_price}}
+                                            <span style="font-weight: bold">({{$price->price}})</span>
+                                        </label>
+                                    @endforeach
+                                </div>
+                                <div class="form-group" id="data_5">
+                                    <label class="font-normal">Choose date time check in / check out</label>
+                                    <div class="input-daterange input-group" id="datepicker">
+                                        <input type="text" class="form-control-sm form-control" name="date_check_in" value="{{$data['currentDate']}}">
+                                        <span class="input-group-addon">to</span>
+                                        <input type="text" class="form-control-sm form-control" name="date_check_out" value="{{$data['currentDate']}}">
+                                    </div>
+                                </div>
+                                <div style="display: flex">
+                                    <div class="form-group" id="chooseTime" style="width: 30%">
+                                        <label class="font-normal">From time</label>
+                                        <input class="form-control" type="time" id="time" name="currentTime" value="{{$data['currentTime']}}" readonly>
+                                    </div>
+                                    <div class="form-group" id="chooseTime" style="width: 30%;margin-left: 30px">
+                                        <label class="font-normal">To time</label>
+                                        <input class="form-control" type="time" id="time" name="toTime" readonly>
+                                    </div>
+                                </div>
+
+
+
+
+                                <div class="form-group" style="width: 50%">
+                                    <label class="">Price invoice</label>
+                                    <input type="text" class="form-control" name="room_price_invoice" readonly>
+                                </div>
+                            </div>
+
+
+
+                            <div class="form-group ">
+                                <label class="">Note</label>
+                                <div class="">
+                                    <textarea type="text" class="form-control" name="note"></textarea>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5" id="divService">
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <h5>Information service</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="#" class="dropdown-item">Config option 1</a>
+                                </li>
+                                <li><a href="#" class="dropdown-item">Config option 2</a>
+                                </li>
+                            </ul>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content" style="">
+                        <form method="post" id="frmService">
+                            @csrf
+                            <div class="form-group">
+                                <div id="divAddService">
+                                    <label class="font-normal">Choose services</label>
+                                    <select  class="chosen-select"  name="services"  onchange="addNewService(this)" style="width: 400px;">
+                                        <option value="0">--- Select service ----</option>
+                                        @foreach($data['services'] as $service)
+                                            <option
+                                                    value="{{$service->id}}"
+                                                    data-id="{{$service->id}}"
+                                                    data-name="{{$service->service_name}}"
+                                                    data-price="{{$service->service_price}}">
+                                                {{$service->service_name}}
+                                            </option>
+                                        @endforeach
+                                    </select>
+
+                                </div>
+                            </div>
+                            <div>
+                                <table class="table table-bordered" id="tableInformationService">
+                                    <thead>
+                                    <tr>
+                                        <th>Service name</th>
+                                        <th>Service count</th>
+                                        <th>Service price</th>
+                                        <th>Total</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                    <tr style="display: none" id="rowService">
+                                        <td hidden>
+                                            <input type="text" name="id" value="0">
+                                        </td>
+                                        <td hidden>
+                                            <input type="text" name="id_service">
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            <input  type="text" name="count" onChange="sumPrice(this)">
+                                        </td>
+                                        <td>
+                                            <input readonly type="text" name="service_price">
+                                        </td>
+                                        <td>15000</td>
+                                        <td>
+                                            <a href="javascript:void(false)" data-mode="service" data-idInstance="0" onclick="deleteInstance(this)">Delete</a>
+                                        </td>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="tbodyInformationService">
+
+                                    </tbody>
+                                </table>
+                                <div style="text-align: right" id="totalServicePrice">
+                                    <span>Total:</span>
+                                    <input type="text" class="" disabled value="0" style="text-align: right">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-7" id="divCustomer">
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <h5>Customers</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="#" class="dropdown-item">Config option 1</a>
+                                </li>
+                                <li><a href="#" class="dropdown-item">Config option 2</a>
+                                </li>
+                            </ul>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content" style="">
+                        Customers
+                        <style>
+                            div.chosen-container{
+                                width: 50% !important;
+                            }
+                        </style>
+                        <div id="divAddCustomer">
+                            <button type="button" class="btn btn-outline btn-primary" onclick="addCustomer(this,'Not_Member')">Add new customers</button>
+                            <label class="font-normal" style="margin-left: 10px">Choose customer is member</label>
+                            <select  class="chosen-select"  name="services"  onchange="addCustomer(this,'Member')" style="width: 400px;">
+                                <option value="0">--- Select customers ----</option>
+                                @foreach($data['customers'] as $customer)
+                                    <option
+                                            value="{{$customer->id}}"
+                                            data-id="{{$customer->id}}"
+                                            data-fullName="{{$customer->fullName}}"
+                                            data-phoneNumber="{{$customer->phoneNumber}}"
+                                            data-identityCard="{{$customer->identityCard}}">
+                                        {{$customer->fullName}}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <br>
+                        <div style="margin-top: 10px">
+                            <table class="table table-bordered" id="tableInformationCustomer">
+                                <thead>
+                                <tr>
+                                    <th>Customer name</th>
+                                    <th>Phone number</th>
+                                    <th>Identity card</th>
+                                    <th>Is member ? </th>
+                                    <th>Delete</th>
+                                </tr>
+                                <tr style="display: none" id="rowCustomer" data-id_customer="0">
+                                    <td hidden>
+                                        <input type="text" name="id" value="0">
+                                    </td>
+                                    <td hidden>
+                                        <input type="text" name="id_customer" value="0">
+                                    </td>
+                                    <td>
+                                        <input  type="text" name="fullName">
+                                    </td>
+                                    <td>
+                                        <input  type="text" name="phoneNumber">
+                                    </td>
+                                    <td>
+                                        <input  type="text" name="identityCard">
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" name="is_member">
+                                    </td>
+                                    <td>
+                                        <a href="javascript:void(false)" data-mode="customer" data-idInstance="0" onclick="deleteInstance(this)">Delete</a>
+                                    </td>
+                                </tr>
+                                </thead>
+                                <tbody id="tbodyInformationCustomer">
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5" id="divInvoice" hidden>
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <h5>Information invoice</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="#" class="dropdown-item">Config option 1</a>
+                                </li>
+                                <li><a href="#" class="dropdown-item">Config option 2</a>
+                                </li>
+                            </ul>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content" style="">
+                        <form method="post" id="frmInvoice">
+                            @csrf
+                            <div>
+                                <table class="table table-bordered" id="tableInformationInvoice">
+                                    <thead>
+                                    <tr>
+                                        <th>Invoice Room</th>
+                                        <th>Invoice Service</th>
+                                        <th>Total</th>
+                                    </tr>
+
+                                    </thead>
+                                    <tbody id="tbodyInformationInvoice">
+                                    <tr style="display: none" id="rowInvoice">
+                                        <td>
+                                            <input type="text" name="invoice_room" style="width: 150px" readonly>
+                                        </td>
+                                        <td>
+                                            <input type="text" name="invoice_service" style="width: 150px" readonly>
+                                        </td>
+                                        <td>
+                                            <input type="text" name="invoice_price" style="width: 150px" readonly>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-white" data-dismiss="modal" id="closeModal" onclick="closeModal()">Close</button>
+        <button type="button" class="btn btn-primary" id="save">Save changes</button>
+        <button type="button" class="btn btn-danger" id="checkout">Check out</button>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('#data_5 .input-daterange').datepicker({
+            keyboardNavigation: false,
+            forceParse: false,
+            autoclose: true,
+            format: 'yyyy-mm-dd'
+        });
+        $('.chosen-select').chosen({width: "100%"});
+
+        $('.clockpicker').clockpicker({
+            placement: 'top',
+            align: 'left',
+            donetext: 'Done'
+        });
+
+    });
+</script>

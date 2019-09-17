@@ -4,10 +4,10 @@
     <list default="true" id="db14a497-36c9-4b8b-8934-d10f1166030f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Handle/CheckInCheckOutController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Handle/CheckInCheckOutController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Repositories/Eloquents/RoomRegisterRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/Eloquents/RoomRegisterRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_06_28_032705_create_room_invoices_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_06_28_032705_create_room_invoices_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_06_28_031511_create_room_register_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_06_28_031511_create_room_register_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/Handle/CheckInCheckOut.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/Handle/CheckInCheckOut.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/Partials/AjaxView/CheckInCheckOut_Ajax.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/Partials/AjaxView/CheckInCheckOut_Ajax.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/Templates/layout.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/Templates/layout.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -112,6 +112,7 @@
   <component name="ProjectId" id="1Pj29oIy4yM4vBQig80PRC8jlNm" />
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="TODO_SCOPE" value="All Places" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -185,7 +186,9 @@
       <workItem from="1568167748208" duration="1823000" />
       <workItem from="1568187567174" duration="9692000" />
       <workItem from="1568253867942" duration="22526000" />
-      <workItem from="1568339033034" duration="24199000" />
+      <workItem from="1568339033034" duration="24457000" />
+      <workItem from="1568598295139" duration="23424000" />
+      <workItem from="1568684900999" duration="25004000" />
     </task>
     <servers />
   </component>

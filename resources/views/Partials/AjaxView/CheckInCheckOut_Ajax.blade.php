@@ -10,7 +10,13 @@
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
         @foreach($data['rooms'] as $room)
-
+            @if ($room->status == 0)
+                <?php $backgroundColor = '#0430b1'; ?>
+            @elseif ($room->status == 1)
+                <?php $backgroundColor = '#ce5375'; ?>
+            @else
+                <?php $backgroundColor = '#493163'; ?>
+            @endif
             <div class="col-md-3">
                 <div class="ibox">
                     <div class="ibox-content product-box" style="height: 400px">
@@ -18,18 +24,7 @@
                             <img src="https://image.shutterstock.com/image-photo/bright-spring-view-cameo-island-260nw-1048185397.jpg" style="width: 100%">
                         </div>
                         <div class="product-desc" style="padding: 10px !important;">
-                            {{--                        <span class="product-price">--}}
-                            {{--                            $10--}}
-                            {{--                        </span>--}}
-                            {{--                        <small class="text-muted">Category</small>--}}
-                            {{--                        <a href="#" class="product-name"> Product</a>--}}
-                            {{--                        <div class="small m-t-xs">--}}
-                            {{--                            Many desktop publishing packages and web page editors now.--}}
-                            {{--                        </div>--}}
-                            {{--                        <div class="m-t text-righ">--}}
-                            {{--                            <a href="#" class="btn btn-xs btn-outline btn-primary">Info <i class="fa fa-long-arrow-right"></i> </a>--}}
-                            {{--                        </div>--}}
-                            <figure class="imghvr-flip-diag-2" style="width: 100%;display: block !important; background-color:{{($room->status == 0 ? '#3955a7':'#ce5375' )}}  !important;">
+                            <figure class="imghvr-flip-diag-2" style="width: 100%;display: block !important; background-color:{{$backgroundColor}}  !important;">
                                 <div class="" style="height: 150px;padding: 0px">
                                     <div style="padding: 10px;text-align: initial">
                                         <div class="room_code">
@@ -74,18 +69,18 @@
                                 <figcaption style="width: 100%">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <button type="button" class="btn btn-w-m btn-info" {{$room->status != 0 ? 'disabled' : ''}} data-toggle="modal" data-target="#myModal2" data-room_id = "{{$room->room_id}}" data-number_customer = {{$room->number_count}} data-mode="checkIn" onclick="handleCheckIn(this)">Check in</button>
+                                            <button type="button" class="btn btn-w-m btn-info" {{$room->status != 0 ? 'disabled' : ''}} data-toggle="modal" data-target="#myModal2" data-room_id = "{{$room->room_id}}" data-number_customer = {{$room->number_count}} data-mode="checkIn" onclick="handle(this)">Check in</button>
                                         </div>
 
                                         <div class="col-md-6">
-                                            <button type="button" class="btn btn-w-m btn-info" {{$room->status == 0 ? 'disabled' : ''}} data-toggle="modal" data-target="#myModal2" data-room_register_id = "{{$room->room_register_id}}" data-number_customer = {{$room->number_count}} data-mode="checkOut" onclick="handleCheckIn(this)">Check out</button>
+                                            <button type="button" class="btn btn-w-m btn-info" {{$room->status == 0 ? 'disabled' : ''}} data-toggle="modal" data-target="#myModal2" data-room_register_id = "{{$room->room_register_id}}" data-number_customer = {{$room->number_count}} data-mode="checkOut" onclick="handle(this)">Check out</button>
                                         </div>
 
                                     </div>
                                     <br>
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <button type="button" class="btn btn-w-m btn-info" {{$room->status == 0 ? 'disabled' : ''}} data-toggle="modal" data-target="#myModal2" data-room_register_id = "{{$room->room_register_id}}"  data-number_customer = {{$room->number_count}} data-mode="update" onclick="handleCheckIn(this)">Update</button>
+                                            <button type="button" class="btn btn-w-m btn-info" {{$room->status == 0 ? 'disabled' : ''}} data-toggle="modal" data-target="#myModal2" data-room_register_id = "{{$room->room_register_id}}"  data-number_customer = {{$room->number_count}} data-mode="update" onclick="handle(this)">Update</button>
                                         </div>
                                         <div class="col-md-6">
                                             <button type="button" class="btn btn-w-m btn-info" {{$room->status != 0 ? 'disabled' : ''}}>Room Order </button>

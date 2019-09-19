@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Handle;
 use App\Http\Controllers\Controller;
+use App\Models\RoomRegister;
 use App\Repositories\Eloquents\CustomerRepository;
 use App\Repositories\Eloquents\InvoiceRepository;
 use App\Repositories\Eloquents\RoomPriceRepository;
@@ -68,24 +69,27 @@ class CheckInCheckOutController extends Controller
 
         $data_response = DB::transaction(function () use ($data) {
             if($data['mode'] == 'checkIn' || $data['mode'] == 'update'){
-                //insert table room_register and get id
-                //room price invoice
-                 if($data['id_room_price'] == '1'){
-                     $data['currentTime'] = '00:00';
-                     $data['toTime'] = '00:00';
-                 }
-                $data['date_check_in'] = Carbon::create($data['date_check_in'].' '.$data['currentTime']);
-                $data['date_check_out'] = Carbon::create($data['date_check_out'].' '.$data['toTime']);
-                $room_Price = $this->roomPriceRepository->getById($data['id_room_price']);
-                if($data['id_room_price'] == '1'){
-                    $countDate = $data['date_check_in']->diffInDays($data['date_check_out']);
-                    $data['room_price_invoice'] = $room_Price->price * $countDate;
-                }else{
-                    $countTime = $data['date_check_in']->diffInHours($data['date_check_out']);
-                    $data['room_price_invoice'] = $room_Price->price * $countTime;
+                if($data['mode'] == 'checkIn'){
+                    //insert table room_register and get id
+                    //room price invoice
+                    if($data['id_room_price'] == '1'){
+                        $data['currentTime'] = '00:00';
+                        $data['toTime'] = '00:00';
+                    }
+                    $data['date_check_in'] = Carbon::create($data['date_check_in'].' '.$data['currentTime']);
+                    $data['date_check_out'] = Carbon::create($data['date_check_out'].' '.$data['toTime']);
+                    $room_Price = $this->roomPriceRepository->getById($data['id_room_price']);
+                    if($data['id_room_price'] == '1'){
+                        $countDate = $data['date_check_in']->diffInDays($data['date_check_out']);
+                        $data['room_price_invoice'] = $room_Price->price * $countDate;
+                    }else{
+                        $countTime = $data['date_check_in']->diffInHours($data['date_check_out']);
+                        $data['room_price_invoice'] = $room_Price->price * $countTime;
+                    }
+                    $data['date_check_in'] = $data['date_check_in']->toDateTimeString();
+                    $data['date_check_out'] = $data['date_check_out']->toDateTimeString();
                 }
-                $data['date_check_in'] = $data['date_check_in']->toDateTimeString();
-                $data['date_check_out'] = $data['date_check_out']->toDateTimeString();
+
 
                 $data['RoomRegister'] = ($this->roomRegisterRepository->create($data))->toArray();
 
@@ -141,47 +145,44 @@ class CheckInCheckOutController extends Controller
 
     public function getInfoDetail(Request $req)
     {
-        //var_dump($req->id);die('5');
+        $id_room = $req->id_room;
+        $id_room_register = $req->id_room_register;
+
+        $roomRegisterModel = new RoomRegister();
+        $roomRegisterModel->fill([
+            'id_room'=>$id_room,
+            'date_check_in'=>Carbon::now()->toDateString(),
+            'date_check_out'=>Carbon::now()->toDateString(),
+        ]);
+
         $dataView = [
-            'roomRegister'         => [],
+            'roomRegister'         => $roomRegisterModel,
             'roomRegisterService'  => [],
             'roomRegisterCustomer' => [],
-            'services'      => $this->serviceRepository->getAll(),
-            'customers'     => $this->customerRepository->getAll(),
-            'roomPrice'     => $this->roomPriceRepository->getAll(),
-            'currentTime'   => Carbon::now()->hour . ':' . Carbon::now()->minute,
-            'currentDate'   =>  Carbon::now()->toDateString()
+            'invoiceService'       => 0,
+            'room'                 => $this->roomRepository->getById($id_room),
+            'services'             => $this->serviceRepository->getAll(),
+            'customers'            => $this->customerRepository->getAll(),
+            'roomPrice'            => $this->roomPriceRepository->getAll(),
         ];
-        if($req->id != '0'){
-            $roomRegisterService = $this->roomRegisterServiceRepository->getByAttribute(array('id_room_register'=>$req->id,'del_flg'=>0));
+        if($id_room_register != '0'){
+            $totalPriceService = 0;
+            $roomRegisterService = $this->roomRegisterServiceRepository->getByAttribute(array('id_room_register'=>$id_room_register,'del_flg'=>0));
             foreach ($roomRegisterService as $key  => $item){
                 $roomRegisterService[$key]->serviceName = $item->serviceInstance['serviceName'];
                 $roomRegisterService[$key]->servicePrice = $item->serviceInstance['servicePrice'];
+                $totalPriceService += $item->price;
             }
-            $dataView['roomRegister']           = $this->roomRegisterRepository->getDetailInfoRoomRegister($req->id);
+            $dataView['invoiceService']         = $totalPriceService;
+            $dataView['roomRegister']           = $roomRegisterModel->fill($this->roomRegisterRepository->getDetailInfoRoomRegister($id_room_register));
             $dataView['roomRegisterService']    = $roomRegisterService;
-            $dataView['roomRegisterCustomer']   = $this->roomRegisterCustomerRepository->getByAttribute(array('id_room_register'=>$req->id,'del_flg'=>0));
+            $dataView['roomRegisterCustomer']   = $this->roomRegisterCustomerRepository->getByAttribute(array('id_room_register'=>$id_room_register,'del_flg'=>0));
         }
-//
-//
-//        $data = [
-//            'roomRegister'         => $this->roomRegisterRepository->getDetailInfoRoomRegister($req->id),
-//            'roomRegisterService'  => $roomRegisterService,
-//            'roomRegisterCustomer' => $this->roomRegisterCustomerRepository->getByAttribute(array('id_room_register'=>$req->id,'del_flg'=>0)),
-//
-//        ];
 
-        //var_dump(($data['roomRegister']));die('3');
-//        foreach ($data['roomRegisterService'] as $item){
-//            var_dump($item->serviceName);die('3');
-//        }
+      // var_dump($dataView['roomRegister']);die('3');
         return response()
             ->view('Partials.AjaxView.Handle_Modal_Ajax',['data'=>$dataView],200)
             ->header('Content-Type','application/html');
-
-           //'result' => view('Partials.AjaxView.Handle_Modal_Ajax',['data'=>$dataView])
-
-        //return view('Partials.AjaxView.Handle_Modal_Ajax',['data'=>$dataView]);
     }
 
     public function deleteRoomRegisterCustomer(Request $req)

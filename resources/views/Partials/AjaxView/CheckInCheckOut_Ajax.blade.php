@@ -69,18 +69,46 @@
                                 <figcaption style="width: 100%">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <button type="button" class="btn btn-w-m btn-info" {{$room->status != 0 ? 'disabled' : ''}} data-toggle="modal" data-target="#myModal2" data-room_id = "{{$room->room_id}}" data-number_customer = {{$room->number_count}} data-mode="checkIn" onclick="handle(this)">Check in</button>
+                                            <button type="button"
+                                                    class="btn btn-w-m btn-info"
+                                                    {{$room->status != 0 ? 'disabled' : ''}}
+                                                    data-toggle="modal"
+                                                    data-target="#myModal2"
+                                                    data-room_id = "{{$room->room_id}}"
+                                                    data-room_register_id ="0"
+                                                    data-mode="checkIn"
+                                                    onclick="handle(this)">
+                                                Check in</button>
                                         </div>
 
                                         <div class="col-md-6">
-                                            <button type="button" class="btn btn-w-m btn-info" {{$room->status == 0 ? 'disabled' : ''}} data-toggle="modal" data-target="#myModal2" data-room_register_id = "{{$room->room_register_id}}" data-number_customer = {{$room->number_count}} data-mode="checkOut" onclick="handle(this)">Check out</button>
+                                            <button type="button"
+                                                    class="btn btn-w-m btn-info"
+                                                    {{$room->status == 0 ? 'disabled' : ''}}
+                                                    data-toggle="modal"
+                                                    data-target="#myModal2"
+                                                    data-room_id = "{{$room->room_id}}"
+                                                    data-room_register_id = "{{$room->room_register_id}}"
+                                                    data-mode="checkOut"
+                                                    onclick="handle(this)">
+                                                Check out</button>
                                         </div>
 
                                     </div>
                                     <br>
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <button type="button" class="btn btn-w-m btn-info" {{$room->status == 0 ? 'disabled' : ''}} data-toggle="modal" data-target="#myModal2" data-room_register_id = "{{$room->room_register_id}}"  data-number_customer = {{$room->number_count}} data-mode="update" onclick="handle(this)">Update</button>
+                                            <button type="button"
+                                                    class="btn btn-w-m btn-info"
+                                                    {{$room->status == 0 ? 'disabled' : ''}}
+                                                    data-toggle="modal"
+                                                    data-target="#myModal2"
+                                                    data-room_id = "{{$room->room_id}}"
+                                                    data-room_register_id = "{{$room->room_register_id}}"
+                                                    data-number_customer = "{{$room->number_count}}"
+                                                    data-mode="update"
+                                                    onclick="handle(this)">
+                                                Update</button>
                                         </div>
                                         <div class="col-md-6">
                                             <button type="button" class="btn btn-w-m btn-info" {{$room->status != 0 ? 'disabled' : ''}}>Room Order </button>

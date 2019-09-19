@@ -33,10 +33,10 @@
                     <div class="ibox-content" style="">
                         <form method="post" id="frmCheckInCheckOut">
                             @csrf
-                            <input hidden type="text" class="form-control" name="id" value="0">
-                            <input hidden type="text" class="form-control" name="id_room">
-                            <input hidden type="text" class="form-control" name="number_customer_of_room">
-                            <input hidden type="text" class="form-control" name="mode">
+                            <input hidden type="text" class="form-control" name="id" value="{{(empty($data['roomRegister'])) ? '0' : $data['roomRegister']->id}}">
+                            <input hidden type="text" class="form-control" name="id_room" value="{{$data['room']->id}}">
+                            <input hidden type="text" class="form-control" name="number_customer_of_room" value="{{$data['room']->number_count}}">
+                            <input hidden type="text" class="form-control" name="mode" value="22222">
                             <div class="follow_by_date">
                                 <div class="i-checks">
                                     @foreach($data['roomPrice'] as $key => $price)
@@ -55,19 +55,19 @@
                                 <div class="form-group" id="data_5">
                                     <label class="font-normal">Choose date time check in / check out</label>
                                     <div class="input-daterange input-group" id="datepicker">
-                                        <input type="text" class="form-control-sm form-control" name="date_check_in" value="{{$data['currentDate']}}">
+                                        <input type="text" class="form-control-sm form-control" name="date_check_in" value="{{$data['roomRegister']->date_check_in}}">
                                         <span class="input-group-addon">to</span>
-                                        <input type="text" class="form-control-sm form-control" name="date_check_out" value="{{$data['currentDate']}}">
+                                        <input type="text" class="form-control-sm form-control" name="date_check_out" value="{{$data['roomRegister']->date_check_out}}">
                                     </div>
                                 </div>
                                 <div style="display: flex">
                                     <div class="form-group" id="chooseTime" style="width: 30%">
                                         <label class="font-normal">From time</label>
-                                        <input class="form-control" type="time" id="time" name="currentTime" value="{{$data['currentTime']}}" readonly>
+                                        <input class="form-control" type="time" id="time" name="fromTime" value="{{$data['roomRegister']->fromTime}}" readonly>
                                     </div>
                                     <div class="form-group" id="chooseTime" style="width: 30%;margin-left: 30px">
                                         <label class="font-normal">To time</label>
-                                        <input class="form-control" type="time" id="time" name="toTime" readonly>
+                                        <input class="form-control" type="time" id="time" name="toTime" value="{{$data['roomRegister']->toTime}}" readonly>
                                     </div>
                                 </div>
 
@@ -76,7 +76,7 @@
 
                                 <div class="form-group" style="width: 50%">
                                     <label class="">Price invoice</label>
-                                    <input type="text" class="form-control" name="room_price_invoice" readonly>
+                                    <input type="text" class="form-control" name="room_price_invoice" value="{{$data['roomRegister']->room_price_invoice}}" readonly>
                                 </div>
                             </div>
 
@@ -85,7 +85,7 @@
                             <div class="form-group ">
                                 <label class="">Note</label>
                                 <div class="">
-                                    <textarea type="text" class="form-control" name="note"></textarea>
+                                    <textarea type="text" class="form-control" name="note">{{$data['roomRegister']->note}}</textarea>
                                 </div>
                             </div>
                         </form>
@@ -166,12 +166,34 @@
                                     </tr>
                                     </thead>
                                     <tbody id="tbodyInformationService">
-
+                                    @if($data['roomRegisterService'] != null && count($data['roomRegisterService']) > 0 )
+                                        @foreach($data['roomRegisterService'] as $item)
+                                            <tr  id="rowService">
+                                                <td hidden>
+                                                    <input type="text" name="id" value="0">
+                                                </td>
+                                                <td hidden>
+                                                    <input type="text" name="id_service">
+                                                </td>
+                                                <td>{{$item->serviceName}}</td>
+                                                <td>
+                                                    <input  type="text" name="count" onChange="sumPrice(this)" value="{{$item->count}}">
+                                                </td>
+                                                <td>
+                                                    <input readonly type="text" name="service_price" value="{{$item->servicePrice}}">
+                                                </td>
+                                                <td>{{$item->price}}</td>
+                                                <td>
+                                                    <a href="javascript:void(false)" data-mode="service" data-idInstance="0" onclick="deleteInstance(this)">Delete</a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
                                     </tbody>
                                 </table>
                                 <div style="text-align: right" id="totalServicePrice">
                                     <span>Total:</span>
-                                    <input type="text" class="" disabled value="0" style="text-align: right">
+                                    <input type="text" class="" disabled value="{{$data['invoiceService']}}" style="text-align: right">
                                 </div>
                             </div>
                         </form>
@@ -262,7 +284,33 @@
                                 </tr>
                                 </thead>
                                 <tbody id="tbodyInformationCustomer">
-
+                                    @if($data['roomRegisterCustomer'] != null && count($data['roomRegisterCustomer']) > 0 )
+                                        @foreach($data['roomRegisterCustomer'] as $item)
+                                            <tr id="rowCustomer" data-id_customer="0">
+                                                <td hidden>
+                                                    <input type="text" name="id" value="{{$item->id}}">
+                                                </td>
+                                                <td hidden>
+                                                    <input type="text" name="id_customer" value="0">
+                                                </td>
+                                                <td>
+                                                    <input  type="text" name="fullName" value="{{$item->fullName}}">
+                                                </td>
+                                                <td>
+                                                    <input  type="text" name="phoneNumber" value="{{$item->phoneNumber}}">
+                                                </td>
+                                                <td>
+                                                    <input  type="text" name="identityCard" value="{{$item->identityCard}}">
+                                                </td>
+                                                <td>
+                                                    <input type="checkbox" name="is_member" {{($item->is_member == 1) ? 'checked' : '' }}>
+                                                </td>
+                                                <td>
+                                                    <a href="javascript:void(false)" data-mode="customer" data-idInstance="0" onclick="deleteInstance(this)">Delete</a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
@@ -328,9 +376,9 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-white" data-dismiss="modal" id="closeModal" onclick="closeModal()">Close</button>
-        <button type="button" class="btn btn-primary" id="save">Save changes</button>
-        <button type="button" class="btn btn-danger" id="checkout">Check out</button>
+        <button type="button" class="btn btn-white" data-dismiss="modal" id="closeModal">Close</button>
+        <button type="button" class="btn btn-primary" id="save" onclick="saveInstance()">Save changes</button>
+        <button type="button" class="btn btn-danger" id="checkout" hidden>Check out</button>
     </div>
 </div>
 

@@ -86,40 +86,75 @@
                 });
 
             });
+
+            $('#myModal2').on('hidden.bs.modal', function () {
+                $("div#modalHandle").find("div.modal-dialog").empty();
+            });
         });
-        function closeModal() {
-            $("div#modalHandle").find("div.modal-dialog").empty();
-            $("div#myModal2").css('display','none');
-            $("div#myModal2").attr('aria-hidden',true);
-            $(".modal").css('z-index','2050 !important');
+        function saveInstance() {
+            var dataService = tableModule.getDataForTable($("tbody#tbodyInformationService"));
+            var dataForm = $("form#frmCheckInCheckOut").serializeArray();
+            var dataCustomer = tableModule.getDataForTable($("tbody#tbodyInformationCustomer"));
+            dataForm.push(
+                {
+                    name:'services',value:JSON.stringify(dataService)
+                },
+                {
+                    name:'customers',value:JSON.stringify(dataCustomer)
+                }
+            );
+            if($("input[name=mode]").val() == 'checkOut'){
+                var dataInvoice = tableModule.getDataForTable($("tbody#tbodyInformationInvoice"));
+                dataForm.push({name:'invoice',value:JSON.stringify(dataInvoice)});
+            }
+            $.ajax({
+                url     :'/handle',
+                data    :dataForm,
+                method  :'POST',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success : function (data) {
+                    //console.log(data.result.room_price_invoice);
+                    if(data.status === 200){
+                        $("small#informationHandle").removeAttr('hidden').text('Update success');
+                        $("input[name=room_price_invoice]").val(data.result.room_price_invoice);
+                    }
+                }
+            });
         }
          function handle(element) {
             let mode = $(element).attr('data-mode');
-            let count_customer = $(element).attr('data-number_customer');
-            $("input[name=number_customer_of_room]").val(count_customer);
-            $("input[name=mode]").val(mode);
-            if(mode == "checkIn"){
-                let idRoom =  $(element).attr('data-room_id');
-                $("input[name=id_room]").val(idRoom);
-                changeModeForm('checkIn');
-                return;
+            let id_room = $(element).attr('data-room_id');
+            //let count_customer = $(element).attr('data-number_customer');
+            //$("input[name=number_customer_of_room]").val(count_customer);
+
+             let idRoomRegister = 0 ;
+             if(mode != "checkIn"){
+               // let idRoom =  $(element).attr('data-room_id');
+                //$("input[name=id_room]").val(idRoom);
+                //changeModeForm('checkIn');
+                //return;
+                 idRoomRegister = $(element).attr('data-room_register_id');
             }else{
-                changeModeForm('update');
+
+                //changeModeForm('update');
             }
-            let idRoomRegister = $(element).attr('data-room_register_id');
+
             let objDataSend = {
                 method : 'GET',
                 headers : '',
-                url: '/getInfoDetail/'+idRoomRegister,
+                url: '/getInfoDetail/'+id_room+'/'+idRoomRegister,
                 data: '',
             };
-            let promiseAjaxServer =  serverModule.callServiceByPromiseAjax(objDataSend);
+            let promiseAjaxServer =  serverModule.callServiceByAjax(objDataSend);
             //console.log(promiseAjaxServer);
             //$("div#modalHandle").find("div.modal-dialog").empty().append(promiseAjaxServer);
                 promiseAjaxServer
                     .then(response=>{
                         $("div#modalHandle").find("div.modal-dialog").empty().append(response);
-                    })
+                        $("input[name=mode]").val(mode);
+                    });
                 //     .catch(error => {console.log('reject');})
 
 

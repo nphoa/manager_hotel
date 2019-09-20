@@ -6,7 +6,8 @@ class Util {
     const status  = array(
         '0'   => 'Empty',
         '1'   => 'Check In',
-        '2'   =>  'Check Out',
+        '2'   =>  'Order',
+        '3'   => 'Check Out'
     );
     public  static function getStatusName($idStatus){
       return  (self::status)[$idStatus];

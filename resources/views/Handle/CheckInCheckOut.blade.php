@@ -123,28 +123,22 @@
                 }
             });
         }
-         function handle(element) {
+        function handle(element) {
             let mode = $(element).attr('data-mode');
             let id_room = $(element).attr('data-room_id');
+            let idRoomRegister = $(element).attr('data-room_register_id');
             //let count_customer = $(element).attr('data-number_customer');
             //$("input[name=number_customer_of_room]").val(count_customer);
 
-             let idRoomRegister = 0 ;
-             if(mode != "checkIn"){
-               // let idRoom =  $(element).attr('data-room_id');
-                //$("input[name=id_room]").val(idRoom);
-                //changeModeForm('checkIn');
-                //return;
-                 idRoomRegister = $(element).attr('data-room_register_id');
-            }else{
-
-                //changeModeForm('update');
-            }
+            // let idRoomRegister = 0 ;
+             //if(mode != "checkIn"){
+               //  idRoomRegister = $(element).attr('data-room_register_id');
+             //}
 
             let objDataSend = {
                 method : 'GET',
                 headers : '',
-                url: '/getInfoDetail/'+id_room+'/'+idRoomRegister,
+                url: '/getInfoDetail/'+mode+'/'+id_room+'/'+idRoomRegister,
                 data: '',
             };
             let promiseAjaxServer =  serverModule.callServiceByAjax(objDataSend);
@@ -154,6 +148,7 @@
                     .then(response=>{
                         $("div#modalHandle").find("div.modal-dialog").empty().append(response);
                         $("input[name=mode]").val(mode);
+                        changeModeForm(mode);
                     });
                 //     .catch(error => {console.log('reject');})
 
@@ -254,23 +249,6 @@
                 $("select[name=services]").val(0);
                 $('.chosen-select').trigger("chosen:updated");
             },500);
-
-            //$("option#defaultValue").attr("selected","selected");
-            // dataService.forEach(function (item) {
-            //
-            //     //let idItem = item.replace(/\s/g, "");
-            //     let row = $("tr#"+item);
-            //     console.log(row);
-            //     if(row.length == 0){
-            //         //add new row
-            //         let e_option = $(e).find("option[data-id="+item+"]");
-            //         let rowServiceNew = $("#rowService").clone().css('display','');
-            //         rowServiceNew.attr('id',item);
-            //         rowServiceNew.find("td:eq(1)").text(e_option.attr('data-name'));
-            //         rowServiceNew.find("td:eq(3)").children().val(e_option.attr('data-price'));
-            //         $("#tbodyInformationService").append(rowServiceNew);
-            //     }
-            // });
         }
         function sumPrice(e){
             let tr = $(e).parent().parent();
@@ -323,8 +301,10 @@
             let typePrice = $(e).val();
             if(typePrice === '2'){
                 $("input[name=toTime]").val('').removeAttr('readonly');
+                $("input[name=fromTime]").val('').removeAttr('readonly');
             }else{
                 $("input[name=toTime]").val('').attr('readonly','readonly');
+                $("input[name=fromTime]").val('').attr('readonly','readonly');
             }
         }
         
@@ -334,10 +314,10 @@
             let room_register_customer_form = $("tbody#tbodyInformationCustomer");
             let room_register_service_form = $("tbody#tbodyInformationService");
             let btnSaveHandle = $("button#save");
-            let divInvoice = $("div#divInvoice");
-            if(mode == 'checkout'){
+
+            if(mode == 'CheckOut'){
                 btnSaveHandle.html('Check out');
-                divInvoice.removeAttr('hidden');
+
                 //Room register
                 params.filter((item)=>{
                     room_register_form.find(item).attr('disabled',true);
@@ -365,16 +345,16 @@
                 return;
             }
 
-            room_register_customer_form.empty();
-            room_register_service_form.empty();
-            divInvoice.attr('hidden','hidden');
-            btnSaveHandle.html('Save');
-            if(mode == 'update'){
+           // room_register_customer_form.empty();
+           // room_register_service_form.empty();
+            //divInvoice.attr('hidden','hidden');
+           // btnSaveHandle.html('Save');
+            if(mode == 'Update'){
                 params.filter((item)=>{
                     room_register_form.find(item).attr('disabled',true);
                 });
             }
-            if(mode == 'checkIn'){
+            if(mode == 'CheckIn' || mode == 'Order'){
                 params.filter((item)=>{
                     room_register_form.find(item).removeAttr('disabled',true);
                 });
@@ -410,7 +390,7 @@
             }
             //Call ajax to server
             if(idInstance != "0"){
-                let promiseAjaxServer = serverModule.callServiceByPromiseAjax(objDataSend);
+                let promiseAjaxServer = serverModule.callServiceByAjax(objDataSend);
                 promiseAjaxServer
                     .then(response=>{
                         $(e).parent().parent().remove();

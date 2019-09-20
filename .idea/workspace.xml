@@ -3,13 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="db14a497-36c9-4b8b-8934-d10f1166030f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Helpers/Util.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Helpers/Util.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Handle/CheckInCheckOutController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Handle/CheckInCheckOutController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/RoomRegister.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/RoomRegister.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Repositories/Eloquents/RoomRegisterRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/Eloquents/RoomRegisterRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/Common/server.Module.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/Common/server.Module.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/Categories/Room.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/Categories/Room.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/Handle/CheckInCheckOut.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/Handle/CheckInCheckOut.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/Partials/AjaxView/CheckInCheckOut_Ajax.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/Partials/AjaxView/CheckInCheckOut_Ajax.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/Partials/AjaxView/Handle_Modal_Ajax.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/Partials/AjaxView/Handle_Modal_Ajax.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/Partials/AjaxView/Room_Ajax.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/Partials/AjaxView/Room_Ajax.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -194,6 +195,7 @@
       <workItem from="1568684900999" duration="25130000" />
       <workItem from="1568771481551" duration="19890000" />
       <workItem from="1568861176166" duration="11494000" />
+      <workItem from="1568944369648" duration="23283000" />
     </task>
     <servers />
   </component>

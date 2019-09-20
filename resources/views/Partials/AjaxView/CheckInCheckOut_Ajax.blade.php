@@ -14,9 +14,12 @@
                 <?php $backgroundColor = '#0430b1'; ?>
             @elseif ($room->status == 1)
                 <?php $backgroundColor = '#ce5375'; ?>
+            @elseif($room->status == 2)
+                <?php $backgroundColor = '#493163';?>
             @else
-                <?php $backgroundColor = '#493163'; ?>
+                <?php $backgroundColor = '#515667'; ?>
             @endif
+
             <div class="col-md-3">
                 <div class="ibox">
                     <div class="ibox-content product-box" style="height: 400px">
@@ -74,9 +77,9 @@
                                                     {{$room->status != 0 ? 'disabled' : ''}}
                                                     data-toggle="modal"
                                                     data-target="#myModal2"
-                                                    data-room_id = "{{$room->room_id}}"
-                                                    data-room_register_id ="0"
-                                                    data-mode="checkIn"
+                                                    data-room_id= "{{$room->room_id}}"
+                                                    data-room_register_id="0"
+                                                    data-mode="CheckIn"
                                                     onclick="handle(this)">
                                                 Check in</button>
                                         </div>
@@ -84,16 +87,15 @@
                                         <div class="col-md-6">
                                             <button type="button"
                                                     class="btn btn-w-m btn-info"
-                                                    {{$room->status == 0 ? 'disabled' : ''}}
+                                                    {{($room->status == 0 || $room->status == 2) ? 'disabled' : ''}}
                                                     data-toggle="modal"
                                                     data-target="#myModal2"
                                                     data-room_id = "{{$room->room_id}}"
                                                     data-room_register_id = "{{$room->room_register_id}}"
-                                                    data-mode="checkOut"
+                                                    data-mode="CheckOut"
                                                     onclick="handle(this)">
                                                 Check out</button>
                                         </div>
-
                                     </div>
                                     <br>
                                     <div class="row">
@@ -106,14 +108,24 @@
                                                     data-room_id = "{{$room->room_id}}"
                                                     data-room_register_id = "{{$room->room_register_id}}"
                                                     data-number_customer = "{{$room->number_count}}"
-                                                    data-mode="update"
+                                                    data-mode="Update"
                                                     onclick="handle(this)">
                                                 Update</button>
                                         </div>
                                         <div class="col-md-6">
-                                            <button type="button" class="btn btn-w-m btn-info" {{$room->status != 0 ? 'disabled' : ''}}>Room Order </button>
+                                            <button type="button"
+                                                    class="btn btn-w-m btn-info"
+                                                    {{$room->status != 0 ? 'disabled' : ''}}
+                                                    data-toggle="modal"
+                                                    data-target="#myModal2"
+                                                    data-room_id = "{{$room->room_id}}"
+                                                    data-room_register_id = "0"
+                                                    data-number_customer = "{{$room->number_count}}"
+                                                    data-mode="Order"
+                                                    onclick="handle(this)">
+                                                Room Order
+                                            </button>
                                         </div>
-
                                     </div>
                                 </figcaption>
                             </figure>

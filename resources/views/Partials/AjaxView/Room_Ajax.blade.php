@@ -70,7 +70,6 @@
                                 <td>{{$room->room_name}}</td>
                                 <td>{{$room->typeName}}</td>
                                 <td>{{$room->floorName}}</td>
-                                <td>{{$room->price}}</td>
                                 <td>{{$room->number_count}}</td>
                                 <td>{{$room->note}}</td>
                                 <td>

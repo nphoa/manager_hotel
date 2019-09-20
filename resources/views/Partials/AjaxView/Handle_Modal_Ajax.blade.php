@@ -1,8 +1,8 @@
-
 <div class="modal-content animated flipInY">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         <h4 class="modal-title">Information Room Register</h4>
+        <h4 style="color: #6b0392;font-weight: bold">{{$data['mode']}}</h4>
         <small class="font-bold" style="color: midnightblue;font-size: 15px" id="informationHandle" hidden>
         </small>
     </div>
@@ -33,10 +33,11 @@
                     <div class="ibox-content" style="">
                         <form method="post" id="frmCheckInCheckOut">
                             @csrf
-                            <input hidden type="text" class="form-control" name="id" value="{{(empty($data['roomRegister'])) ? '0' : $data['roomRegister']->id}}">
+                            <input hidden type="text" class="form-control" name="id" value="{{$data['roomRegister']->id}}">
                             <input hidden type="text" class="form-control" name="id_room" value="{{$data['room']->id}}">
                             <input hidden type="text" class="form-control" name="number_customer_of_room" value="{{$data['room']->number_count}}">
                             <input hidden type="text" class="form-control" name="mode" value="22222">
+                            <input hidden type="text" class="form-control" name="status" value="{{$data['roomRegister']->status}}">
                             <div class="follow_by_date">
                                 <div class="i-checks">
                                     @foreach($data['roomPrice'] as $key => $price)
@@ -317,7 +318,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-5" id="divInvoice" hidden>
+            @if($data['mode'] === 'CheckOut')
+                <div class="col-lg-5" id="divInvoice">
                 <div class="ibox">
                     <div class="ibox-title">
                         <h5>Information invoice</h5>
@@ -350,18 +352,17 @@
                                         <th>Invoice Service</th>
                                         <th>Total</th>
                                     </tr>
-
                                     </thead>
                                     <tbody id="tbodyInformationInvoice">
-                                    <tr style="display: none" id="rowInvoice">
+                                    <tr id="rowInvoice">
                                         <td>
-                                            <input type="text" name="invoice_room" style="width: 150px" readonly>
+                                            <input type="text" name="invoice_room" style="width: 150px" readonly value="{{$data['roomRegister']->room_price_invoice}}">
                                         </td>
                                         <td>
-                                            <input type="text" name="invoice_service" style="width: 150px" readonly>
+                                            <input type="text" name="invoice_service" style="width: 150px" readonly value="{{$data['roomRegister']->service_invoice}}">
                                         </td>
                                         <td>
-                                            <input type="text" name="invoice_price" style="width: 150px" readonly>
+                                            <input type="text" name="invoice_price" style="width: 150px" readonly value="{{$data['roomRegister']->room_price_invoice + $data['roomRegister']->service_invoice}}">
                                         </td>
                                     </tr>
                                     </tbody>
@@ -372,7 +373,7 @@
                     </div>
                 </div>
             </div>
-
+            @endif
         </div>
     </div>
     <div class="modal-footer">

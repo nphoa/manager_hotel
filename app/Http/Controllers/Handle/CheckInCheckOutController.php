@@ -55,7 +55,7 @@ class CheckInCheckOutController extends Controller
             'customers'     => $this->customerRepository->getAll(),
             'roomPrice'     => $this->roomPriceRepository->getAll(),
             'currentTime'   => Carbon::now()->hour . ':' . Carbon::now()->minute,
-            'currentDate'   =>  Carbon::now()->toDateString()
+            'currentDate'   => Carbon::now()->toDateString()
         ];
         return view('Handle.CheckInCheckOut',['data'=>$dataView]);
     }
@@ -68,8 +68,8 @@ class CheckInCheckOutController extends Controller
         //var_dump($data);die('3');
 
         $data_response = DB::transaction(function () use ($data) {
-            if($data['mode'] == 'checkIn' || $data['mode'] == 'update'){
-                if($data['mode'] == 'checkIn'){
+            if($data['mode'] != 'CheckOut'){
+                if($data['mode'] == 'CheckIn' || $data['mode'] == 'Order'){
                     //insert table room_register and get id
                     //room price invoice
                     if($data['id_room_price'] == '1'){
@@ -145,16 +145,19 @@ class CheckInCheckOutController extends Controller
 
     public function getInfoDetail(Request $req)
     {
+        $mode = $req->mode;
         $id_room = $req->id_room;
         $id_room_register = $req->id_room_register;
 
         $roomRegisterModel = new RoomRegister();
         $roomRegisterModel->fill([
-            'id_room'=>$id_room,
-            'date_check_in'=>Carbon::now()->toDateString(),
-            'date_check_out'=>Carbon::now()->toDateString(),
+            'id'                =>$id_room_register,
+            'id_room'           =>$id_room,
+            'date_check_in'     =>Carbon::now()->toDateString(),
+            'date_check_out'    =>Carbon::now()->toDateString(),
+            'status'            =>($mode != 'Update') ? $roomRegisterModel::status[$mode] : $roomRegisterModel::status['CheckIn']
         ]);
-
+        //var_dump($roomRegisterModel);die('3');
         $dataView = [
             'roomRegister'         => $roomRegisterModel,
             'roomRegisterService'  => [],
@@ -164,6 +167,7 @@ class CheckInCheckOutController extends Controller
             'services'             => $this->serviceRepository->getAll(),
             'customers'            => $this->customerRepository->getAll(),
             'roomPrice'            => $this->roomPriceRepository->getAll(),
+            'mode'                 => $mode,
         ];
         if($id_room_register != '0'){
             $totalPriceService = 0;
@@ -179,7 +183,7 @@ class CheckInCheckOutController extends Controller
             $dataView['roomRegisterCustomer']   = $this->roomRegisterCustomerRepository->getByAttribute(array('id_room_register'=>$id_room_register,'del_flg'=>0));
         }
 
-      // var_dump($dataView['roomRegister']);die('3');
+       //var_dump($dataView['roomRegisterService']);die('3');
         return response()
             ->view('Partials.AjaxView.Handle_Modal_Ajax',['data'=>$dataView],200)
             ->header('Content-Type','application/html');

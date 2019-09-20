@@ -104,16 +104,6 @@
                                             </div>
                                         </div>
                                         <div class="form-group  row">
-                                            <label class="col-sm-2 col-form-label">Price</label>
-                                            <div class="col-sm-10">
-                                                <input type="number" class="form-control" name="price">
-
-                                                <span style="color: red" hidden>
-                                                    ABC
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="form-group  row">
                                             <label class="col-sm-2 col-form-label">Number count</label>
                                             <div class="col-sm-10">
                                                 <input type="number" class="form-control" name="number_count">

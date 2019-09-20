@@ -23,10 +23,15 @@ class RoomRegister extends BaseModel
                     'note',
                     'status',
                     'del_flg',
-                    'fromTime',
-                    'toTime'
+                    //'fromTime',
+                    //'toTime'
     ];
-
+     const status = [
+        'Empty'     => 0,
+        'CheckIn'   => 1,
+        'Order'     => 2,
+        'CheckOut'  => 3,
+    ];
 
 
 }

@@ -20,7 +20,7 @@ class RoomPricesTableSeeder extends Seeder
             'updated_at'    => Carbon::now()
         ]);
         DB::table('room_prices')->insert([
-            'type_price'    => 'Thuê theo ',
+            'type_price'    => 'Thuê theo giờ',
             'price'         => '30000',
             'created_at'    => Carbon::now(),
             'updated_at'    => Carbon::now()

@@ -399,6 +399,10 @@
             }
 
         }
+
+        function checkInOrderRoom() {
+            
+        }
     </script>
 
 @endsection

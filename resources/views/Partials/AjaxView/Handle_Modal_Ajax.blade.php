@@ -380,6 +380,11 @@
         <button type="button" class="btn btn-white" data-dismiss="modal" id="closeModal">Close</button>
         <button type="button" class="btn btn-primary" id="save" onclick="saveInstance()">Save changes</button>
         <button type="button" class="btn btn-danger" id="checkout" hidden>Check out</button>
+        @if($data['roomRegister']->id != 0 && $data['roomRegister']->status == 2)
+            <button type="button" class="btn btn-success" onclick="checkInOrderRoom()">Check in</button>
+            <button type="button" class="btn btn-danger" onclick="cancelOrderRoom()">Cancel room order</button>
+        @endif
+
     </div>
 </div>
 

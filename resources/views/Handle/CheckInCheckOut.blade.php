@@ -34,8 +34,8 @@
 
 
     {{--End Modal--}}
-    <script src="{{asset('js/Category/table.Module.js')}}"></script>
     <script src="{{asset('js/Common/server.Module.js')}}"></script>
+    <script src="{{asset('js/Common/common.Module.js')}}"></script>
     <script>
 
         $(document).ready(function(){
@@ -92,9 +92,9 @@
             });
         });
         function saveInstance() {
-            var dataService = tableModule.getDataForTable($("tbody#tbodyInformationService"));
-            var dataForm = $("form#frmCheckInCheckOut").serializeArray();
-            var dataCustomer = tableModule.getDataForTable($("tbody#tbodyInformationCustomer"));
+            var dataService = commonModule.getDataForTable($("tbody#tbodyInformationService"));
+            var dataForm = commonModule.getDataForForm($("form#frmCheckInCheckOut"));
+            var dataCustomer = commonModule.getDataForTable($("tbody#tbodyInformationCustomer"));
             dataForm.push(
                 {
                     name:'services',value:JSON.stringify(dataService)
@@ -103,10 +103,11 @@
                     name:'customers',value:JSON.stringify(dataCustomer)
                 }
             );
-            if($("input[name=mode]").val() == 'checkOut'){
-                var dataInvoice = tableModule.getDataForTable($("tbody#tbodyInformationInvoice"));
+            if($("input[name=mode]").val() == 'CheckOut'){
+                var dataInvoice = commonModule.getDataForTable($("tbody#tbodyInformationInvoice"));
                 dataForm.push({name:'invoice',value:JSON.stringify(dataInvoice)});
             }
+            //console.log(dataForm);
             $.ajax({
                 url     :'/handle',
                 data    :dataForm,
@@ -119,6 +120,7 @@
                     if(data.status === 200){
                         $("small#informationHandle").removeAttr('hidden').text('Update success');
                         $("input[name=room_price_invoice]").val(data.result.room_price_invoice);
+                        location.reload();
                     }
                 }
             });
@@ -127,14 +129,6 @@
             let mode = $(element).attr('data-mode');
             let id_room = $(element).attr('data-room_id');
             let idRoomRegister = $(element).attr('data-room_register_id');
-            //let count_customer = $(element).attr('data-number_customer');
-            //$("input[name=number_customer_of_room]").val(count_customer);
-
-            // let idRoomRegister = 0 ;
-             //if(mode != "checkIn"){
-               //  idRoomRegister = $(element).attr('data-room_register_id');
-             //}
-
             let objDataSend = {
                 method : 'GET',
                 headers : '',
@@ -149,80 +143,8 @@
                         $("div#modalHandle").find("div.modal-dialog").empty().append(response);
                         $("input[name=mode]").val(mode);
                         changeModeForm(mode);
-                    });
-                //     .catch(error => {console.log('reject');})
-
-
-            // $.get('/getInfoDetail/'+idRoomRegister,function (response) {
-            //     //Binding data
-            //     if (response.status === 200){
-            //         //Binding info room register
-            //         let roomRegister = response.result.roomRegister;
-            //         $("input[name=id]").val(roomRegister.room_register_id);
-            //         $("input[name=id_room]").val(roomRegister.room_id);
-            //         $("input[name=date_check_in]").val(roomRegister.date_check_in);
-            //         $("input[name=date_check_out]").val(roomRegister.date_check_out);
-            //         $("input[name=currentTime]").val(roomRegister.currentTime);
-            //         $("input[name=id_room_price]").filter("#"+roomRegister.id_room_price).attr("checked","checked");
-            //         $("input[name=toTime]").val(roomRegister.toTime);
-            //         $("textarea[name=note]").val(roomRegister.note);
-            //         $("input[name=room_price_invoice]").val(roomRegister.room_price_invoice);
-            //         //Binding info room register service
-            //         let roomRegisterService = response.result.roomRegisterService;
-            //         if(roomRegisterService.length > 0){
-            //             let trs = [];
-            //             for (let i =0;i < roomRegisterService.length;i++){
-            //                 let tr = $("tr#rowService").clone().css('display','');
-            //                 tr.attr("data-id_service",roomRegisterService[i].id_service);
-            //
-            //                 tr.find("td:eq(0)").children().val(roomRegisterService[i].id);
-            //                 tr.find("td:eq(1)").children().val(roomRegisterService[i].id_service);
-            //
-            //                 tr.find("td:eq(2)").text(roomRegisterService[i].serviceName);
-            //                 tr.find("td:eq(3)").children().val(roomRegisterService[i].count);
-            //                 tr.find("td:eq(4)").children().val(roomRegisterService[i].servicePrice);
-            //                 tr.find("td:eq(5)").text(roomRegisterService[i].servicePrice * roomRegisterService[i].count);
-            //                 tr.find("td:eq(6)").children().attr('data-idInstance',roomRegisterService[i].id).attr('onClick','deleteInstance(this)');
-            //                 trs.push(tr);
-            //             }
-            //             $("tbody#tbodyInformationService").append(trs);
-            //         }
-            //         //Binding info room register customers
-            //         let roomRegisterCustomers = response.result.roomRegisterCustomer;
-            //         if(roomRegisterCustomers.length > 0){
-            //             let trs = [];
-            //             for (let i =0;i < roomRegisterCustomers.length;i++){
-            //                 let tr = $("tr#rowCustomer").clone().css('display','');
-            //
-            //                 tr.attr("data-id_customer",roomRegisterCustomers[i].id_customer);
-            //
-            //                 tr.find("td:eq(0)").children().val(roomRegisterCustomers[i].id);
-            //                 tr.find("td:eq(1)").children().val(roomRegisterCustomers[i].id_customer);
-            //
-            //                 tr.find("td:eq(2)").children().val(roomRegisterCustomers[i].fullName);
-            //                 tr.find("td:eq(3)").children().val(roomRegisterCustomers[i].phoneNumber);
-            //                 tr.find("td:eq(4)").children().val(roomRegisterCustomers[i].identityCard);
-            //
-            //                 if(roomRegisterCustomers[i].is_member == 1){
-            //                     tr.find("td").children().attr("disabled",true);
-            //                     tr.find("td:eq(5)").children().attr('checked','checked').attr('disabled',true);
-            //                 }
-            //                 tr.find("td:eq(6)").children().attr('data-idInstance',roomRegisterCustomers[i].id).attr('onClick','deleteInstance(this)');
-            //                 trs.push(tr);
-            //             }
-            //             $("tbody#tbodyInformationCustomer").append(trs);
-            //         }
-            //         //Binding to table invoice if is mode check out
-            //         if(mode == 'checkOut'){
-            //             let trInvoice = $("tbody#tbodyInformationInvoice").find("tr").css('display','');
-            //             trInvoice.find('td:eq(0)').children().val(roomRegister.room_price_invoice);
-            //             trInvoice.find('td:eq(1)').children().val(roomRegister.service_invoice);
-            //             trInvoice.find('td:eq(2)').children().val(parseFloat(roomRegister.room_price_invoice) + parseFloat(roomRegister.service_invoice));
-            //             changeModeForm('checkout');
-            //         }
-            //     }
-            // });
-
+                    })
+                    .catch(error => {console.log('reject');})
         }
         function addNewService(e) {
             let dataService  = $(e).val();
@@ -400,9 +322,27 @@
 
         }
 
-        function checkInOrderRoom() {
-            
+        function checkInOrCancelOrderRoom(mode) {
+            let objDataSend = {
+                method : 'POST',
+                headers : {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: '/handle',
+                data: {
+                    id: $("input[name=id]").val(),
+                    mode : $("input[name=mode]").val(),
+                },
+            };
+            (mode === 'CheckIn') ? (objDataSend.data.status = 1) : (objDataSend.data.del_flg = 1);
+            let promiseAjaxServer = serverModule.callServiceByAjax(objDataSend);
+            promiseAjaxServer
+                .then(response=>{
+                    console.log(response);
+                })
+                .catch(error => {console.log('reject');})
         }
+
     </script>
 
 @endsection

@@ -24,7 +24,8 @@ class RoomRegisterRepository extends BaseRepository {
             DB::raw("
                 SELECT r.id as room_id , r.room_name, rr.date_check_in, rr.date_check_out,IF(rr.status is NULL,0,rr.status) as status,r.number_count,IF(rr.id is NULL,0,rr.id) as room_register_id
                 FROM rooms as r 
-                LEFT JOIN  room_register as rr ON  r.id = rr.id_room 
+                LEFT JOIN  room_register as rr ON  (r.id = rr.id_room AND rr.del_flg = 0 AND rr.status != 3)
+                ORDER BY r.id asc 
             ")
         );
         $raw_query = Collection::make($raw_query);

@@ -5,8 +5,10 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Handle/CheckInCheckOutController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Handle/CheckInCheckOutController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Repositories/Eloquents/RoomRegisterRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/Eloquents/RoomRegisterRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/Handle/CheckInCheckOut.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/Handle/CheckInCheckOut.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/Partials/AjaxView/Handle_Modal_Ajax.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/Partials/AjaxView/Handle_Modal_Ajax.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/CategoriesTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/CategoriesTableSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/Category/pagination.Module.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/Category/pagination.Module.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/Common/server.Module.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/Common/server.Module.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -192,6 +194,7 @@
       <workItem from="1568861176166" duration="11494000" />
       <workItem from="1568944369648" duration="23283000" />
       <workItem from="1569115755541" duration="4174000" />
+      <workItem from="1569289917096" duration="19125000" />
     </task>
     <servers />
   </component>

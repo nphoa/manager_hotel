@@ -44,6 +44,11 @@ class CategoriesTableSeeder extends Seeder
                 'url'  => '/checkinorcheckout',
                 'icon' => 'fa fa-key'
             ],
+            [
+                'name' => 'History',
+                'url'  => '/history',
+                'icon' => 'fa fa-book'
+            ],
         ];
         foreach ($categories as $key => $category){
             DB::table('categories')->insert([

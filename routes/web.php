@@ -50,3 +50,6 @@ Route::post('/handle','Handle\CheckInCheckOutController@handle');
 Route::get('/getInfoDetail/{mode}/{id_room}/{id_room_register}','Handle\CheckInCheckOutController@getInfoDetail');
 Route::post('/deleteRoomRegisterCustomer','Handle\CheckInCheckOutController@deleteRoomRegisterCustomer');
 Route::post('/deleteRoomRegisterService','Handle\CheckInCheckOutController@deleteRoomRegisterService');
+
+//History
+Route::get('/history','Handle\HistoryController@index');

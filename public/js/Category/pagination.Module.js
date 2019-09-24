@@ -5,6 +5,7 @@ var paginationModule = (function(){
             method  :'GET',
             datatype: "HTML",
             success : function (html) {
+                console.log(html);
                 objPagination.eleContainer.empty().html(html);
                 location.hash = objPagination.page;
             }

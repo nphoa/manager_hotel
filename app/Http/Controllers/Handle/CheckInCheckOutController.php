@@ -50,7 +50,7 @@ class CheckInCheckOutController extends Controller
     {
         //var_dump($this->roomRegisterRepository->getAll1($req));die('5');
         $dataView = [
-            'rooms'         => $this->roomRegisterRepository->getAll1($req)
+            'rooms'         => $this->roomRegisterRepository->getAllRoomRegister($req)
         ];
         return view('Handle.CheckInCheckOut',['data'=>$dataView]);
     }
@@ -134,7 +134,7 @@ class CheckInCheckOutController extends Controller
             }else{
                 //Mode check out
                 //Update status in table room_register
-                $this->roomRegisterRepository->create(array('id'=>$roomRegisterModel->id,'status'=>3));
+                $this->roomRegisterRepository->create(array('id'=>$roomRegisterModel->id,'status'=>$roomRegisterModel::status[$data['mode']]));
                 //Insert table invoice
                 $invoice = json_decode( $data['invoice'],true)[0];
                 $invoice['id'] = 0;

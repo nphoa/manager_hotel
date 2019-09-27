@@ -6,7 +6,7 @@ var serverModule = (function(){
              url       : objDataSend.url,
              headers   : objDataSend.headers,
              data      : objDataSend.data,
-            datatype   :objDataSend.data.datatype,
+             dataType  : objDataSend.datatype,
              success   : function (response,textStatus,xhr) {
                  if(xhr.status === 200){
                      result =  response;

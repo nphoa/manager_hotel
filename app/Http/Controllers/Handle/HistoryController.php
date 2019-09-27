@@ -33,14 +33,24 @@ class HistoryController extends Controller
 
     public function index(Request $req)
     {
-        $dataView = [
-            'historyRoomRegister' => $this->roomRegisterRepository->getHistoryRoomRegister($req)
-        ];
-        //var_dump($dataView['historyRoomRegister'][0]);die('3');
-        if($req->ajax()){
+        $dataView = [];
+        $dataSearch = [];
+        //var_dump($req->all());die('3');
+        if($req->method() == 'POST'){
+            $dataView = [
+                'historyRoomRegister' => $this->roomRegisterRepository->getHistoryRoomRegister($req)
+            ];
+        }else{
 
-            return view('Partials.AjaxView.History_Ajax')->with('data',$dataView);
+            $dataView = [
+                'historyRoomRegister' => $this->roomRegisterRepository->getHistoryRoomRegister($req)
+            ];
+            if($req->ajax()){
+                return view('Partials.AjaxView.History_Ajax')->with('data',$dataView);
+            }
         }
+
+
         //var_dump($dataView['historyRoomRegister']);die('3');
         return view('Handle.History')->with('data',$dataView);
     }

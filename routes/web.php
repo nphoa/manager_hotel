@@ -53,3 +53,4 @@ Route::post('/deleteRoomRegisterService','Handle\CheckInCheckOutController@delet
 
 //History
 Route::get('/history','Handle\HistoryController@index');
+Route::post('/history','Handle\HistoryController@index');

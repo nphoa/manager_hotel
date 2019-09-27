@@ -3,11 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="db14a497-36c9-4b8b-8934-d10f1166030f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Handle/CheckInCheckOutController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Handle/CheckInCheckOutController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Handle/HistoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Handle/HistoryController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Repositories/Eloquents/RoomRegisterRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/Eloquents/RoomRegisterRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/CategoriesTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/CategoriesTableSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/Category/pagination.Module.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/Category/pagination.Module.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/Common/server.Module.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/Common/server.Module.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/Handle/History.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/Handle/History.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -115,7 +114,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="TODO_SCOPE" value="All Places" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Task/bug_like/monilog" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -194,7 +193,9 @@
       <workItem from="1568861176166" duration="11494000" />
       <workItem from="1568944369648" duration="23283000" />
       <workItem from="1569115755541" duration="4174000" />
-      <workItem from="1569289917096" duration="19125000" />
+      <workItem from="1569289917096" duration="19340000" />
+      <workItem from="1569377003624" duration="7901000" />
+      <workItem from="1569566226084" duration="8991000" />
     </task>
     <servers />
   </component>

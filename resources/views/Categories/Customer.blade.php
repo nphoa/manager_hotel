@@ -148,7 +148,7 @@
 
             $(document).on('click', '.pagination a',function(event)
             {
-                event.preventDefault();
+                //event.preventDefault();
 
                 $('li').removeClass('active');
                 $(this).parent('li').addClass('active');
@@ -161,7 +161,13 @@
                     page         :  page,
                     eleContainer  : objDataView.eleContainer
                 };
+                if (history.pushState) {
+                    window.history.pushState("object or string", "Page Title", "/newURL");
+                } else {
+                    document.location.href = "/newURL";
+                }
                 paginationModule.getDataPagination(objPagination);
+
             });
 
             $("#save").on('click',function () {

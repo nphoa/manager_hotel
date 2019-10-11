@@ -16,7 +16,7 @@
         }
     </style>
 
-    <div id="floor_container">
+    <div id="instance_container">
         @include('Partials.AjaxView.Floor_Ajax')
     </div>
 
@@ -100,39 +100,39 @@
     <script src="{{asset('js/Category/category.Module.js')}}"></script>
        <script type="text/javascript">
 
-           $(window).on('hashchange', function() {
-               if (window.location.hash) {
-                   let page = window.location.hash.replace('#', '');
-                   if (page == Number.NaN || page <= 0) {
-                       return false;
-                   }else{
-                       let objPagination = {
-                           url          : '/floors?page=' + page,
-                           page         :  page,
-                           eleContainer  : $("#floor_container")
-                       };
-                       paginationModule.getDataPagination(objPagination);
-                   }
-               }
-           });
+           // $(window).on('hashchange', function() {
+           //     if (window.location.hash) {
+           //         let page = window.location.hash.replace('#', '');
+           //         if (page == Number.NaN || page <= 0) {
+           //             return false;
+           //         }else{
+           //             let objPagination = {
+           //                 url          : '/floors?page=' + page,
+           //                 page         :  page,
+           //                 eleContainer  : $("#floor_container")
+           //             };
+           //             paginationModule.getDataPagination(objPagination);
+           //         }
+           //     }
+           // });
            $(document).ready(function () {
-               $(document).on('click', '.pagination a',function(event)
-               {
-                   event.preventDefault();
-
-                   $('li').removeClass('active');
-                   $(this).parent('li').addClass('active');
-
-                   let myurl = $(this).attr('href');
-                   let page= (myurl.split('page='))[1];
-
-                   let objPagination = {
-                       url          : '/floors?page=' + page,
-                       page         :  page,
-                       eleContainer  : $("#floor_container")
-                   };
-                   paginationModule.getDataPagination(objPagination);
-               });
+               // $(document).on('click', '.pagination a',function(event)
+               // {
+               //     event.preventDefault();
+               //
+               //     $('li').removeClass('active');
+               //     $(this).parent('li').addClass('active');
+               //
+               //     let myurl = $(this).attr('href');
+               //     let page= (myurl.split('page='))[1];
+               //
+               //     let objPagination = {
+               //         url          : '/floors?page=' + page,
+               //         page         :  page,
+               //         eleContainer  : $("#floor_container")
+               //     };
+               //     paginationModule.getDataPagination(objPagination);
+               // });
 
                $("#save").on('click',function () {
                    let page = window.location.hash.replace('#', '');

@@ -136,15 +136,16 @@
                 data: '',
             };
             let promiseAjaxServer =  serverModule.callServiceByAjax(objDataSend);
+            console.log(promiseAjaxServer);
             //console.log(promiseAjaxServer);
             //$("div#modalHandle").find("div.modal-dialog").empty().append(promiseAjaxServer);
-                promiseAjaxServer
-                    .then(response=>{
-                        $("div#modalHandle").find("div.modal-dialog").empty().append(response);
-                        $("input[name=mode]").val(mode);
-                        changeModeForm(mode);
-                    })
-                    .catch(error => {console.log('reject');})
+            //     promiseAjaxServer
+            //         .then(response=>{
+            //             $("div#modalHandle").find("div.modal-dialog").empty().append(response);
+            //             $("input[name=mode]").val(mode);
+            //             changeModeForm(mode);
+            //         })
+            //         .catch(error => {console.log('reject');})
         }
         function addNewService(e) {
             let dataService  = $(e).val();

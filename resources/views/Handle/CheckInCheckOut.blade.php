@@ -136,16 +136,13 @@
                 data: '',
             };
             let promiseAjaxServer =  serverModule.callServiceByAjax(objDataSend);
-            console.log(promiseAjaxServer);
-            //console.log(promiseAjaxServer);
-            //$("div#modalHandle").find("div.modal-dialog").empty().append(promiseAjaxServer);
-            //     promiseAjaxServer
-            //         .then(response=>{
-            //             $("div#modalHandle").find("div.modal-dialog").empty().append(response);
-            //             $("input[name=mode]").val(mode);
-            //             changeModeForm(mode);
-            //         })
-            //         .catch(error => {console.log('reject');})
+                promiseAjaxServer
+                    .then(domResult=>{
+                        $("div#modalHandle").find("div.modal-dialog").empty().html(domResult);
+                        $("input[name=mode]").val(mode);
+                        changeModeForm(mode);
+                    })
+                    .catch(error => {console.log('reject');})
         }
         function addNewService(e) {
             let dataService  = $(e).val();
@@ -230,7 +227,7 @@
                 $("input[name=fromTime]").val('').attr('readonly','readonly');
             }
         }
-        
+
         function changeModeForm(mode) {
             let params = ['input','a','textarea'];
             let room_register_form = $("div#divRoomRegister").find("div.ibox-content");
@@ -292,35 +289,36 @@
             });
 
         }
-        
-        function deleteInstance(e) {
 
+        function deleteInstance(e) {
             let mode = $(e).attr('data-mode');
             let idInstance = $(e).attr('data-idInstance');
+            if(idInstance == "0"){
+                $(e).parent().parent().remove();
+                return;
+            }
             let objDataSend = {
                 method : 'POST',
                 headers : {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    'Content-Type': 'application/json'
                 },
                 url: '/deleteRoomRegisterService',
-                data: {
+                body: JSON.stringify({
                     id:idInstance,
                     del_flg:1
-                },
+                }),
             };
             if(mode == 'customer'){
                 objDataSend.url = '/deleteRoomRegisterCustomer';
             }
             //Call ajax to server
-            if(idInstance != "0"){
-                let promiseAjaxServer = serverModule.callServiceByAjax(objDataSend);
-                promiseAjaxServer
-                    .then(response=>{
-                        $(e).parent().parent().remove();
-                    })
-                    .catch(error => {console.log('reject');})
-            }
-
+            let promiseAjaxServer = serverModule.callServiceByAjax(objDataSend);
+            promiseAjaxServer.then(response=>{
+                if(response.status == 200){
+                    $(e).parent().parent().remove();
+                }
+            }).catch(error => {console.log('reject');})
         }
 
         function checkInOrCancelOrderRoom(mode) {

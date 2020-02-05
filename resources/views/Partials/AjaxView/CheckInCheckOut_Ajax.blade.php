@@ -30,12 +30,6 @@
                             <figure class="imghvr-flip-diag-2" style="width: 100%;display: block !important; background-color:{{$backgroundColor}}  !important;">
                                 <div class="" style="height: 150px;padding: 0px">
                                     <div style="padding: 10px;text-align: initial">
-                                        <div class="room_code">
-                                            <span class="titleSpan">Code :</span>
-                                            <span>
-                                                {{$room->room_id}}
-                                            </span>
-                                        </div>
                                         <div class="room_name">
                                             <span class="titleSpan">Name :</span>
                                             <span>

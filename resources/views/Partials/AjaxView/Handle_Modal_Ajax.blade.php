@@ -171,10 +171,10 @@
                                         @foreach($data['roomRegisterService'] as $item)
                                             <tr  id="rowService">
                                                 <td hidden>
-                                                    <input type="text" name="id" value="0">
+                                                    <input type="text" name="id" value="{{$item->id}}">
                                                 </td>
                                                 <td hidden>
-                                                    <input type="text" name="id_service">
+                                                    <input type="text" name="id_service" value="{{$item->id_service}}">
                                                 </td>
                                                 <td>{{$item->serviceName}}</td>
                                                 <td>
@@ -185,7 +185,7 @@
                                                 </td>
                                                 <td>{{$item->price}}</td>
                                                 <td>
-                                                    <a href="javascript:void(false)" data-mode="service" data-idInstance="0" onclick="deleteInstance(this)">Delete</a>
+                                                    <a href="javascript:void(false)" data-mode="service" data-idInstance="{{$item->id}}" onclick="deleteInstance(this)">Delete</a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -307,7 +307,7 @@
                                                     <input type="checkbox" name="is_member" {{($item->is_member == 1) ? 'checked' : '' }}>
                                                 </td>
                                                 <td>
-                                                    <a href="javascript:void(false)" data-mode="customer" data-idInstance="0" onclick="deleteInstance(this)">Delete</a>
+                                                    <a href="javascript:void(false)" data-mode="customer" data-idInstance="{{$item->id}}" onclick="deleteInstance(this)">Delete</a>
                                                 </td>
                                             </tr>
                                         @endforeach

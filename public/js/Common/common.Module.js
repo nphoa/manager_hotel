@@ -35,7 +35,7 @@ var commonModule = (function(){
     }
     function getDataForForm(form) {
         var data = [];
-        form.find("input").each(function (index,input) {
+        form.find("input,textarea").each(function (index,input) {
             let objProp = {};
             if(checkObjectExistInArrayByKeyName(data,$(input).attr('name')) === false){
                 if($(input).is('input[type=radio]') && $(input).is(':checked') === false ){
@@ -45,9 +45,11 @@ var commonModule = (function(){
                 }
                 objProp.name = $(input).attr('name');
                 objProp.value = $(input).val();
+                data.push(objProp);
             }
-            data.push(objProp);
+
         });
+
         return data;
     }
     return {

@@ -578,7 +578,8 @@
 
 <!-- Clock picker -->
 <script src="{{asset('js/template/js/plugins/clockpicker/clockpicker.js')}}"></script>
-
+<script src="{{asset('js/Common/server.Module.js')}}"></script>
+<script src="{{asset('js/Common/common.Module.js')}}"></script>
 <script>
     $(document).ready(function() {
         setTimeout(function() {
@@ -676,7 +677,25 @@
 
         var ctx4 = document.getElementById("doughnutChart2").getContext("2d");
         new Chart(ctx4, {type: 'doughnut', data: doughnutData, options:doughnutOptions});
-        $('.clockpicker').clockpicker();
+        $('#data_5 .input-daterange').datepicker({
+            keyboardNavigation: false,
+            forceParse: false,
+            autoclose: true,
+            format: 'yyyy-mm-dd'
+        });
+        $('.chosen-select').chosen({width: "100%"});
+
+        $('.clockpicker').clockpicker({
+            placement: 'top',
+            align: 'left',
+            donetext: 'Done'
+        });
+
+    });
+    var formatter = new Intl.NumberFormat('it-IT', {
+        style: 'currency',
+        currency: 'VND',
+        minimumFractionDigits: 0
     });
 </script>
 </body>

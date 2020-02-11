@@ -76,8 +76,8 @@
 
 
                                 <div class="form-group" style="width: 50%">
-                                    <label class="">Price invoice</label>
-                                    <input type="text" class="form-control" name="room_price_invoice" value="{{$data['roomRegister']->room_price_invoice}}" readonly>
+                                    <label class="">Room price</label>
+                                    <input type="text" class="form-control" name="room_price_invoice" value="{{number_format($data['roomRegister']->room_price_invoice)}}" readonly>
                                 </div>
                             </div>
 
@@ -181,9 +181,9 @@
                                                     <input  type="text" name="count" onChange="sumPrice(this)" value="{{$item->count}}">
                                                 </td>
                                                 <td>
-                                                    <input readonly type="text" name="service_price" value="{{$item->servicePrice}}">
+                                                    <input readonly type="text" name="service_price" value="{{number_format($item->servicePrice)}}">
                                                 </td>
-                                                <td>{{$item->price}}</td>
+                                                <td>{{number_format($item->price)}}</td>
                                                 <td>
                                                     <a href="javascript:void(false)" data-mode="service" data-idInstance="{{$item->id}}" onclick="deleteInstance(this)">Delete</a>
                                                 </td>
@@ -390,6 +390,8 @@
 
 <script>
     $(document).ready(function() {
+
+        console.log(formatter.format(500000) );
         $('#data_5 .input-daterange').datepicker({
             keyboardNavigation: false,
             forceParse: false,

@@ -34,24 +34,11 @@
 
 
     {{--End Modal--}}
-    <script src="{{asset('js/Common/server.Module.js')}}"></script>
-    <script src="{{asset('js/Common/common.Module.js')}}"></script>
+
     <script>
 
         $(document).ready(function(){
-            $('#data_5 .input-daterange').datepicker({
-                keyboardNavigation: false,
-                forceParse: false,
-                autoclose: true,
-                format: 'yyyy-mm-dd'
-            });
-            $('.chosen-select').chosen({width: "100%"});
 
-            $('.clockpicker').clockpicker({
-                placement: 'top',
-                align: 'left',
-                donetext: 'Done'
-            });
 
             $("#save").on('click',function () {
                 var dataService = tableModule.getDataForTable($("tbody#tbodyInformationService"));
@@ -69,21 +56,22 @@
                     var dataInvoice = tableModule.getDataForTable($("tbody#tbodyInformationInvoice"));
                     dataForm.push({name:'invoice',value:JSON.stringify(dataInvoice)});
                 }
-                $.ajax({
-                    url     :'/handle',
-                    data    :dataForm,
-                    method  :'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success : function (data) {
-                        //console.log(data.result.room_price_invoice);
-                        if(data.status === 200){
-                            $("small#informationHandle").removeAttr('hidden').text('Update success');
-                            $("input[name=room_price_invoice]").val(data.result.room_price_invoice);
-                        }
-                    }
-                });
+                console.log(dataForm);
+                // $.ajax({
+                //     url     :'/handle',
+                //     data    :dataForm,
+                //     method  :'POST',
+                //     headers: {
+                //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                //     },
+                //     success : function (data) {
+                //         //console.log(data.result.room_price_invoice);
+                //         if(data.status === 200){
+                //             $("small#informationHandle").removeAttr('hidden').text('Update success');
+                //             $("input[name=room_price_invoice]").val(data.result.room_price_invoice);
+                //         }
+                //     }
+                // });
 
             });
 
@@ -107,7 +95,6 @@
                 var dataInvoice = commonModule.getDataForTable($("tbody#tbodyInformationInvoice"));
                 dataForm.push({name:'invoice',value:JSON.stringify(dataInvoice)});
             }
-            //console.log(dataForm);
             $.ajax({
                 url     :'/handle',
                 data    :dataForm,

@@ -147,7 +147,9 @@
                 rowServiceNew.find("td:eq(0)").children().val(0);
                 rowServiceNew.find("td:eq(1)").children().val(e_option.attr('data-id'));
                 rowServiceNew.find("td:eq(2)").text(e_option.attr('data-name'));
-                rowServiceNew.find("td:eq(4)").children().val(e_option.attr('data-price'));
+                rowServiceNew.find("td:eq(4)").children()
+                                    .attr('data-price',e_option.attr('data-price'))
+                                    .val(new Intl.NumberFormat().format(e_option.attr('data-price')));
                 $("#tbodyInformationService").append(rowServiceNew);
             }else{
                 alert('This service has exist !!!');
@@ -160,8 +162,10 @@
         function sumPrice(e){
             let tr = $(e).parent().parent();
             let count_service = tr.find("td:eq(3)").children().val();
-            let price_service = tr.find("td:eq(4)").children().val();
-            let sumTotal = parseInt(count_service)  * parseFloat(price_service);
+            let price_service = tr.find("td:eq(4)").children().attr('data-price');
+            console.log(count_service);
+            console.log(parseFloat(price_service) * parseInt(count_service));
+            let sumTotal = new Intl.NumberFormat().format(parseFloat(price_service) * parseInt(count_service));
             tr.find("td:eq(5)").text(sumTotal);
             updateTotalPrice();
 
@@ -171,10 +175,12 @@
             let eleTr = $("tbody#tbodyInformationService").find("tr");
             let priceSum = 0;
             eleTr.each(function (index) {
-                let price = parseFloat($(this).find("td:eq(5)").text());
+                let service_price = $(this).find("td:eq(4)").children().attr('data-price');
+                let service_count = $(this).find("td:eq(3)").children().val();
+                let price = service_price * service_count;
                 priceSum += price;
             });
-            $("div#totalServicePrice").find("input").val(priceSum);
+            $("div#totalServicePrice").find("input").val(new Intl.NumberFormat().format(priceSum));
         }
         function addCustomer(e,mode) {
             //Check number customer of room

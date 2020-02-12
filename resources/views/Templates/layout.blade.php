@@ -694,7 +694,6 @@
     });
     var formatter = new Intl.NumberFormat('it-IT', {
         style: 'currency',
-        currency: 'VND',
         minimumFractionDigits: 0
     });
 </script>

@@ -181,7 +181,7 @@
                                                     <input  type="text" name="count" onChange="sumPrice(this)" value="{{$item->count}}">
                                                 </td>
                                                 <td>
-                                                    <input readonly type="text" name="service_price" value="{{number_format($item->servicePrice)}}">
+                                                    <input readonly type="text" name="service_price" data-price="{{$item->servicePrice}}" value="{{number_format($item->servicePrice)}}">
                                                 </td>
                                                 <td>{{number_format($item->price)}}</td>
                                                 <td>

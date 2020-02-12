@@ -33,5 +33,7 @@ class RoomRegister extends BaseModel
         'CheckOut'  => 3,
     ];
 
+    protected function validateData(){
 
+    }
 }

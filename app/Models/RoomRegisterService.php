@@ -11,7 +11,7 @@ use App\Models\Base\BaseModel;
 class RoomRegisterService extends BaseModel
 {
     protected $table = 'room_register_services';
-    protected $fillable = ['id_room_register','id_service','count','price','price_discount','del_flg'];
+    protected $fillable = ['id','id_room_register','id_service','count','price','price_discount','del_flg'];
 
     public function __get($attribute)
     {
@@ -24,5 +24,11 @@ class RoomRegisterService extends BaseModel
             $this->attributes['serviceInstance'] = $data;
         }
         return $this->getAttribute($attribute);
+    }
+
+    public function validateData()
+    {
+        $serviceInstance = resolve('ServiceRepository')->getById($this->attributes['id_service']);
+        $this->price = $serviceInstance->service_price * $this->count;
     }
 }

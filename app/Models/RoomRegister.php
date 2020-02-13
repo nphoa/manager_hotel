@@ -17,7 +17,7 @@ class RoomRegister extends BaseModel
                     'id_room',
                     'date_check_in',
                     'id_room_price',
-                    'service_invoice',
+                    //'service_invoice',
                     'room_price_invoice',
                     'date_check_out',
                     'note',
@@ -33,7 +33,8 @@ class RoomRegister extends BaseModel
         'CheckOut'  => 3,
     ];
 
-    protected function validateData(){
-
+    public function validateData(){
+        $this->room_price_invoice = str_replace(",","",$this->room_price_invoice);
+        $this->service_invoice = str_replace(",","",$this->service_invoice);
     }
 }

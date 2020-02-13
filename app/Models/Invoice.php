@@ -11,5 +11,5 @@ use App\Models\Base\BaseModel;
 class Invoice extends BaseModel
 {
     protected $table = 'invoices';
-    protected $fillable = ['code','id_register_room','id_user','invoice_price','del_flg','has_finish','has_report'];
+    protected $fillable = ['id','code','id_register_room','id_user','invoice_price','del_flg','has_finish','has_report'];
 }

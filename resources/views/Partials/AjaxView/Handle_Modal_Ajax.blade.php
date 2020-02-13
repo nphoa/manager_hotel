@@ -1,4 +1,4 @@
-<div class="modal-content animated flipInY">
+<div class="modal-content animated fadeInDown">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         <h4 class="modal-title">Information Room Register</h4>

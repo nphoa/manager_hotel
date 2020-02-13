@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Handle;
 use App\Http\Controllers\Controller;
+use App\Models\Invoice;
 use App\Models\RoomRegister;
+use App\Models\RoomRegisterCustomer;
+use App\Models\RoomRegisterService;
 use App\Repositories\Eloquents\CustomerRepository;
 use App\Repositories\Eloquents\InvoiceRepository;
 use App\Repositories\Eloquents\RoomPriceRepository;
@@ -60,11 +63,10 @@ class CheckInCheckOutController extends Controller
         $data = $req->all();
         //var_dump(json_decode(($req->get('services')))  );die('3');
         //var_dump(json_decode($data['customers']));die('3');
-        //var_dump($data);die('3');
-
         $data_response = DB::transaction(function () use ($data) {
             $roomRegisterModel = new RoomRegister();
             $roomRegisterModel->fill($data);
+            $roomRegisterModel->validateData();
 
            // $mode = array_search($roomRegisterModel->status,$roomRegisterModel::status);
             //var_dump($roomRegisterModel);die('3');
@@ -98,26 +100,28 @@ class CheckInCheckOutController extends Controller
 
                 //insert table room_register_services
                 if (empty($data['services']) == false){
-                    $dataRoomRegisterService = json_decode( $data['services']);
+                    $dataRoomRegisterService =json_decode ( $data['services'],true);
+                    //var_dump($dataRoomRegisterService);die('333333');
                     $service_invoice = 0;
-                    foreach ($dataRoomRegisterService as $service){
-                        $service->id = $service->id;
-                        $service->id_room_register = $roomRegisterModel->id;
-                        $service->price =  floatval($service->service_price) * floatval($service->count);
-                        $this->roomRegisterServiceRepository->create(get_object_vars($service));
-                        $service_invoice += $service->price;
+                    foreach ($dataRoomRegisterService as $registerService){
+                        $roomRegisterServiceModel = new RoomRegisterService();
+                        $registerService['id_room_register'] = $roomRegisterModel->id;
+                        $roomRegisterServiceModel->fill($registerService);
+                        $roomRegisterServiceModel->validateData();
+                        $this->roomRegisterServiceRepository->create($roomRegisterServiceModel->toArray());
+                        $service_invoice += $roomRegisterServiceModel->price;
                     }
                     //update prop service_invoice in table room_register
                     $this->roomRegisterRepository->create(array('id'=>$roomRegisterModel->id,'service_invoice'=>$service_invoice));
                 }
                 //insert table room_register_customers
                 if (empty($data['customers']) == false){
-                    $roomRegisterCustomers = json_decode( $data['customers']);
+                    $roomRegisterCustomers = json_decode( $data['customers'],true);
                     foreach ($roomRegisterCustomers as $roomRegisterCustomer){
-                        $roomRegisterCustomer = get_object_vars($roomRegisterCustomer);
-
                         $roomRegisterCustomer['id_room_register'] = $roomRegisterModel->id;
-                        $idRoomRegisterCustomer = ($this->roomRegisterCustomerRepository->create($roomRegisterCustomer))->id;
+                        $roomRegisterCustomerModel = new RoomRegisterCustomer();
+                        $roomRegisterCustomerModel->fill($roomRegisterCustomer);
+                        $idRoomRegisterCustomer = ($this->roomRegisterCustomerRepository->create($roomRegisterCustomerModel->toArray()))->id;
                         // check if customer is member is insert to table customer
                         if($roomRegisterCustomer['id_customer'] == "0" && $roomRegisterCustomer['is_member'] == "1"){
                             $customer = $roomRegisterCustomer;
@@ -140,7 +144,9 @@ class CheckInCheckOutController extends Controller
                 $invoice['id'] = 0;
                 $invoice['id_register_room'] = $roomRegisterModel->id;
                 $invoice['code'] = 'Invoice ' . $roomRegisterModel->id;
-                return $this->invoiceRepository->create($invoice);
+                $invoiceModel = new Invoice();
+                $invoiceModel->fill($invoice);
+                return $this->invoiceRepository->create($invoiceModel->toArray());
             }
         }, 5);
         return response()->json([
